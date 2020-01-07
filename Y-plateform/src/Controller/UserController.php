@@ -12,8 +12,8 @@ class UserController extends AbstractController
      */
     public function register()
     {
-        
-    }
+        return $this->render('user/register.html.twig', []);
+    } 
 
     /**
      * @Route("/login", name="login")
@@ -24,10 +24,46 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/profil/{id}", name="profil")
      */
-    public function profil()
+    public function profil($id)
     {
         
     }
+
+    /**
+     * @Route("/profil/edit/{id}", name="editProfil")
+     */
+    public function editProfil($id)
+    {
+        
+    }
+
+    /**
+     * @Route("/forgetPassword", name="forgetPassword")
+     */
+    public function forgetPassword()
+    {
+        
+    }
+
+    /**
+     * @Route("/addGame", name="addGame")
+     */
+    public function addGame()
+    {
+        
+    }
+
+     /**
+     * @Route("/addComment", name="addComment")
+     */
+    public function addComment()
+    {
+        
+    }
+
+
+
+
 }
