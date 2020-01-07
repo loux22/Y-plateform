@@ -2,17 +2,52 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\Member;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\UserType;
+
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/register", name="register")
+     * @Route("/registerall", name="registerall")
      */
-    public function register()
+    public function registerall(Request $request)
     {
-        return $this->render('user/register.html.twig', []);
+        $user = new User;
+
+        $form = $this -> createForm(UserType::class, $user);
+        $form -> handleRequest($request);
+        if($form -> isSubmitted() && $form -> isValid()){
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($user); //commit(git)
+            $manager -> flush(); // push(git)
+            $this -> addFlash('success',"Le post " . $user -> getId() . ' a bien été ajouté');
+            return $this->redirectToRoute('registerMember');
+        }
+        return $this->render('user/registerall.html.twig', ['UserForm' => $form -> createView()]);
+    } 
+
+    /**
+     * @Route("/registerMember", name="registerMember")
+     */
+    public function registerMember(Request $request)
+    {
+        $member = new Member;
+
+        $form = $this -> createForm(UserType::class, $member);
+        $form -> handleRequest($request);
+        if($form -> isSubmitted() && $form -> isValid()){
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($member); //commit(git)
+            $manager -> flush(); // push(git)
+            $this -> addFlash('success',"Le post " . $member -> getId() . ' a bien été ajouté');
+            return $this->redirectToRoute('profil');
+        }
+        return $this->render('user/registerall.html.twig', ['memberForm' => $form -> createView()]);
     } 
 
     /**
@@ -24,11 +59,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil/{id}", name="profil")
+     * @Route("/profil", name="profil")
      */
-    public function profil($id)
+    public function profil()
     {
-        
+        return $this->render('user/profil.html.twig', []);
     }
 
     /**
