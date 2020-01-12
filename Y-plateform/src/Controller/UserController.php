@@ -2,52 +2,49 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Member;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/registerall", name="registerall")
+     * @Route("/register", name="registerUser")
      */
-    public function registerall(Request $request)
+    public function registerall(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User;
+        $member = new Member;
 
         $form = $this -> createForm(UserType::class, $user);
         $form -> handleRequest($request);
+
         if($form -> isSubmitted() && $form -> isValid()){
+
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+
+            $user->setDateU(new \DateTime());
+            $user->setIsActiveU(true);
+            $user->setAvatar('0.png');
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
-            $this -> addFlash('success',"Le post " . $user -> getId() . ' a bien été ajouté');
-            return $this->redirectToRoute('registerMember');
-        }
-        return $this->render('user/registerall.html.twig', ['UserForm' => $form -> createView()]);
-    } 
 
-    /**
-     * @Route("/registerMember", name="registerMember")
-     */
-    public function registerMember(Request $request)
-    {
-        $member = new Member;
-
-        $form = $this -> createForm(UserType::class, $member);
-        $form -> handleRequest($request);
-        if($form -> isSubmitted() && $form -> isValid()){
-            $manager = $this -> getDoctrine() -> getManager();
+            $member->setLevel(false);
+            $member->setUser($user);
             $manager -> persist($member); //commit(git)
             $manager -> flush(); // push(git)
-            $this -> addFlash('success',"Le post " . $member -> getId() . ' a bien été ajouté');
-            return $this->redirectToRoute('profil');
+
+            $this -> addFlash('success','Vous étes inscris');
+            return $this->redirectToRoute('registerUser');
         }
-        return $this->render('user/registerall.html.twig', ['memberForm' => $form -> createView()]);
+        return $this->render('user/registerall.html.twig', ['UserForm' => $form -> createView()]);
     } 
 
     /**

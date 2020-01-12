@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Error;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="mail", message="Le mail existe déja")
+ * @UniqueEntity(fields="pseudo", message="le pseudo existe deja")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -18,21 +23,28 @@ class User
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Error\Length(min=3, max=30, minMessage="ton username '{{ value }}' est trop court", 
+     * maxMessage="Ton username '{{ value }}' est trop long")
      */
-    private $firstname;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Error\Length(min=3, max=30, minMessage="Ton lastname '{{ value }}' est trop court", 
+     * maxMessage="Ton lastname '{{ value }}' est trop long") 
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * Error\Email(
+     *     message = "Ton Email '{{ value }}' n'est pas valide.")
      */
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
+     * @Error\length(min="8", minMessage="ton mot de passe doit contenir au moins 8 caractere")
      */
     private $password;
 
@@ -41,19 +53,36 @@ class User
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Error\Length(min=3, max=30, minMessage="ton username '{{ value }}' est trop court", 
+     * maxMessage="Ton username '{{ value }}' est trop long")
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_u;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive_u;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getusername(): ?string
     {
-        return $this->firstname;
+        return $this->username;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setusername(string $username): self
     {
-        $this->firstname = $firstname;
+        $this->username = $username;
 
         return $this;
     }
@@ -104,5 +133,54 @@ class User
         $this->avatar = $avatar;
 
         return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getDateU(): ?\DateTimeInterface
+    {
+        return $this->date_u;
+    }
+
+    public function setDateU(\DateTimeInterface $date_u): self
+    {
+        $this->date_u = $date_u;
+
+        return $this;
+    }
+
+    public function getIsActiveU(): ?bool
+    {
+        return $this->isActive_u;
+    }
+
+    public function setIsActiveU(bool $isActive_u): self
+    {
+        $this->isActive_u = $isActive_u;
+
+        return $this;
+    }
+
+    public function getRoles(){
+        return ['ROLE_USER'];
+    }
+
+    public function eraseCredentials(){
+
+    }
+
+    public function getSalt()
+    {
+        return null;
     }
 }

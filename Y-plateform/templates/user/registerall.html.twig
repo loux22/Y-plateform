@@ -1,1 +1,14 @@
-{% block content %} {{ form(UserForm) }} {% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}- Register {% endblock %}
+
+{% block content %} 
+
+
+{{form_start(UserForm)}}
+
+{{form_widget(UserForm)}}
+
+<button type="submit"> S'inscrire </button>
+
+{{form_end(UserForm)}}
+{% endblock %}

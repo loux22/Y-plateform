@@ -17,42 +17,27 @@ class Member
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $pseudo;
-
-    /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=5, nullable=true)
      */
     private $postal;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="date")
-     */
-    private $date_m;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isActive_m;
-
-    /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $IPAdress;
 
@@ -62,25 +47,18 @@ class Member
     private $level;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    
+
+    
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     public function getPhone(): ?string
@@ -88,7 +66,7 @@ class Member
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
@@ -100,7 +78,7 @@ class Member
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -112,7 +90,7 @@ class Member
         return $this->postal;
     }
 
-    public function setPostal(string $postal): self
+    public function setPostal(?string $postal): self
     {
         $this->postal = $postal;
 
@@ -124,33 +102,9 @@ class Member
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getDateM(): ?\DateTimeInterface
-    {
-        return $this->date_m;
-    }
-
-    public function setDateM(\DateTimeInterface $date_m): self
-    {
-        $this->date_m = $date_m;
-
-        return $this;
-    }
-
-    public function getIsActiveM(): ?bool
-    {
-        return $this->isActive_m;
-    }
-
-    public function setIsActiveM(bool $isActive_m): self
-    {
-        $this->isActive_m = $isActive_m;
 
         return $this;
     }
@@ -160,7 +114,7 @@ class Member
         return $this->IPAdress;
     }
 
-    public function setIPAdress(string $IPAdress): self
+    public function setIPAdress(?string $IPAdress): self
     {
         $this->IPAdress = $IPAdress;
 
@@ -179,12 +133,12 @@ class Member
         return $this;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(int $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
