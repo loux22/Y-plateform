@@ -7,6 +7,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GamesController extends AbstractController
 {
+
+    /**
+     * @Route("/", name="home")
+     * page d'accueil
+     */
+    public function home()
+    {
+        return $this->render('games/home.html.twig', []);
+    }
+
     /**
      * @Route("/games", name="games")
      * voir tout les jeux 

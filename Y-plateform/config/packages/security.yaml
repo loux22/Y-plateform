@@ -17,15 +17,14 @@ security:
         main:
             anonymous: true
 
-        provider: in_database
+            provider: in_database
+            form_login:
+                login_path: login  
+                check_path: login
 
-        form_login:
-            login_path: login  
-            check_path: login
-
-        # logout:
-        #     path: logout
-        #     target: home     
+            logout:
+                path: logout
+                target: home   
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

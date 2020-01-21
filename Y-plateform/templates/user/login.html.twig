@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}- Register {% endblock %}
+{% block title %}- login {% endblock %}
 
 {% block content %} 
 
@@ -17,5 +17,7 @@
         <button type="submit">connexion</button>
     </div>
 </form>
+
+<a href="{{ path('logout') }}">deconnexion</a>
 
 {% endblock %}
