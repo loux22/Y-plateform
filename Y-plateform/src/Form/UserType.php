@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -43,10 +45,9 @@ class UserType extends AbstractType
                     'class' => "input_register"
                 ]
             ])
-            ->add('age', DateType::class, [
+            ->add('age', BirthdayType::class, [
+                'widget' => 'choice',
                 'label' => 'Date de naissance' ,
-                'widget'=> 'single_text',
-                'input' => 'datetime_immutable',
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
