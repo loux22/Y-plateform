@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}- Register {% endblock %}
+
+{% block content %} 
+
+<form action="{{ path('login') }}" method="post">
+    {% if error %}
+    <div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div>
+        <input placeholder="Mail" required name="_username" type="text" >
+    </div>
+    <div>
+        <input placeholder="mot de passe" required name="_password" type="password">
+    </div>
+    <div>
+        <button type="submit">connexion</button>
+    </div>
+</form>
+
+{% endblock %}

@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Member;
 use App\Entity\User;
+use App\Entity\Member;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -50,7 +51,18 @@ class UserController extends AbstractController
     /**
      * @Route("/login", name="login")
      */
-    public function login()
+    public function login(AuthenticationUtils $authenticationUtils)
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        return $this->render('user/login.html.twig', [
+            'error' => $error
+        ]);
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
     {
         
     }
