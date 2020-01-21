@@ -7,6 +7,7 @@
 	<title>Y'plateform {% block title %} {% endblock %}</title>
 </head>
 <body>
+{{ dump(app.user) }} 
 	{# message erreur et success #}
 	{% for message in app.flashes('success') %}
 			<div class="alert alert-success">{{ message }}</div>
