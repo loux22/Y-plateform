@@ -70,6 +70,11 @@ class User implements UserInterface
      */
     private $isActive_u;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $age;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,5 +187,17 @@ class User implements UserInterface
     public function getSalt()
     {
         return null;
+    }
+
+    public function getAge(): ?\DateTimeInterface
+    {
+        return $this->age;
+    }
+
+    public function setAge(?\DateTimeInterface $age): self
+    {
+        $this->age = $age;
+
+        return $this;
     }
 }
