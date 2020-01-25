@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Member;
 use App\Form\UserType;
+use App\Form\UserModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -70,12 +71,31 @@ class UserController extends AbstractController
     /**
      * @Route("/profil", name="profil")
      */
-    public function profil()
+    public function profil(Request $request)
     {
+        // affichage des donnes du user connecter
         $user = $this->getUser();
+
         $manager = $this-> getDoctrine() -> getManager();
-        $user = $manager -> find(Member::class, $user);
-        return $this->render('user/profil.html.twig', ['user' => $user]);
+        $user = $manager -> find(User::class, $user);
+
+        $form = $this -> createForm(UserModifyType::class, $user);
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted() && $form -> isValid()){
+            $file = $user->getAvatar();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $filename);
+            $user-> setAvatar($filename);
+
+            $manager -> persist($user); //commit(git)
+            $manager -> flush(); // push(git)
+            $this -> addFlash('success','modification');
+        }
+
+        return $this->render('user/profil.html.twig', [
+            'user' => $user,
+            'form' => $form -> createView()]);
     }
 
     /**

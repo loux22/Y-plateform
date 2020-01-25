@@ -3,4 +3,14 @@
 
 {% block content %} 
 <h1>{{ user.id}}</h1>
+<img src="{{ asset('/img/')}}{{user.avatar}}" alt="">
+
+
+{{form_start(form)}}
+
+{{form_widget(form)}}
+
+<button type="submit"> Modifier </button>
+
+{{form_end(form)}}
 {% endblock %}
