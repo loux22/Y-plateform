@@ -19,21 +19,7 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // public function getAdvertSecondDegre($id_user)
-    // {
-    //     $qb = $this->createQueryBuilder('m');
-
-    //     $qb 
-    //          ->select('m.phone')
-    //          ->innerJoin('u.user', 'member')
-    //          ->addSelect('member')
-    //          ->Where('acti.forme = :frm')
-    //             ->setParameter('frm', $id_user)
-    //     return $qb->getQuery()->getSingleResult();
-    // }
-    // select * from member
-    // inner join user on member.id_user = user.id_user
-    // where member.id_user = $id_user;
+    
 
 
     // /**

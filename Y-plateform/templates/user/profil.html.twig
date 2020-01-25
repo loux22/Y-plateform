@@ -2,8 +2,9 @@
 {% block title %}- login {% endblock %}
 
 {% block content %} 
-<h1>{{ user.id}}</h1>
-<img src="{{ asset('/img/')}}{{user.avatar}}" alt="">
+{{dump(member)}}
+<h1>{{ member[0].id}}</h1>
+<img src="{{ asset('/img/')}}{{member[0].user.avatar}}" alt="">
 
 
 {{form_start(form)}}

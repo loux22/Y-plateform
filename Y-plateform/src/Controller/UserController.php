@@ -75,10 +75,11 @@ class UserController extends AbstractController
     {
         // affichage des donnes du user connecter
         $user = $this->getUser();
+        $repository = $this-> getDoctrine() -> getRepository(Member::class);
+        $member = $repository -> getUserProfil($user);
 
-        $manager = $this-> getDoctrine() -> getManager();
-        $user = $manager -> find(User::class, $user);
 
+        // ajouter/modifier un avatar 
         $form = $this -> createForm(UserModifyType::class, $user);
         $form -> handleRequest($request);
 
@@ -88,14 +89,16 @@ class UserController extends AbstractController
             $file->move($this->getParameter('upload_directory'), $filename);
             $user-> setAvatar($filename);
 
+            $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
             $this -> addFlash('success','modification');
         }
 
         return $this->render('user/profil.html.twig', [
-            'user' => $user,
-            'form' => $form -> createView()]);
+            'form' => $form -> createView(),
+            'member' => $member
+            ]);
     }
 
     /**

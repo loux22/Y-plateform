@@ -19,6 +19,19 @@ class MemberRepository extends ServiceEntityRepository
         parent::__construct($registry, Member::class);
     }
 
+    public function getUserProfil($id_user)
+    {
+
+        $builder = $this -> createQueryBuilder('m');
+        return $builder 
+                -> leftJoin('m.user', 'u')
+                -> where('m.user = :user')
+                -> setParameter('user', $id_user)
+                -> getQuery()
+                -> getResult();
+
+    }
+
     // /**
     //  * @return Member[] Returns an array of Member objects
     //  */
