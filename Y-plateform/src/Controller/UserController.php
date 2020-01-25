@@ -72,7 +72,10 @@ class UserController extends AbstractController
      */
     public function profil()
     {
-        return $this->render('user/profil.html.twig', []);
+        $user = $this->getUser();
+        $manager = $this-> getDoctrine() -> getManager();
+        $user = $manager -> find(Member::class, $user);
+        return $this->render('user/profil.html.twig', ['user' => $user]);
     }
 
     /**

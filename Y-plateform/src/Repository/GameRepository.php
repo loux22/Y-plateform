@@ -19,6 +19,16 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function allGames(){
+        //catégories : (SELECT distinct category FROM post)
+        $builder = $this -> createQueryBuilder('g');
+        return $builder 
+                -> select('g')
+                -> distinct(true)
+                -> getQuery()
+                -> getResult();
+         
+    }
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */

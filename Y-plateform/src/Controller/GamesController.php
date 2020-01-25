@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,7 +24,10 @@ class GamesController extends AbstractController
      */
     public function games()
     {
-       
+        $repository = $this-> getDoctrine() -> getRepository(Game::class);
+        $game = $repository -> findAll();
+
+        return $this->render('games/games.html.twig', ['game' => $game]);
     }
 
      /**
