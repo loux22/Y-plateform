@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Error;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -199,5 +200,12 @@ class User implements UserInterface
         $this->age = $age;
 
         return $this;
+    }
+
+    public function removeFile()
+    {
+        if(file_exists('/../../public/avatar/' . $this-> avatar) && $this-> avatar != '0.png'){
+            unlink('/../../public/avatar/' . $this-> avatar);
+        }
     }
 }

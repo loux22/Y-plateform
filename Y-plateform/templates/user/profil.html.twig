@@ -3,7 +3,8 @@
 
 {% block content %} 
 {{dump(member)}}
-<h1>{{ member[0].id}}</h1>
+
+{# <h1>{{ member[0]}}</h1> #}
 <img src="{{ asset('/img/')}}{{member[0].user.avatar}}" alt="">
 
 
