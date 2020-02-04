@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %}- Ajouter un jeu {% endblock %}
+{% block title %}- Ajouter un jeu
+{% endblock %}
 
 {% block content %}
-<h1>Ajouter un jeu</h1>
-{{form_start(formGame)}}
+	<h1>Ajouter un jeu</h1>
+	{{form_start(formGame)}}
 
-{{form_widget(formGame)}}
+	{{form_widget(formGame)}}
 
-<button type="submit"> Ajouter </button>
+	<button type="submit">
+		Ajouter
+	</button>
 
-{{form_end(formGame)}}
+	{{form_end(formGame)}}
 {% endblock %}
