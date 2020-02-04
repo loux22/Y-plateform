@@ -18,10 +18,15 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="registerUser")
      */
-    public function registerall(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registerUser(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User;
         $member = new Member;
+        // redirige si connecter
+        $userLog = $this->getUser();
+        if($userLog != null){
+            return $this->redirectToRoute('profil');
+        }
 
         $form = $this -> createForm(UserType::class, $user);
         $form -> handleRequest($request);
@@ -46,7 +51,7 @@ class UserController extends AbstractController
             $this -> addFlash('success','Vous étes inscris');
             return $this->redirectToRoute('registerUser');
         }
-        return $this->render('user/registerall.html.twig', ['UserForm' => $form -> createView()]);
+        return $this->render('user/registerUser.html.twig', ['UserForm' => $form -> createView()]);
     } 
 
     /**
@@ -74,13 +79,20 @@ class UserController extends AbstractController
     public function profil(Request $request)
     {
         // affichage des donnes du user connecter
+
+        // redirige si pas connecter 
         $user = $this->getUser();
-        // recuperer dernier avatar de l'user conneter, a deplacer dans modifier
-        $lastAvatar = $user -> getAvatar();
-        ////////////////////////////////////////:
         if($user === null){
             return $this->redirectToRoute('login');
         }
+        $u = $user->getAge();
+        $stringValue = $u->format('Y-m-d H:i:s');
+        $datetime1 = new \DateTime(); // date actuelle
+        $datetime2 = new \DateTime($stringValue);
+        $age = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
+        // recuperer dernier avatar de l'user conneter, a deplacer dans modifier
+        $lastAvatar = $user -> getAvatar();
+        ////////////////////////////////////////
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
         $member = $repository -> getUserProfil($user);
 
@@ -92,7 +104,7 @@ class UserController extends AbstractController
 
         if($form -> isSubmitted() && $form -> isValid()){
 
-            if($user -> getAvatar() != '0.png'){
+            if($user -> getAvatar() -> getClientOriginalName() != '0.png'){
                 $user -> removeFile();
                 unlink($this->getParameter('upload_avatar') . $lastAvatar);
             }
@@ -112,6 +124,7 @@ class UserController extends AbstractController
         return $this->render('user/profil.html.twig', [
             'form' => $form -> createView(),
             'member' => $member,
+            'age' => $age
             ]);
     }
 
