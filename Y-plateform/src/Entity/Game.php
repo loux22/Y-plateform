@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,19 +54,37 @@ class Game
     private $url;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="games")
      */
-    private $note;
+    private $Member;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="game")
+     */
+    private $comments;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $nbNote;
+    private $prix;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=50)
      */
-    private $member;
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="game")
+     */
+    private $notes;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+    }
+
+    
 
     public function getId(): ?int
     {
@@ -155,38 +175,100 @@ class Game
         return $this;
     }
 
-    public function getNote(): ?int
+    public function getMember(): ?Member
     {
-        return $this->note;
+        return $this->Member;
     }
 
-    public function setNote(int $note): self
+    public function setMember(?Member $Member): self
     {
-        $this->note = $note;
+        $this->Member = $Member;
 
         return $this;
     }
 
-    public function getNbNote(): ?int
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
     {
-        return $this->nbNote;
+        return $this->comments;
     }
 
-    public function setNbNote(int $nbNote): self
+    public function addComment(Comment $comment): self
     {
-        $this->nbNote = $nbNote;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setGame($this);
+        }
 
         return $this;
     }
 
-    public function getMember(): ?int
+    public function removeComment(Comment $comment): self
     {
-        return $this->member;
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getGame() === $this) {
+                $comment->setGame(null);
+            }
+        }
+
+        return $this;
     }
 
-    public function setMember(int $member): self
+    public function getPrix(): ?int
     {
-        $this->member = $member;
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->contains($note)) {
+            $this->notes->removeElement($note);
+            // set the owning side to null (unless already changed)
+            if ($note->getGame() === $this) {
+                $note->setGame(null);
+            }
+        }
 
         return $this;
     }

@@ -27,14 +27,14 @@ class Comment
     private $date_c;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $member;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game", inversedBy="comments")
      */
     private $game;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -65,26 +65,26 @@ class Comment
         return $this;
     }
 
-    public function getMember(): ?int
-    {
-        return $this->member;
-    }
-
-    public function setMember(int $member): self
-    {
-        $this->member = $member;
-
-        return $this;
-    }
-
-    public function getGame(): ?int
+    public function getGame(): ?Game
     {
         return $this->game;
     }
 
-    public function setGame(int $game): self
+    public function setGame(?Game $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
