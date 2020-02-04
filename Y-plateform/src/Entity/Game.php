@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
@@ -26,7 +27,7 @@ class Game
     /**
      * @ORM\Column(type="date")
      */
-    private $date_g;
+    private $date_g; 
 
     /**
      * @ORM\Column(type="boolean")
@@ -69,22 +70,21 @@ class Game
     private $prix;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $category;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="game")
      */
     private $notes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="game")
+     */
+    private $category;
+
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
-
-    
 
     public function getId(): ?int
     {
@@ -139,12 +139,12 @@ class Game
         return $this;
     }
 
-    public function getImg(): ?string
+    public function getImg()
     {
         return $this->img;
     }
 
-    public function setImg(string $img): self
+    public function setImg($img)
     {
         $this->img = $img;
 
@@ -163,12 +163,12 @@ class Game
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getUrl()
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl($url)
     {
         $this->url = $url;
 
@@ -230,18 +230,6 @@ class Game
         return $this;
     }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Note[]
      */
@@ -272,4 +260,18 @@ class Game
 
         return $this;
     }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    
 }

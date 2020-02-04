@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Member;
+use App\Form\AddGameType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GamesController extends AbstractController
 {
+
+    
 
     /**
      * @Route("/", name="home")
@@ -17,6 +22,61 @@ class GamesController extends AbstractController
     {
         return $this->render('games/home.html.twig', []);
     }
+
+    /**
+     * @Route("/addgame", name="addgame")
+     * page d'accueil
+     */
+    public function addGame(Request $request)
+    {
+        $user = $this->getUser();
+        $repository = $this-> getDoctrine() -> getRepository(Member::class);
+        $member = $repository -> getUserProfil($user);
+        $member = $member[0];
+        if($member -> getLevel() === false){
+            return $this->redirectToRoute('profil');
+        }
+        $game = new Game;
+        $form = $this -> createForm(AddGameType::class, $game);
+
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted() && $form -> isValid()){
+
+            // add img game
+            $fileImg = $game->getImg();
+            $filename = 'GameImg_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $fileImg->guessExtension();
+            $fileImg->move($this->getParameter('upload_gameImg'), $filename);
+            $game-> setImg($filename);
+
+            // add .exe game
+            $fileUrl = $game->getUrl();
+            $filename = 'Exe_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $fileUrl->guessExtension();
+            $fileUrl->move($this->getParameter('upload_gameUrl'), $filename);
+            $game-> setUrl($filename);
+
+            
+            $game->setDateG(new \DateTime());
+            $game->setIsActive(false);
+            $game->setNbDownload(0);
+            $game->setMember($member);
+
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($game); //commit(git)
+            $manager -> flush(); // push(git)
+
+            $this -> addFlash('success','Votre jeu a bien été ajouter');
+            return $this->redirectToRoute('games');
+        }
+        return $this->render('games/addgame.html.twig', [
+            'formGame' => $form -> createView(),
+        ]);
+    }
+
+  
+    
+        
+    
 
     /**
      * @Route("/games", name="games")
@@ -38,6 +98,8 @@ class GamesController extends AbstractController
     {
         
     }
+
+    
 
     /**
      * @Route("/game/{id}", name="comment")
