@@ -8,7 +8,8 @@
 	{% block link %}{% endblock %}
 </head>
 <body>
-{{ dump(app.user) }} 
+
+{# {{ dump(app.user) }}  #}
 	{# message erreur et success #}
 	{% for message in app.flashes('success') %}
 			<div class="alert alert-success">{{ message }}</div>

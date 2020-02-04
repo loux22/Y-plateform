@@ -23,6 +23,11 @@ class Category
      */
     private $title;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\game", mappedBy="category")
+     */
+    private $game;
+
    
 
     public function __construct()
@@ -45,6 +50,37 @@ class Category
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|game[]
+     */
+    public function getGame(): Collection
+    {
+        return $this->game;
+    }
+
+    public function addGame(game $game): self
+    {
+        if (!$this->game->contains($game)) {
+            $this->game[] = $game;
+            $game->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(game $game): self
+    {
+        if ($this->game->contains($game)) {
+            $this->game->removeElement($game);
+            // set the owning side to null (unless already changed)
+            if ($game->getCategory() === $this) {
+                $game->setCategory(null);
+            }
+        }
 
         return $this;
     }   
