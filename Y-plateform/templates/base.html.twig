@@ -5,9 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Y'plateform {% block title %} {% endblock %}</title>
+	{% block link %}{% endblock %}
 </head>
 <body>
-{{ dump(app.user) }} 
+
+{# {{ dump(app.user) }}  #}
 	{# message erreur et success #}
 	{% for message in app.flashes('success') %}
 			<div class="alert alert-success">{{ message }}</div>
