@@ -1,0 +1,75 @@
+
+
+/* body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(image/background/accueil.jpg);
+    background-size: cover;
+    background-repeat:no-repeat; 
+} */
+
+header{
+    width: 100%;
+    /* margin: 40px; */
+    padding: 5px;
+    background: black;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+
+.logo{
+    /* color: #069370; */
+    height: 20px;
+    width: 160px;
+    /* font-size: 36px; */
+    /* line-height: 60px; */
+    /* padding: 0 40px; */
+    margin: 15px ;
+    /* background: #ccc; */
+    text-align: center;
+    box-sizing: border-box;
+    float: left;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* img{
+    margin: 10px 0;
+    height: 30px;
+    width: 180px;
+} */
+nav.menu{
+    float: right;
+    /* margin-right: 20%; */
+}
+
+
+.clearfix{
+    clear: both;
+}
+
+nav.menu ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav.menu ul li{
+    list-style: none;
+    margin: 0 15px;
+}
+nav.menu ul li a{
+    display: block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: whitesmoke;
+}
+nav.menu ul li a.active,
+nav.menu ul li a:hover
+{
+    background: #069370;
+    color: #fff;
+    transition: 0.5s;
+}
