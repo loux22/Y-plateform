@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Error;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -18,6 +19,8 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Error\Length(min=3, max=255, minMessage="ton commentaire '{{ value }}' est trop court", 
+     * maxMessage="Ton commentaire '{{ value }}' est trop long")
      */
     private $description_c;
 

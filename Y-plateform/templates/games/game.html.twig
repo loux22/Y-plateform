@@ -17,6 +17,15 @@
 {% endfor %}
 
 
+{{form_start(commentForm)}}
+
+
+{{form_errors(commentForm)}}
+{{form_widget(commentForm)}}
+
+<button type="submit">ajouter un commentaire</button> 
+{{form_end(commentForm)}}
+
 
 
 {% endblock %}
