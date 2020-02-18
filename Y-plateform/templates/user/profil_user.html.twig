@@ -2,7 +2,6 @@
 {% block title %}- login {% endblock %}
 
 {% block content %} 
-{{dump(user)}}
 
 <img style="width:20%;" src="{{ asset('/avatar/')}}{{user.avatar }}" alt="">
 <h5>Pseudo : {{ user.pseudo}}</h5>
@@ -13,9 +12,6 @@
 
 <br><br>
 {% if member[0].level == false %}
-
-{{ dump(game) }}
-<br><br>
 <h1>Mes Jeux</h1>
 {% for g in game %}
     <h5>{{ g.name }}</h5>
@@ -23,19 +19,19 @@
     <h5>{{ g.nbDownload }}</h5>
     <h5>{{ note[0].note }}</h5>
 {% endfor %}
+{% endif %}
 
 <h1>Informations</h1>
 
-{# <h5>Date de naissance : {{ user.age }}</h5> #}
+<h5>Date de naissance: {{ user.dateU.date|date("m/d/Y") }}</h5>
 <h5>Adresse mail : {{ user.mail}}</h5>
-<h5>Téléphone</h5>
+<h5>Téléphone : {{ member[0].phone}} </h5>
 
 <br><br>
 <h1>Localisation</h1>
+<h5>Adresse : {{member[0].address }}</h5>
+<h5>Ville : {{member[0].city }} </h5>
+<h5>Code postal : {{member[0].postal }}</h5>
 
-<h5>Adresse</h5>
-<h5>Ville</h5>
-<h5>Code postal</h5>
-{% endif %}
-
+<br><br><br><br><br><br>
 {% endblock %}
