@@ -149,7 +149,10 @@ background-color: #D63031;
 
 .breadcrumb {
   background: #3d3d3d;
+ 
+  
 }
+
 h4{
   color: #ffff;
 }
@@ -160,4 +163,17 @@ h4{
   color: #4b4b4b;
   text-align: center;
 }
-  
+.list-group li1{
+
+  background-color: #D63031;
+  color: #ffff;
+
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.col-4 img {
+  width: 50%;
+}
