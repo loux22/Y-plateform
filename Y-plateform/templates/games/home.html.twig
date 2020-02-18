@@ -8,7 +8,7 @@
     <h1>Les dernières nouveautés</h1>
     {{ dump(games) }}
     {% for g in games %}
-    <a href="{{path('games',{'id':g.id})}}"><div>
+    <a href="{{path('game',{'id':g.id})}}"><div>
         <img style="max-height: 200px; min-width: 100%" src="{{ asset('/gameImg/') }}{{ g.img }}" alt="">
     </div></a>
    {% endfor %} 
