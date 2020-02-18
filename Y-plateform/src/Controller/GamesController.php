@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Game;
 use App\Entity\Member;
 use App\Entity\Note;
@@ -93,7 +94,7 @@ class GamesController extends AbstractController
     }
 
      /**
-     * @Route("/games/{id}", name="games")
+     * @Route("/games/{id}", name="game")
      * voir tout les jeux 
      */
     public function game($id)
@@ -103,9 +104,13 @@ class GamesController extends AbstractController
         $repository = $this-> getDoctrine() -> getRepository(Note::class);
         $note = $repository -> note($game);
 
+        $repo = $this-> getDoctrine() -> getRepository(Comment::class);
+        $comments = $repo -> FindCommentGame($id);
+
         return $this->render('games/game.html.twig', [
             'game' => $game,
-            'note'=> $note
+            'note'=> $note,
+            'comments' => $comments
             ]);
     }
 
