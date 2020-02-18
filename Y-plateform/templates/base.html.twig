@@ -26,12 +26,18 @@
 			</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+			{% if app.user == null %}
 				<li class="nav-item">
 					<a class="nav-link" href="#">S'inscrire</a>
 				</li>
 				<li class="nav-item">
 					  <a class="nav-link" href="#">Connexion</a>
 				</li>
+			{% else %}	
+				<li class="nav-item">
+					  <a class="nav-link" href="#">Deconnexion</a>
+				</li>
+			{% endif %}	
 			</ul>
 		</div>
 		</div>
