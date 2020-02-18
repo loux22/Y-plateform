@@ -15,7 +15,7 @@
 <h3>level : Member </h3>
 {% endif %}
 
-<img src="{{ asset('/avatar/' ~ member[0].user.avatar )}}" alt="">
+<img src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
 
 {{form_start(form)}}
 
