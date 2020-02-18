@@ -2,8 +2,6 @@
 {% block title %}- login {% endblock %}
 
 {% block content %} 
-{{dump(member)}}
-
 <img style="width:20%" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
 
 {{form_start(form)}}
@@ -19,13 +17,13 @@
 <h5>Prénom : {{ member[0].user.username}}</h5>
 <h5>{{ age }} ans</h5>
 
-{% if member[0].level == false %}
+{% if member[0].level == true %}
 <h5>level : User </h5>
 {% else %}
 <h5>level : Member </h5>
 {% endif %}
 
-{% if member[0].level == false %}
+{% if member[0].level == true %}
 <h1>Mes Jeux</h1>
 {% for g in game %}
     <h5>{{ g.name }}</h5>
