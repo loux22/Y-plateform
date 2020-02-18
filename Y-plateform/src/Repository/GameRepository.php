@@ -38,6 +38,16 @@ class GameRepository extends ServiceEntityRepository
                 -> getResult();
     }
 
+
+    public function getGameList($id_member) {
+        $builder = $this -> createQueryBuilder('m');
+        return $builder 
+            -> where('m.Member = :Member')
+            -> setParameter('Member', $id_member)
+            -> getQuery()
+            -> getResult();
+    } 
+
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */

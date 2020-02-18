@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Entity\Member;
 use App\Entity\Note;
+use App\Entity\Member;
+use App\Entity\Comment;
 use App\Form\AddGameType;
+use App\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -93,32 +95,45 @@ class GamesController extends AbstractController
     }
 
      /**
-     * @Route("/games/{id}", name="games")
+     * @Route("/games/{id}", name="game")
      * voir tout les jeux 
      */
-    public function game($id)
+    public function game($id, Request $request)
     {
+        $userlog = $this->getUser();
+
         $manager = $this-> getDoctrine() -> getManager();
         $game = $manager -> find(Game::class, $id);
         $repository = $this-> getDoctrine() -> getRepository(Note::class);
         $note = $repository -> note($game);
 
+        $repo = $this-> getDoctrine() -> getRepository(Comment::class);
+        $comments = $repo -> FindCommentGame($id);
+
+        $comment = new Comment;
+        $form = $this -> createForm(CommentType::class, $comment);
+
+        $form -> handleRequest($request);
+
+        if($form -> isSubmitted() && $form -> isValid()){
+            $comment -> setUser($userlog);
+            $comment -> setGame($game);
+            $comment -> setDateC(new \DateTime());
+            $manager -> persist($comment); //commit(git)
+            $manager -> flush(); // push(git)
+            $this -> addFlash('success','Votre commentaire a bien été ajouter');
+            return $this->redirectToRoute('game', ['id' => $game->getId()]);
+        }
+
         return $this->render('games/game.html.twig', [
             'game' => $game,
-            'note'=> $note
+            'note'=> $note,
+            'comments' => $comments,
+            'commentForm' => $form -> createView()
             ]);
     }
 
-    
-
-    
-
-    /**
-     * @Route("/game/{id}", name="comment")
-     * voir un jeux 
-     */
-    public function comment()
-    {
+   
         
-    }
+       
 }
