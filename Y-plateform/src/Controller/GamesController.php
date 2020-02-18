@@ -73,10 +73,6 @@ class GamesController extends AbstractController
         ]);
     }
 
-  
-    
-        
-    
 
     /**
      * @Route("/games", name="games")
@@ -94,9 +90,12 @@ class GamesController extends AbstractController
      * @Route("/game/{id}", name="game")
      * voir un jeux 
      */
-    public function game()
+    public function game($id)
     {
-        
+        $manager = $this-> getDoctrine() -> getManager();
+        $game = $manager -> find(Game::class, $id);
+
+        return $this->render('games/game.html.twig', ['game' => $game]);
     }
 
     
