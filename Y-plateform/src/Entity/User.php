@@ -39,7 +39,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
-     * Error\Email(
+     * @Error\Email(
      *     message = "Ton Email '{{ value }}' n'est pas valide.")
      */
     private $mail;
@@ -82,9 +82,15 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -189,7 +195,7 @@ class User implements UserInterface
     }
 
     public function getRoles(){
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
     public function eraseCredentials(){

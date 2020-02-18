@@ -1,0 +1,39 @@
+body,
+ul {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    background: #9F9C9C;
+    ;
+}
+
+.centre {
+    text-align: center;
+}
+
+.space {
+    padding-bottom: 45px;
+}
+
+button {
+    height: 40px;
+    left: 478px;
+    top: 410px;
+    border-radius: 4px;
+    font-size: large;
+    padding-top: 5px;
+    background: #FF3838;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 80px;
+    text-transform: uppercase;
+    color: #FF3838;
+}
