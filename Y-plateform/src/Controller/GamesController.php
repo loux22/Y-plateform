@@ -20,7 +20,12 @@ class GamesController extends AbstractController
      */
     public function home()
     {
-        return $this->render('games/home.html.twig', []);
+        $repository = $this -> getDoctrine() -> getRepository(Game::class);
+        $games = $repository -> lastGames();
+
+        return $this->render('games/home.html.twig', [
+            'games' => $games
+        ]);
     }
 
     /**
