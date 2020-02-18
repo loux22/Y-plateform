@@ -26,6 +26,9 @@
 			</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+			<li class="nav-item">
+					<a class="nav-link" href="{{ path('library') }}">Magasin</a>
+				</li>
 			{% if app.user == null %}
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
