@@ -1,22 +1,17 @@
-{% extends 'base.html.twig' %}
-{% block link %} <link rel="stylesheet" href="{{ asset('/css/register.css')}}"> {% endblock %}
-{% block title %}- Register {% endblock %}
-
-{% block content %} 
+{% extends 'base.html.twig' %} {% block link %}
+<link rel="stylesheet" href="{{ asset('/css/register.css')}}"> {% endblock %} {% block title %}- Register {% endblock %} {% block body %}
 
 <h1> Inscription </h1>
 <div class="centre">
     <div class="space">
-{{form_start(UserForm)}}
-</div>
+        {{form_start(UserForm)}}
+    </div>
 
-<div class="space">
-{{form_widget(UserForm)}}
-</div>
 
-<button type="submit"> S'inscrire </button>
+    <div class="space">
+        {{form_widget(UserForm)}}
+    </div>
 
-{{form_end(UserForm)}}
+    <button type="submit"> S'inscrire </button> {{form_end(UserForm)}}
 </div>
 {% endblock %}
-
