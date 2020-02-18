@@ -1,0 +1,51 @@
+body,
+ul {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    background: #9F9C9C;
+    ;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 72px;
+    line-height: 108px;
+    text-transform: uppercase;
+    color: #F8F8F8;
+}
+
+.connex {
+    text-align: center;
+}
+
+.conf {
+    width: 384px;
+    height: 47px;
+    left: 478px;
+    top: 755px;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+    border-radius: 6px;
+}
+
+.mai {
+    height: 20px;
+    left: 478px;
+    top: 410px;
+    border-radius: 6px;
+    font-size: large;
+}
+
+.inf {
+    padding-bottom: 30px;
+}
+
+.esp {
+    padding-bottom: 45px;
+}

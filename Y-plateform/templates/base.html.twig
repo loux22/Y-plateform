@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Y'plateform {% block title %} {% endblock %}</title>
+	<link rel="stylesheet" href="/css/navbar.css">
+	<title>Y'plateform</title>
 </head>
 <body>
-{{ dump(app.user) }} 
-	{# message erreur et success #}
-	{% for message in app.flashes('success') %}
-			<div class="alert alert-success">{{ message }}</div>
-		{% endfor %}
 
-		{% for message in app.flashes('errors') %}
-			<div class="alert alert-danger">{{ message}}</div></body> 
-		{% endfor %} {# end message erreur et success #}
-            
-    	{% block content %} {% endblock %}
+	<header>
+		<img class="logo" src="/img/Y-Plateform.png" alt="">
+		<div class="menu-toggle"></div>
+		<nav class="menu">
+			<ul>
+                    <li><a href="#" class="active">Accueil</a></li>
+				    <li><a href="#">Jeux</a></li>
+				    <li><a href="#">Top Players</a></li>
+                    <li><a href="#">Inscription</a></li>
+				    <li><a href="#">Connexion</a></li>
+			</ul>
+		</nav>
+		<div class="clearfix"></div>
+	</header>
+
 </body>
 </html>
