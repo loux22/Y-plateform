@@ -19,6 +19,17 @@ class NoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Note::class);
     }
 
+    public function note($game){
+        $builder = $this -> createQueryBuilder('n');
+        return $builder 
+                -> select("avg(n.note) as note")
+                -> where('n.game = :game')
+                -> setParameter('game', $game)
+                -> getQuery()
+                -> getResult();
+         
+    }
+
     // /**
     //  * @return Note[] Returns an array of Note objects
     //  */

@@ -2,7 +2,13 @@
 {% block title %}- Home {% endblock %}
 
 {% block content %}
-{{dump(game)}}
+{{dump(note)}}
+
+<p>{{game.name}}</p>
+<img src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
+<p>{{game.descriptionG}}</p>
+<p>{{note[0].note}}</p>
+<button>telecharger</button>
 
 
 

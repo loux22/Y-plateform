@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\Member;
+use App\Entity\Note;
 use App\Form\AddGameType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -87,16 +88,23 @@ class GamesController extends AbstractController
     }
 
      /**
-     * @Route("/game/{id}", name="game")
-     * voir un jeux 
+     * @Route("/games/{id}", name="games")
+     * voir tout les jeux 
      */
     public function game($id)
     {
         $manager = $this-> getDoctrine() -> getManager();
         $game = $manager -> find(Game::class, $id);
+        $repository = $this-> getDoctrine() -> getRepository(Note::class);
+        $note = $repository -> note($game);
 
-        return $this->render('games/game.html.twig', ['game' => $game]);
+        return $this->render('games/game.html.twig', [
+            'game' => $game,
+            'note'=> $note
+            ]);
     }
+
+    
 
     
 
