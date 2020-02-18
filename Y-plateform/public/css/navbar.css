@@ -1,0 +1,8 @@
+nav{
+    display: flex;
+    flex-direction: row;
+}
+ul #nav-end{
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
