@@ -83,7 +83,7 @@ class GamesController extends AbstractController
 
 
     /**
-     * @Route("/games", name="games")
+     * @Route("/library", name="library")
      * voir tout les jeux 
      */
     public function games()

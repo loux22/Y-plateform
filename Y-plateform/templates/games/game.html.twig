@@ -16,6 +16,7 @@
 <p>{{value.dateC.date|date("F jS \\a\\t g:ia") }}</p>
 {% endfor %}
 
+{% if app.user != null %}
 
 {{form_start(commentForm)}}
 
@@ -25,6 +26,7 @@
 
 <button type="submit">ajouter un commentaire</button> 
 {{form_end(commentForm)}}
+{% endif %}
 
 
 
