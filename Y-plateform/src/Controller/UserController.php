@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Member;
+use App\Entity\Game;
+use App\Entity\Note;
 use App\Form\UserType;
 use App\Form\UserModifyType;
 use Symfony\Component\HttpFoundation\Request;
@@ -134,6 +136,38 @@ class UserController extends AbstractController
     public function editProfil($id)
     {
         
+    }
+
+    /**
+     * @Route("/profil/{id}", name="profil_user")
+     */
+    public function profilUser(Request $request, $id) {
+
+        $repo = $this -> getDoctrine() -> getRepository(User::class);
+        $user = $repo -> find($id);
+
+        $u = $user->getAge();
+        $stringValue = $u->format('Y-m-d H:i:s');
+        $datetime1 = new \DateTime(); // date actuelle
+        $datetime2 = new \DateTime($stringValue);
+        $age = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
+
+        $repository = $this-> getDoctrine() -> getRepository(Member::class);
+        $member = $repository -> getUserProfil($user);
+
+        $repository = $this-> getDoctrine() -> getRepository(Game::class);
+        $game = $repository -> getGameList($user);
+
+        $repository = $this-> getDoctrine() -> getRepository(Note::class);
+        $note = $repository -> noteJ($id);
+
+        return $this->render('user/profil_user.html.twig', [
+            'user' => $user,
+            'member' => $member,
+            'age' => $age,
+            'game' => $game,
+            'note' => $note
+        ]);
     }
 
     /**
