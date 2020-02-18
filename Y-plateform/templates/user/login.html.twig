@@ -17,18 +17,25 @@
             </div>
         </div>
         <div>
-            <div class=esp>
+            <div class=inf>
                 <input class="mai" placeholder="mot de passe" required name="_password" type="password">
-            </div>
-            <P>mot de passe oublié ?</P>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+   Se souvenir de moi
+  </label>
+                </div>
 
-            <input type="checkbox" checked="checked">
-            <label class="container">Memoriser mon compte</label>
+
+            </div>
 
         </div>
         <div>
+            <P>mot de passe oublié ?</P>
             <button class="conf" type="submit">Connexion</button>
+
         </div>
+        <button type="button" class="btn btn-light">Pas de compte? Inscrivez-vous</button>
     </form>
 
     {# <a href="{{ path('logout') }}">deconnexion</a> #} {# </div> #} {% endblock %}

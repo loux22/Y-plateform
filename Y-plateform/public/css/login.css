@@ -25,17 +25,19 @@ h1 {
 }
 
 .conf {
-    width: 384px;
+    width: 400px;
     height: 47px;
     left: 478px;
     top: 755px;
     font-family: 'Poppins', sans-serif;
     font-size: large;
     border-radius: 6px;
+    background-color: #FF3838;
 }
 
 .mai {
-    height: 20px;
+    width: 400px;
+    height: 50px;
     left: 478px;
     top: 410px;
     border-radius: 6px;
@@ -46,6 +48,12 @@ h1 {
     padding-bottom: 30px;
 }
 
-.esp {
-    padding-bottom: 45px;
+p {
+    color: blue;
+    font-size: 10px;
+    right: 70px;
+}
+
+.ok {
+    text-align: right;
 }
