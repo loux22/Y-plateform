@@ -2,21 +2,7 @@
 {% block title %}- login {% endblock %}
 
 {% block content %} 
-{{dump(member)}}
-
-<h3> username : {{ member[0].user.username}}</h3>
-<h3>lastname : {{ member[0].user.lastname}}</h3>
-<h3>mail : {{ member[0].user.mail}}</h3>
-<h3>pseudo : {{ member[0].user.pseudo}}</h3>
-<h3> age : {{ age }}</h3>
-<h3> phone : {{ member[0].phone }}</h3>
-{% if member[0].level == false %}
-<h3>level : User </h3>
-{% else %}
-<h3>level : Member </h3>
-{% endif %}
-
-<img src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
+<img style="width:20%" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
 
 {{form_start(form)}}
 
@@ -25,4 +11,41 @@
 <button type="submit"> Modifier </button>
 
 {{form_end(form)}}
+
+<h5>Pseudo : {{ member[0].user.pseudo}}</h5>
+<h5>Nom : {{ member[0].user.lastname}}</h5>
+<h5>Prénom : {{ member[0].user.username}}</h5>
+<h5>{{ age }} ans</h5>
+
+{% if member[0].level == true %}
+<h5>level : User </h5>
+{% else %}
+<h5>level : Member </h5>
+{% endif %}
+
+{% if member[0].level == true %}
+<h1>Mes Jeux</h1>
+{% for g in game %}
+    <h5>{{ g.name }}</h5>
+    <img style="width:20%;" src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
+    <h5>{{ g.nbDownload }}</h5>
+    <h5>{{ note[0].note }}</h5>
+{% endfor %}
+{% endif %}
+
+<h1>Informations</h1>
+
+<h5>Date de naissance: {{ user.dateU.date|date("m/d/Y") }}</h5>
+<h5>Adresse mail : {{ user.mail}}</h5>
+<h5>Téléphone : {{ member[0].phone}} </h5>
+
+<br><br>
+<h1>Localisation</h1>
+<h5>Adresse : {{member[0].address }}</h5>
+<h5>Ville : {{member[0].city }} </h5>
+<h5>Code postal : {{member[0].postal }}</h5>
+
+
+
+<br><br><br><br><br><br>
 {% endblock %}

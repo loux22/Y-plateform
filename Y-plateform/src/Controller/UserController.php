@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/register", name="registerUser")
+     * @Route("/register", name="register")
      */
     public function registerUser(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -98,6 +98,13 @@ class UserController extends AbstractController
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
         $member = $repository -> getUserProfil($user);
 
+        //jeux du joueur
+        $repository = $this-> getDoctrine() -> getRepository(Game::class);
+        $game = $repository -> getGameList($user);
+
+        //note des jeux
+        $repository = $this-> getDoctrine() -> getRepository(Note::class);
+        $note = $repository -> noteJ($user);
 
         // ajouter/modifier un avatar 
         $form = $this -> createForm(UserModifyType::class, $user);
@@ -125,8 +132,11 @@ class UserController extends AbstractController
 
         return $this->render('user/profil.html.twig', [
             'form' => $form -> createView(),
+            'user' => $user,
             'member' => $member,
-            'age' => $age
+            'age' => $age,
+            'game' => $game,
+            'note' => $note
             ]);
     }
 
