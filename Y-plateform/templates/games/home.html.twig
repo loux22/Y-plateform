@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block title %}- Home {% endblock %}
 
-{% block content %}
-<div class="body">
-<div>
- <img style="max-height: 200px; min-width: 100%" src="{{ asset('/img/as.webp') }}">
-</div>
-</div>
-    
 
-<h1>page accueil</h1> 
+{% block content %}
+
+<div class="body">
+    <h1>Les dernières nouveautés</h1>
+    {{ dump(games) }}
+    {% for g in games %}
+    <div>
+        <img style="max-height: 200px; min-width: 100%" src="{{ asset('/gameImg/') }}{{ g.img }}" alt="">
+    </div>
+   {% endfor %} 
+
+</div>
 {% endblock %}
 
