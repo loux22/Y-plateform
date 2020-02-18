@@ -20,7 +20,6 @@ class GameRepository extends ServiceEntityRepository
     }
 
     public function allGames(){
-        //catégories : (SELECT distinct category FROM post)
         $builder = $this -> createQueryBuilder('g');
         return $builder 
                 -> select('g')
@@ -29,6 +28,16 @@ class GameRepository extends ServiceEntityRepository
                 -> getResult();
          
     }
+    public function lastGames() {
+        //Afficher les 4 derniers jeux en date
+        $builder = $this -> createQueryBuilder('g');
+        return $builder 
+                ->orderBy('g.date_g', 'DESC')
+                ->setMaxResults(4)
+                -> getQuery()
+                -> getResult();
+    }
+
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */
