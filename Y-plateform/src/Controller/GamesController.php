@@ -81,7 +81,7 @@ class GamesController extends AbstractController
 
 
     /**
-     * @Route("/games", name="game")
+     * @Route("/games", name="games")
      * voir tout les jeux 
      */
     public function games()
@@ -93,7 +93,7 @@ class GamesController extends AbstractController
     }
 
      /**
-     * @Route("/games/{id}", name="games")
+     * @Route("/games/{id}", name="game")
      * voir tout les jeux 
      */
     public function game($id)
