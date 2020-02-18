@@ -153,4 +153,11 @@ background-color: #D63031;
 h4{
   color: #ffff;
 }
+
+.list-group-item {
+
+  background-color: #FF3838;
+  color: #4b4b4b;
+  text-align: center;
+}
   
