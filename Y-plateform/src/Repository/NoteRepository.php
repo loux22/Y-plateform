@@ -30,6 +30,17 @@ class NoteRepository extends ServiceEntityRepository
          
     }
 
+    public function noteJ($id_member){
+        $builder = $this -> createQueryBuilder('n');
+        return $builder 
+                -> select("avg(n.note) as note")
+                -> where('n.member = :member')
+                -> setParameter('member', $id_member)
+                -> getQuery()
+                -> getResult();
+         
+    }
+
     // /**
     //  * @return Note[] Returns an array of Note objects
     //  */

@@ -2,13 +2,31 @@
 {% block title %}- Home {% endblock %}
 
 {% block content %}
-{{dump(note)}}
 
 <p>{{game.name}}</p>
 <img src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
 <p>{{game.descriptionG}}</p>
 <p>{{note[0].note}}</p>
 <button>telecharger</button>
+
+{% for value in comments %}
+<img src={{ asset('/avatar/')}}{{value.user.avatar }}"" alt="">
+<p>{{value.user.pseudo}}</p>
+<p>{{value.descriptionC}}</p>
+<p>{{value.dateC.date|date("F jS \\a\\t g:ia") }}</p>
+{% endfor %}
+
+{% if app.user != null %}
+
+{{form_start(commentForm)}}
+
+
+{{form_errors(commentForm)}}
+{{form_widget(commentForm)}}
+
+<button type="submit">ajouter un commentaire</button> 
+{{form_end(commentForm)}}
+{% endif %}
 
 
 
