@@ -2,7 +2,23 @@ nav{
     display: flex;
     flex-direction: row;
 }
-ul #nav-end{
+#navbarNav{
     flex-wrap: nowrap;
     justify-content: flex-end;
 }
+
+footer{
+    background-color: #4b4b4b;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+/* 
+.conf{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.container ul{
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+} */
