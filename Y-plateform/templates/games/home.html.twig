@@ -9,9 +9,10 @@
     {{ dump(games) }}
     {% for g in games %}
     <div>
-        <img src="{{ asset('/gameImg/') }}{{ g.img }}" alt="">
+        <img style="max-height: 200px; min-width: 100%" src="{{ asset('/gameImg/') }}{{ g.img }}" alt="">
     </div>
    {% endfor %} 
+
 </div>
 {% endblock %}
 

@@ -20,7 +20,6 @@ class GameRepository extends ServiceEntityRepository
     }
 
     public function allGames(){
-        //catégories : (SELECT distinct category FROM post)
         $builder = $this -> createQueryBuilder('g');
         return $builder 
                 -> select('g')
