@@ -12,12 +12,11 @@ body {
 h1 {
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    font-style: normal;
     font-weight: bold;
     font-size: 72px;
     line-height: 108px;
     text-transform: uppercase;
-    color: #F8F8F8;
+    color: #FF3838;
 }
 
 .connex {
@@ -36,7 +35,7 @@ h1 {
 }
 
 .mai {
-    width: 400px;
+    width: 300px;
     height: 50px;
     left: 478px;
     top: 410px;
@@ -52,8 +51,4 @@ p {
     color: blue;
     font-size: 10px;
     right: 70px;
-}
-
-.ok {
-    text-align: right;
 }
