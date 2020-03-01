@@ -1,43 +1,49 @@
-{% extends 'base.html.twig' %} {% block title %}- login {% endblock %} {% block link %}
-<link rel="stylesheet" href="{{ asset('/css/login.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> {% endblock %} {% block content %}
+{% extends 'base.html.twig' %}
+{% block title %}- login
+{% endblock %}
+{% block link %}
+	<link rel="stylesheet" href="{{ asset('/css/login.css')}}">
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
 
 
-<h1> Connexion </h1>
+	<h1>
+		Connexion
+	</h1>
 
 
-<div class="connex">
-    <form action="{{ path('login') }}" method="post">
-        {% if error %}
-        <div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
-        {% endif %}
-        <div>
-            <div class=inf>
-                <input class="mai" placeholder="Mail" required name="_username" type="text">
-            </div>
-        </div>
-        <div>
-            <div class=inf>
-                <input class="mai" placeholder="mot de passe" required name="_password" type="password">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-   Se souvenir de moi
-  </label>
-                </div>
+	<div class="connex">
+		<form action="{{ path('login') }}" method="post">
+			{% if error %}
+				<div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+			{% endif %}
+			<div>
+				<div class="inf">
+					<input class="mai" placeholder="Mail" required name="_username" type="text">
+				</div>
+			</div>
+			<div>
+				<div class="inf">
+					<input class="mai" placeholder="mot de passe" required name="_password" type="password">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+						<label class="form-check-label" for="defaultCheck1">
+							Se souvenir de moi
+						</label>
+					</div>
+				</div>
+			</div>
+			<div>
+				<P>mot de passe oublié ?</P>
+				<button type="submit" class="btn btn-danger" type="submit" style=" width: 300px;  background-color:#FF3838;">S'identifier</button>
+			</div>
 
 
-            </div>
+			<a type="button" href="{{ path('register') }}" class="btn btn-light" style=>Pas de compte? Inscrivez-vous</a>
 
-        </div>
-        <div>
-            <P>mot de passe oublié ?</P>
-            <button type="button" class="btn btn-danger" type="submit" style=" width: 300px;  background-color:#FF3838;">S'identifier</button>
-        </div>
+		</form>
 
-
-        <a type="button" href="{{ path('register') }}" class="btn btn-light" style=>Pas de compte? Inscrivez-vous</a>
-
-    </form>
-
-    {# <a href="{{ path('logout') }}">deconnexion</a> #} {# </div> #} {% endblock %}
+		{# <a href="{{ path('logout') }}">deconnexion</a> #}
+		{# </div> #}
+	{% endblock %}
