@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Error;
 
@@ -38,6 +40,16 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentLike", mappedBy="comment")
+     */
+    private $commentLikes;
+
+    public function __construct()
+    {
+        $this->commentLikes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,5 +102,46 @@ class Comment
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CommentLike[]
+     */
+    public function getCommentLikes(): Collection
+    {
+        return $this->commentLikes;
+    }
+
+    public function addCommentLike(CommentLike $commentLike): self
+    {
+        if (!$this->commentLikes->contains($commentLike)) {
+            $this->commentLikes[] = $commentLike;
+            $commentLike->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentLike(CommentLike $commentLike): self
+    {
+        if ($this->commentLikes->contains($commentLike)) {
+            $this->commentLikes->removeElement($commentLike);
+            // set the owning side to null (unless already changed)
+            if ($commentLike->getComment() === $this) {
+                $commentLike->setComment(null);
+            }
+        }
+
+        return $this;
+    }
+
+     /**permet de savoir si un user a liké un post */
+     public function isLikedByUser(User $user) : bool {
+        foreach ($this->commentLikes as $like) {
+            if($like->getUser() === $user){
+                return true;
+            } 
+        }
+        return false;
     }
 }

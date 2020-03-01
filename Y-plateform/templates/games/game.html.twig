@@ -14,6 +14,13 @@
 <p>{{value.user.pseudo}}</p>
 <p>{{value.descriptionC}}</p>
 <p>{{value.dateC.date|date("F jS \\a\\t g:ia") }}</p>
+<a href="{{ path('comment_like', {'id' : value.id})}}" class="js-like">
+{% if app.user and value.isLikedByUser(app.user) %}
+<i class="fas fa-thumbs-up"><span class="js-likes">{{value.commentLikes | length}}</span></i>
+{% else %}
+<i class="far fa-thumbs-up"><span class="js-likes">{{value.commentLikes | length}}</span></i>
+{% endif %}
+</a>
 {% endfor %}
 
 {% if app.user != null %}
@@ -28,6 +35,39 @@
 {{form_end(commentForm)}}
 {% endif %}
 
+{% endblock %}
 
+{% block js %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
 
+        function onClickBtnLike(event){
+            event.preventDefault() // permet de pas changer de page au click
+
+            const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
+            const spanCount = this.querySelector('span.js-likes')
+            const icone = this.querySelector('i')
+
+            axios.get(url).then(function(response){
+                const likes = response.data.likes
+                spanCount.textContent = likes
+
+                if(icone.classList.contains('fas')){ // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
+                    icone.classList.replace('fas', 'far')
+                } else {
+                    icone.classList.replace('far', 'fas')
+                }
+            }).catch(function(error){ // catch si il y'a une erreur, then si tout se pass bien
+                if(error.response.status === 403){
+                    window.alert("il faut être connecté pour liker")
+                }else{
+                    window.alert("une erreur s'est produite, nos equipe travail la dessus")
+                }
+            })
+        }
+
+        document.querySelectorAll('a.js-like').forEach(function(link){
+            link.addEventListener('click', onClickBtnLike)
+        })
+    </script>
 {% endblock %}

@@ -8,14 +8,18 @@ use App\Entity\Member;
 use App\Entity\Comment;
 use App\Form\AddGameType;
 use App\Form\CommentType;
+use App\Entity\CommentLike;
+use App\Repository\CommentLikeRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GamesController extends AbstractController
 {
 
-    
+
 
     /**
      * @Route("/", name="home")
@@ -23,8 +27,8 @@ class GamesController extends AbstractController
      */
     public function home()
     {
-        $repository = $this -> getDoctrine() -> getRepository(Game::class);
-        $games = $repository -> lastGames();
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $games = $repository->lastGames();
 
         return $this->render('games/home.html.twig', [
             'games' => $games
@@ -38,46 +42,46 @@ class GamesController extends AbstractController
     public function addGame(Request $request)
     {
         $user = $this->getUser();
-        $repository = $this-> getDoctrine() -> getRepository(Member::class);
-        $member = $repository -> getUserProfil($user);
+        $repository = $this->getDoctrine()->getRepository(Member::class);
+        $member = $repository->getUserProfil($user);
         $member = $member[0];
-        if($member -> getLevel() === false){
+        if ($member->getLevel() === false) {
             return $this->redirectToRoute('profil');
         }
         $game = new Game;
-        $form = $this -> createForm(AddGameType::class, $game);
+        $form = $this->createForm(AddGameType::class, $game);
 
-        $form -> handleRequest($request);
+        $form->handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             // add img game
             $fileImg = $game->getImg();
-            $filename = 'GameImg_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $fileImg->guessExtension();
+            $filename = 'GameImg_' . time() . '_' . rand(1, 99999) . '_' . md5(uniqid()) . '.' . $fileImg->guessExtension();
             $fileImg->move($this->getParameter('upload_gameImg'), $filename);
-            $game-> setImg($filename);
+            $game->setImg($filename);
 
             // add .exe game
             $fileUrl = $game->getUrl();
-            $filename = 'Exe_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $fileUrl->guessExtension();
+            $filename = 'Exe_' . time() . '_' . rand(1, 99999) . '_' . md5(uniqid()) . '.' . $fileUrl->guessExtension();
             $fileUrl->move($this->getParameter('upload_gameUrl'), $filename);
-            $game-> setUrl($filename);
+            $game->setUrl($filename);
 
-            
+
             $game->setDateG(new \DateTime());
             $game->setIsActive(false);
             $game->setNbDownload(0);
             $game->setMember($member);
 
-            $manager = $this -> getDoctrine() -> getManager();
-            $manager -> persist($game); //commit(git)
-            $manager -> flush(); // push(git)
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($game); //commit(git)
+            $manager->flush(); // push(git)
 
-            $this -> addFlash('success','Votre jeu a bien été ajouter');
+            $this->addFlash('success', 'Votre jeu a bien été ajouter');
             return $this->redirectToRoute('games');
         }
         return $this->render('games/addgame.html.twig', [
-            'formGame' => $form -> createView(),
+            'formGame' => $form->createView(),
         ]);
     }
 
@@ -88,13 +92,13 @@ class GamesController extends AbstractController
      */
     public function games()
     {
-        $repository = $this-> getDoctrine() -> getRepository(Game::class);
-        $game = $repository -> findAll();
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $game = $repository->findAll();
 
         return $this->render('games/games.html.twig', ['game' => $game]);
     }
 
-     /**
+    /**
      * @Route("/games/{id}", name="game")
      * voir tout les jeux 
      */
@@ -102,38 +106,82 @@ class GamesController extends AbstractController
     {
         $userlog = $this->getUser();
 
-        $manager = $this-> getDoctrine() -> getManager();
-        $game = $manager -> find(Game::class, $id);
-        $repository = $this-> getDoctrine() -> getRepository(Note::class);
-        $note = $repository -> note($game);
+        $manager = $this->getDoctrine()->getManager();
+        $game = $manager->find(Game::class, $id);
+        $repository = $this->getDoctrine()->getRepository(Note::class);
+        $note = $repository->note($game);
 
-        $repo = $this-> getDoctrine() -> getRepository(Comment::class);
-        $comments = $repo -> FindCommentGame($id);
+        $repo = $this->getDoctrine()->getRepository(Comment::class);
+        $comments = $repo->FindCommentGame($id);
 
         $comment = new Comment;
-        $form = $this -> createForm(CommentType::class, $comment);
+        $form = $this->createForm(CommentType::class, $comment);
 
-        $form -> handleRequest($request);
+        $form->handleRequest($request);
 
-        if($form -> isSubmitted() && $form -> isValid()){
-            $comment -> setUser($userlog);
-            $comment -> setGame($game);
-            $comment -> setDateC(new \DateTime());
-            $manager -> persist($comment); //commit(git)
-            $manager -> flush(); // push(git)
-            $this -> addFlash('success','Votre commentaire a bien été ajouter');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($userlog);
+            $comment->setGame($game);
+            $comment->setDateC(new \DateTime());
+            $manager->persist($comment); //commit(git)
+            $manager->flush(); // push(git)
+            $this->addFlash('success', 'Votre commentaire a bien été ajouter');
             return $this->redirectToRoute('game', ['id' => $game->getId()]);
         }
 
         return $this->render('games/game.html.twig', [
             'game' => $game,
-            'note'=> $note,
+            'note' => $note,
             'comments' => $comments,
-            'commentForm' => $form -> createView()
-            ]);
+            'commentForm' => $form->createView()
+        ]);
     }
 
-   
-        
-       
+
+    /**
+     * @Route("/comment/{id}/like", name="comment_like")
+     * permet de liker ou unliker un article
+     */
+    public function like(Comment $comment, CommentLikeRepository $likeRepo): Response
+    {
+        $user = $this->getUser();
+        $manager = $this->getDoctrine()->getManager();
+
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => "pas autoriser",
+            ], 403);
+        }
+        if ($comment->isLikedByUser($user)) {
+            $like = $likeRepo->findOneBy([
+                'comment' => $comment,
+                'user' => $user
+            ]);
+
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => "like supprimer",
+                'likes' => $likeRepo->count(['comment' => $comment])
+
+            ], 200);
+        }
+
+
+        $like = new CommentLike();
+        $like->setComment($comment)
+            ->setUser($user);
+
+        $manager->persist($like);
+        $manager->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'like ajouter',
+            'likes' => $likeRepo->count(['comment' => $comment])
+        ], 200);
+    }
 }
