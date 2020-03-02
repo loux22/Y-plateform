@@ -179,11 +179,12 @@ class GamesController extends AbstractController
                 'message' => "pas autoriser",
             ], 403);
         }
-
+    $a = 0;
         if ($comment->isLikedByUser($user)) {
-
             if ($comment->likeOrDislike($user) === true) {
+                $a = 0;
                 if ($url == "comment_dislike") {
+                    $a = 7;
                     $like = new CommentLike();
                     $like->setComment($comment)
                         ->setUser($user)
@@ -212,12 +213,15 @@ class GamesController extends AbstractController
                         'code' => 200,
                         'message' => "like supprimer",
                         'likes' => count($likejson),
-                        'dislikes' => count($dislikejson) + 1
+                        'dislikes' => count($dislikejson),
+                        'a' => $a
         
                     ], 200);
                 }
             } elseif ($comment->likeOrDislike($user) === false) {
+                $a = 0;
                 if ($url == "comment_like") {
+                    $a = 18;
                     $like = new CommentLike();
                     $like->setComment($comment)
                         ->setUser($user)
@@ -245,16 +249,42 @@ class GamesController extends AbstractController
                     return $this->json([
                         'code' => 200,
                         'message' => "like supprimer",
-                        'likes' => count($likejson) - 1,
-                        'dislikes' => count($dislikejson)
+                        'likes' => count($likejson),
+                        'dislikes' => count($dislikejson),
+                        'a' => $a
         
                     ], 200);
                 }
+            } if($a == 0){
+                $like = $likeRepo->findOneBy([
+                    'comment' => $comment,
+                    'user' => $user
+                ]);
+    
+                $manager->remove($like);
+                $manager->flush();
+    
+                $likejson = $repo->findBy([
+                    'comment' => $comment,
+                    'value' => true
+                ]);
+                $dislikejson = $repo->findBy([
+                    'comment' => $comment,
+                    'value' => false
+                ]);
+    
+                return $this->json([
+                    'code' => 200,
+                    'message' => "like supprimer",
+                    'likes' => count($likejson),
+                    'dislikes' => count($dislikejson),
+
+    
+                ], 200);
             }
 
             
         }
-
 
         $like = new CommentLike();
         $like->setComment($comment)
@@ -281,7 +311,8 @@ class GamesController extends AbstractController
         return $this->json([
             'code' => 200,
             'likes' => count($likejson),
-            'dislikes' => count($dislikejson)
+            'dislikes' => count($dislikejson),
+            'a' => $a
         ], 200);
     }
 }

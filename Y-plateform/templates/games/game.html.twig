@@ -23,17 +23,17 @@
 
     {# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
     {% if like[key][0] != "0" %}
-    <i class="fas fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
+    <i class="fas fa-thumbs-up" id="{{key}}j"><span class="js-likes">{{like[key] | length}}</span></i>
     {% else %}
-    <i class="fas fa-thumbs-up"><span class="js-likes">0</span></i>
+    <i class="fas fa-thumbs-up" id="{{key}}j"><span class="js-likes">0</span></i>
     {% endif %}
 
     {% else %}
 
     {% if like[key][0] != "0" %}
-    <i class="far fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
+    <i class="far fa-thumbs-up" id="{{key}}j"><span class="js-likes">{{like[key] | length}}</span></i>
     {% else %}
-    <i class="far fa-thumbs-up"><span class="js-likes">0</span></i>
+    <i class="far fa-thumbs-up" id="{{key}}j"><span class="js-likes">0</span></i>
     {% endif %}
 
     {% endif %}
@@ -44,17 +44,17 @@
     {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
 
     {% if dislike[key][0] != "0" %}
-    <i class="fas fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+    <i class="fas fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
     {% else %}
-    <i class="fas fa-thumbs-down"><span class="js-dislikes">0</span></i>
+    <i class="fas fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">0</span></i>
     {% endif %}
 
     {% else %}
 
     {% if dislike[key][0] != "0" %}
-    <i class="far fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+    <i class="far fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
     {% else %}
-    <i class="far fa-thumbs-down"><span class="js-dislikes">0</span></i>
+    <i class="far fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">0</span></i>
     {% endif %}
 
     {% endif %}
@@ -78,17 +78,6 @@
 {% block js %}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    icone = document.querySelectorAll('i')
-    for (i = 0; i < icone.length; i++) {
-        div.classList.add("i" + i);
-    }
-
-    const iconeLike = document.querySelectorAll("i")
-    for (let i = 0; i < iconeLike.length; i += 2) {
-        if (iconeLike[i].classList.contains('far') && iconeLike[i + 1].classList.contains('far')) {
-
-        }
-    }
 
     function onClickBtnLike(event) {
         event.preventDefault() // permet de pas changer de page au click
@@ -108,12 +97,40 @@
                 countDislikes.textContent = dislikes
             }
 
+            $boolean = false
+            allIcones.forEach(element => {
+                if (icone.classList.contains('far') && element.classList.contains('fas')) {
+                    if (element.getAttribute('id') === icone.getAttribute('id')) {
+                        $boolean = true;
+                        element.classList.replace('fas', 'far')
+                        icone.classList.replace('far', 'fas')
+                        if (icone.classList.contains('fa-thumbs-down')) {
+                            icone.textContent = response.data.dislikes
+                            element.textContent = response.data.likes
+                        } else {
+                            icone.textContent = response.data.dislikes + 2
+                            element.textContent = response.data.likes - 2
+                        }
 
-            if (icone.classList.contains('fas')) { // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
-                icone.classList.replace('fas', 'far')
-            } else {
-                icone.classList.replace('far', 'fas')
+                    }
+                }
+
+            });
+            if ($boolean === false) {
+                if (icone.classList.contains('fas')) { // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
+                    icone.classList.replace('fas', 'far')
+                } else {
+                    icone.classList.replace('far', 'fas')
+                }
             }
+
+
+
+
+
+
+
+
         }).catch(function (error) { // catch si il y'a une erreur, then si tout se pass bien
             if (error.response.status === 403) {
                 window.alert("il faut être connecté pour liker")
