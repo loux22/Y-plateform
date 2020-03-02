@@ -145,7 +145,7 @@ class Comment
         return false;
     }
 
-     /**permet de savoir si un user a liké un post */
+     /**permet de savoir si un user a liké ou dislike */
      public function likeOrDislike(User $user) {
         foreach ($this->commentLikes as $like) {
             if($like->getUser() === $user){
