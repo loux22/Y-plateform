@@ -19,45 +19,45 @@
 
 
 <a href="{{ path('comment_like', {'id' : value.id})}}" class="js-like">
-{% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%}
+    {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%}
 
-{# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
-{% if like[key][0] != "0" %}
-<i class="fas fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
-{% else %}
-<i class="fas fa-thumbs-up"><span class="js-likes">0</span></i> 
-{% endif %}
+    {# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
+    {% if like[key][0] != "0" %}
+    <i class="fas fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
+    {% else %}
+    <i class="fas fa-thumbs-up"><span class="js-likes">0</span></i>
+    {% endif %}
 
-{% else %}
+    {% else %}
 
-{% if like[key][0] != "0" %}
-<i class="far fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
-{% else %}
-<i class="far fa-thumbs-up"><span class="js-likes">0</span></i>
-{% endif %}
+    {% if like[key][0] != "0" %}
+    <i class="far fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
+    {% else %}
+    <i class="far fa-thumbs-up"><span class="js-likes">0</span></i>
+    {% endif %}
 
-{% endif %}
+    {% endif %}
 </a>
 
 
 <a href="{{ path('comment_dislike', {'id' : value.id})}}" class="js-like">
-{% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
+    {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
 
-{% if dislike[key][0] != "0" %}
-<i class="fas fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
-{% else %}
-<i class="fas fa-thumbs-down"><span class="js-dislikes">0</span></i>   
-{% endif %}
+    {% if dislike[key][0] != "0" %}
+    <i class="fas fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+    {% else %}
+    <i class="fas fa-thumbs-down"><span class="js-dislikes">0</span></i>
+    {% endif %}
 
-{% else %}
+    {% else %}
 
-{% if dislike[key][0] != "0" %}
-<i class="far fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
-{% else %}
-<i class="far fa-thumbs-down"><span class="js-dislikes">0</span></i>  
-{% endif %}
+    {% if dislike[key][0] != "0" %}
+    <i class="far fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+    {% else %}
+    <i class="far fa-thumbs-down"><span class="js-dislikes">0</span></i>
+    {% endif %}
 
-{% endif %}
+    {% endif %}
 </a>
 {% endfor %}
 
@@ -69,59 +69,62 @@
 {{form_errors(commentForm)}}
 {{form_widget(commentForm)}}
 
-<button type="submit">ajouter un commentaire</button> 
+<button type="submit">ajouter un commentaire</button>
 {{form_end(commentForm)}}
 {% endif %}
 
 {% endblock %}
 
 {% block js %}
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    icone = document.querySelectorAll('i')
+    for (i = 0; i < icone.length; i++) {
+        div.classList.add("i" + i);
+    }
 
+    const iconeLike = document.querySelectorAll("i")
+    for (let i = 0; i < iconeLike.length; i += 2) {
+        if (iconeLike[i].classList.contains('far') && iconeLike[i + 1].classList.contains('far')) {
 
-        function onClickBtnLike(event){
-            event.preventDefault() // permet de pas changer de page au click
-
-            const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
-            const countLikes = this.querySelector('span.js-likes')
-            const countDislikes = this.querySelector('span.js-dislikes')
-            const icone = this.querySelector('i')
-            const allIcones = document.querySelectorAll('i')
-
-            axios.get(url).then(function(response){
-                if(countLikes != null){
-                    const likes = response.data.likes
-                    countLikes.textContent = likes
-                } else{
-                    const dislikes = response.data.dislikes
-                    countDislikes.textContent = dislikes
-                }
-               
-                
-
-                for (let i = 0; i < allIcones.length; i += 2) {
-                     if(allIcones[i] == allIcones[i + 1]){
-                         
-                     }
-                }
-
-                if(icone.classList.contains('fas')){ // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
-                    icone.classList.replace('fas', 'far')
-                } else {
-                    icone.classList.replace('far', 'fas')
-                }
-            }).catch(function(error){ // catch si il y'a une erreur, then si tout se pass bien
-                if(error.response.status === 403){
-                    window.alert("il faut être connecté pour liker")
-                }else{
-                    window.alert("une erreur s'est produite, nos equipe travail la dessus")
-                }
-            })
         }
+    }
 
-        document.querySelectorAll('a.js-like').forEach(function(link){
-            link.addEventListener('click', onClickBtnLike)
+    function onClickBtnLike(event) {
+        event.preventDefault() // permet de pas changer de page au click
+
+        const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
+        const countLikes = this.querySelector('span.js-likes')
+        const countDislikes = this.querySelector('span.js-dislikes')
+        const icone = this.querySelector('i')
+        const allIcones = document.querySelectorAll('i')
+
+        axios.get(url).then(function (response) {
+            if (countLikes != null) {
+                const likes = response.data.likes
+                countLikes.textContent = likes
+            } else {
+                const dislikes = response.data.dislikes
+                countDislikes.textContent = dislikes
+            }
+
+
+            if (icone.classList.contains('fas')) { // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
+                icone.classList.replace('fas', 'far')
+            } else {
+                icone.classList.replace('far', 'fas')
+            }
+        }).catch(function (error) { // catch si il y'a une erreur, then si tout se pass bien
+            if (error.response.status === 403) {
+                window.alert("il faut être connecté pour liker")
+            } else {
+                window.alert("une erreur s'est produite, nos equipe travail la dessus")
+            }
         })
-    </script>
+    }
+
+    document.querySelectorAll('a.js-like').forEach(function (link) {
+        link.addEventListener('click', onClickBtnLike)
+    })
+</script>
 {% endblock %}

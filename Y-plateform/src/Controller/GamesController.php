@@ -190,6 +190,31 @@ class GamesController extends AbstractController
                         ->setValue(false);
                     $manager->persist($like);
                     $manager->flush();
+
+                    $like = $likeRepo->findOneBy([
+                        'comment' => $comment,
+                        'user' => $user
+                    ]);
+        
+                    $manager->remove($like);
+                    $manager->flush();
+        
+                    $likejson = $repo->findBy([
+                        'comment' => $comment,
+                        'value' => true
+                    ]);
+                    $dislikejson = $repo->findBy([
+                        'comment' => $comment,
+                        'value' => false
+                    ]);
+        
+                    return $this->json([
+                        'code' => 200,
+                        'message' => "like supprimer",
+                        'likes' => count($likejson),
+                        'dislikes' => count($dislikejson) + 1
+        
+                    ], 200);
                 }
             } elseif ($comment->likeOrDislike($user) === false) {
                 if ($url == "comment_like") {
@@ -199,33 +224,35 @@ class GamesController extends AbstractController
                         ->setValue(true);
                     $manager->persist($like);
                     $manager->flush();
+
+                    $like = $likeRepo->findOneBy([
+                        'comment' => $comment,
+                        'user' => $user
+                    ]);
+        
+                    $manager->remove($like);
+                    $manager->flush();
+        
+                    $likejson = $repo->findBy([
+                        'comment' => $comment,
+                        'value' => true
+                    ]);
+                    $dislikejson = $repo->findBy([
+                        'comment' => $comment,
+                        'value' => false
+                    ]);
+        
+                    return $this->json([
+                        'code' => 200,
+                        'message' => "like supprimer",
+                        'likes' => count($likejson) - 1,
+                        'dislikes' => count($dislikejson)
+        
+                    ], 200);
                 }
             }
 
-            $like = $likeRepo->findOneBy([
-                'comment' => $comment,
-                'user' => $user
-            ]);
-
-            $manager->remove($like);
-            $manager->flush();
-
-            $likejson = $repo->findBy([
-                'comment' => $comment,
-                'value' => true
-            ]);
-            $dislikejson = $repo->findBy([
-                'comment' => $comment,
-                'value' => false
-            ]);
-
-            return $this->json([
-                'code' => 200,
-                'message' => "like supprimer",
-                'likes' => count($likejson),
-                'dislikes' => count($dislikejson)
-
-            ], 200);
+            
         }
 
 
