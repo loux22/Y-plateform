@@ -2,6 +2,8 @@
 {% block title %}- Home {% endblock %}
 
 {% block content %}
+{# {{dump(like)}}
+{{dump(dislike)}} #}
 
 <p>{{game.name}}</p>
 <img src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
@@ -9,16 +11,52 @@
 <p>{{note[0].note}}</p>
 <button>telecharger</button>
 
-{% for value in comments %}
+{% for key,value in comments %}
 <img src={{ asset('/avatar/')}}{{value.user.avatar }}"" alt="">
 <p>{{value.user.pseudo}}</p>
 <p>{{value.descriptionC}}</p>
 <p>{{value.dateC.date|date("F jS \\a\\t g:ia") }}</p>
+
+
 <a href="{{ path('comment_like', {'id' : value.id})}}" class="js-like">
-{% if app.user and value.isLikedByUser(app.user) %}
-<i class="fas fa-thumbs-up"><span class="js-likes">{{value.commentLikes | length}}</span></i>
+{% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%}
+
+{# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
+{% if like[key][0] != "0" %}
+<i class="fas fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
 {% else %}
-<i class="far fa-thumbs-up"><span class="js-likes">{{value.commentLikes | length}}</span></i>
+<i class="fas fa-thumbs-up"><span class="js-likes">0</span></i> 
+{% endif %}
+
+{% else %}
+
+{% if like[key][0] != "0" %}
+<i class="far fa-thumbs-up"><span class="js-likes">{{like[key] | length}}</span></i>
+{% else %}
+<i class="far fa-thumbs-up"><span class="js-likes">0</span></i>
+{% endif %}
+
+{% endif %}
+</a>
+
+
+<a href="{{ path('comment_dislike', {'id' : value.id})}}" class="js-like">
+{% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
+
+{% if dislike[key][0] != "0" %}
+<i class="fas fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+{% else %}
+<i class="fas fa-thumbs-down"><span class="js-dislikes">0</span></i>   
+{% endif %}
+
+{% else %}
+
+{% if dislike[key][0] != "0" %}
+<i class="far fa-thumbs-down"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+{% else %}
+<i class="far fa-thumbs-down"><span class="js-dislikes">0</span></i>  
+{% endif %}
+
 {% endif %}
 </a>
 {% endfor %}
@@ -41,16 +79,32 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
 
+
         function onClickBtnLike(event){
             event.preventDefault() // permet de pas changer de page au click
 
             const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
-            const spanCount = this.querySelector('span.js-likes')
+            const countLikes = this.querySelector('span.js-likes')
+            const countDislikes = this.querySelector('span.js-dislikes')
             const icone = this.querySelector('i')
+            const allIcones = document.querySelectorAll('i')
 
             axios.get(url).then(function(response){
-                const likes = response.data.likes
-                spanCount.textContent = likes
+                if(countLikes != null){
+                    const likes = response.data.likes
+                    countLikes.textContent = likes
+                } else{
+                    const dislikes = response.data.dislikes
+                    countDislikes.textContent = dislikes
+                }
+               
+                
+
+                for (let i = 0; i < allIcones.length; i += 2) {
+                     if(allIcones[i] == allIcones[i + 1]){
+                         
+                     }
+                }
 
                 if(icone.classList.contains('fas')){ // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
                     icone.classList.replace('fas', 'far')

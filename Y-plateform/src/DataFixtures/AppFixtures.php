@@ -72,6 +72,7 @@ class AppFixtures extends Fixture
                     $like = new CommentLike;
                     $like->setUser($user);
                     $like->setComment($comment);
+                    $like->setValue(true);
                     $manager->persist($like);
                 }
             }

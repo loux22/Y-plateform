@@ -26,6 +26,11 @@ class CommentLike
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $value;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class CommentLike
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getValue(): ?bool
+    {
+        return $this->value;
+    }
+
+    public function setValue(bool $value): self
+    {
+        $this->value = $value;
 
         return $this;
     }

@@ -144,4 +144,17 @@ class Comment
         }
         return false;
     }
+
+     /**permet de savoir si un user a liké un post */
+     public function likeOrDislike(User $user) {
+        foreach ($this->commentLikes as $like) {
+            if($like->getUser() === $user){
+                if($like -> getValue() === true){
+                    return true;
+                } else{
+                    return false;
+                }
+            } 
+        }
+    }
 }

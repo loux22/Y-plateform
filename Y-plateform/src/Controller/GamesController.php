@@ -114,6 +114,25 @@ class GamesController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $repo->FindCommentGame($id);
 
+        $like = [];
+        $dislike = [];
+        foreach ($comments as $key => $com) {
+            foreach ($com->getCommentLikes() as $keys => $value) {
+                if ($value->getValue() == true) {
+                    $like[$key][] = $value;
+                } else {
+                    $dislike[$key][] = $value;
+                }
+            }
+            if (empty($like[$key])) {
+                $like[$key][] = 0;
+            }
+            if (empty($dislike[$key])) {
+                $dislike[$key][] = 0;
+            }
+        }
+
+
         $comment = new Comment;
         $form = $this->createForm(CommentType::class, $comment);
 
@@ -129,21 +148,28 @@ class GamesController extends AbstractController
             return $this->redirectToRoute('game', ['id' => $game->getId()]);
         }
 
+
         return $this->render('games/game.html.twig', [
             'game' => $game,
             'note' => $note,
             'comments' => $comments,
-            'commentForm' => $form->createView()
+            'commentForm' => $form->createView(),
+            'like' => $like,
+            'dislike' => $dislike,
         ]);
     }
 
 
     /**
      * @Route("/comment/{id}/like", name="comment_like")
+     * @Route("/comment/{id}/dislike", name="comment_dislike")
      * permet de liker ou unliker un article
      */
-    public function like(Comment $comment, CommentLikeRepository $likeRepo): Response
+    public function like(Comment $comment, CommentLikeRepository $likeRepo, Request $request): Response
     {
+        $repo = $this->getDoctrine()->getRepository(CommentLike::class);
+
+        $url = $request->attributes->get('_route');
         $user = $this->getUser();
         $manager = $this->getDoctrine()->getManager();
 
@@ -153,7 +179,29 @@ class GamesController extends AbstractController
                 'message' => "pas autoriser",
             ], 403);
         }
+
         if ($comment->isLikedByUser($user)) {
+
+            if ($comment->likeOrDislike($user) === true) {
+                if ($url == "comment_dislike") {
+                    $like = new CommentLike();
+                    $like->setComment($comment)
+                        ->setUser($user)
+                        ->setValue(false);
+                    $manager->persist($like);
+                    $manager->flush();
+                }
+            } elseif ($comment->likeOrDislike($user) === false) {
+                if ($url == "comment_like") {
+                    $like = new CommentLike();
+                    $like->setComment($comment)
+                        ->setUser($user)
+                        ->setValue(true);
+                    $manager->persist($like);
+                    $manager->flush();
+                }
+            }
+
             $like = $likeRepo->findOneBy([
                 'comment' => $comment,
                 'user' => $user
@@ -162,10 +210,20 @@ class GamesController extends AbstractController
             $manager->remove($like);
             $manager->flush();
 
+            $likejson = $repo->findBy([
+                'comment' => $comment,
+                'value' => true
+            ]);
+            $dislikejson = $repo->findBy([
+                'comment' => $comment,
+                'value' => false
+            ]);
+
             return $this->json([
                 'code' => 200,
                 'message' => "like supprimer",
-                'likes' => $likeRepo->count(['comment' => $comment])
+                'likes' => count($likejson),
+                'dislikes' => count($dislikejson)
 
             ], 200);
         }
@@ -174,14 +232,29 @@ class GamesController extends AbstractController
         $like = new CommentLike();
         $like->setComment($comment)
             ->setUser($user);
+        if ($url == "comment_like") {
+            $like->setValue(true);
+        } else {
+            $like->setValue(false);
+        }
+
 
         $manager->persist($like);
         $manager->flush();
 
+        $likejson = $repo->findBy([
+            'comment' => $comment,
+            'value' => true
+        ]);
+        $dislikejson = $repo->findBy([
+            'comment' => $comment,
+            'value' => false
+        ]);
+
         return $this->json([
             'code' => 200,
-            'message' => 'like ajouter',
-            'likes' => $likeRepo->count(['comment' => $comment])
+            'likes' => count($likejson),
+            'dislikes' => count($dislikejson)
         ], 200);
     }
 }
