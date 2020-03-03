@@ -1,2 +1,7 @@
 # Y-plateform
-Faire un composer install apres avoir clone
+
+## How to use ?
+
+### Step 1: Run Composer
+
+Run: ` composer install` in your project's folder
