@@ -40,10 +40,10 @@ h1 {
     box-sizing: border-box;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
     border-radius: 6px;
-    text-indent: 25px;
+    text-align: center;
 }
 
-.inf {
+.idt {
     padding-bottom: 30px;
 }
 
