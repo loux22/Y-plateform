@@ -9,9 +9,12 @@ nav{
 
 footer{
     background-color: #4b4b4b;
-    position: fixed;
-    bottom: 0;
+    position: absolute;
+    /* bottom: 0; */
     width: 100%;
+}
+.list__footer{
+    color: whitesmoke;
 }
 /* 
 .conf{

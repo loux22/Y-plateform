@@ -1,22 +1,30 @@
+body{
+    background-color: #3D3D3D;
+    }
 
 .hero__home {
-	background-image: url(../img/loup_de_wallstreet.jpg);
+    background-image: url(../img/Assassins-Creed-Ragnarok-890x456.jpg);
 	background-position: top;
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
-	height: calc(100vh - 60px);
+    height: calc(100vh - 60px);
+    padding-bottom: 120px;
 }
 .hero__content p {
-	color: violet;
+    color: black;
+    font-size: 2.75em;
+    font-weight: bold;
 }
 .hero__content H1 {
-	color: rgb(61, 240, 156);
+    color: whitesmoke;
+    font-size: 4em;
+    font-weight: bold;
 }
 
 .hero__home .hero__content {
 	position: absolute;
-	top: 50%;
+	top: -10%;
 	left: 50%;
 	transform: translate(-50%, 50%);
 	text-align: center;
@@ -34,19 +42,60 @@
 
 .about__home {
 	display: flex;
-	align-items: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 0;
 }
 
-.left-part {
-	color: tomato;
+.about__bottom h3{
+    font-size: 2.5em;
+    color: whitesmoke;
+    font-weight: bold;
+    padding: 40px 0;
+}
+
+.left-part li{
+    font-size: 1.3em;
+    color: whitesmoke;
+    margin: 4px;
+}
+.left-part h3{
+    color: red;
+    padding-bottom: 15px;
 }
 .right-part {
 	width: 50%;
-	padding: 30px;
+    /* padding: 20px; */
+    /* padding-left: 110px; */
 }
 
 .right-part img {
-	max-width: 100%;
+    max-width: 100%;
+}
+
+.button-left-part button{
+    text-decoration:none;
+    box-shadow:inset 0px 39px 0px -24px #FF3838;
+	background-color:#FF3838;
+	border-radius:4px;
+    /* border:1px solid #ffffff; */
+    border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	/* font-family:Arial; */
+	font-size:20px;
+	padding:10px 20px;
+	text-shadow:0px 1px 0px #FF3838;
+}
+
+.button-left-part button:active {
+	position:relative;
+	top:3px;
+}
+
+.button-left-part{
+    padding: 20px 170px;
 }
 
 
