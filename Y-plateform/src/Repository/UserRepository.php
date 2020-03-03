@@ -19,7 +19,14 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    
+    public function allNbUsers()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> select("count(g.id) as nbUsers")
+            -> getQuery()
+            -> getResult();
+    }
 
 
     // /**

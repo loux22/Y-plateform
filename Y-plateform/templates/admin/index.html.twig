@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}- dashboard Admin {% endblock %}
+
+{% block content %} 
+
+<h4>Panel Admin</h4>
+<a href="">Dashboard</a>
+<a href="">Utilisateurs</a>
+<a href="">Membres</a>
+<a href="">Ajout de jeu</a><br>
+
+<input type="search" name="" id="" placeholder="Recherche">
+
+<h1>Dashboard</h1>
+
+
+
+<h4>Téléchargements</h4>
+
+{{ dump(nbDownload) }}
+
+<h4>Jeux</h4>
+
+{{ dump(nbGames) }}
+
+<h4>Membres</h4>
+
+{{ dump(nbMembers) }}
+
+<h4>Utilisateurs</h4>
+
+{{ dump(nbUsers) }}
+
+<h4>Jeux le plus téléchargé</h4>
+
+
+{% endblock %} 

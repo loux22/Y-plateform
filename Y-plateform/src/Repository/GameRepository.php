@@ -59,6 +59,7 @@ class GameRepository extends ServiceEntityRepository
         
     }
 
+
     public function findNbGame($member)
     {
         return $this->createQueryBuilder('g')
@@ -68,6 +69,26 @@ class GameRepository extends ServiceEntityRepository
         -> getQuery()
         -> getResult();
         
+    }
+
+
+    public function allNbDownload()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> select("sum(g.nbDownload) as nbDownload")
+            -> getQuery()
+            -> getResult();
+    }
+
+
+    public function allNbGames()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> select("count(g.id) as nbGames")
+            -> getQuery()
+            -> getResult();
     }
 
     // /**
