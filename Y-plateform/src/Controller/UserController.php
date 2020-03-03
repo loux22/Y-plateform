@@ -25,7 +25,7 @@ class UserController extends AbstractController
     {
         $user = new User;
         $member = new Member;
-        // redirige si connecter
+        // redirige si connecté
         $userLog = $this->getUser();
         if($userLog != null){
             return $this->redirectToRoute('profil');
@@ -51,8 +51,8 @@ class UserController extends AbstractController
             $manager -> persist($member); //commit(git)
             $manager -> flush(); // push(git)
 
-            $this -> addFlash('success','Vous étes inscris');
-            return $this->redirectToRoute('registerUser');
+            $this -> addFlash('success','Vous êtes inscris');
+            return $this->redirectToRoute('login');
         }
         return $this->render('user/registerUser.html.twig', ['UserForm' => $form -> createView()]);
     } 
@@ -81,9 +81,9 @@ class UserController extends AbstractController
      */
     public function profil(Request $request)
     {
-        // affichage des donnes du user connecter
+        // affichage des donnes du user connecté
 
-        // redirige si pas connecter 
+        // redirige si pas connecté
         $user = $this->getUser();
         if($user === null){
             return $this->redirectToRoute('login');
@@ -93,7 +93,7 @@ class UserController extends AbstractController
         $datetime1 = new \DateTime(); // date actuelle
         $datetime2 = new \DateTime($stringValue);
         $age = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
-        // recuperer dernier avatar de l'user conneter, a deplacer dans modifier
+        // recuperer dernier avatar de l'user connecté, a deplacer dans modifier
         $lastAvatar = $user -> getAvatar();
         ////////////////////////////////////////
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -216,8 +216,6 @@ class UserController extends AbstractController
     {
         
     }
-
-
 
 
 }
