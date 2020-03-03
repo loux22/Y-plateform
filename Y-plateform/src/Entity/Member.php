@@ -64,10 +64,16 @@ class Member
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentLike", mappedBy="member")
+     */
+    private $commentLikes;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->commentLikes = new ArrayCollection();
     }
 
     
