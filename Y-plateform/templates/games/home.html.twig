@@ -1,18 +1,74 @@
 {% extends 'base.html.twig' %}
 {% block title %}- Home {% endblock %}
-
-
+{% block link %}
+<link rel="stylesheet" href="{{ asset('css/home.css')}}">
+{% endblock %}   
 {% block content %}
 
 <div class="body">
-    <h1>Les dernières nouveautés</h1>
-    {{ dump(games) }}
-    {% for g in games %}
-    <a href="{{path('game',{'id':g.id})}}"><div>
-        <img style="max-height: 200px; min-width: 100%" src="{{ asset('/gameImg/') }}{{ g.img }}" alt="">
-    </div></a>
-   {% endfor %} 
+<main>
 
+    <section class="hero__home">
+        <div class="hero__content">
+            <h1>Ynov Y-plateform Application</h1>
+            <p>Tous les jeux PC sont là !!!</p>
+        </div>
+    </section>
+
+    <div class="container">
+    <section class="about__home">
+        <div class="left-part">
+            <h3>Les Téléchargements Sur Votre Campus</h3>
+            <ul>
+                <li>Sécurité garantie</li>
+                <li>Téléchargement rapide</li>
+                <li>Le tout gratuit</li>
+            </ul>
+            <div class="button-left-part">
+                <button type="submit">Crée un compte</button>
+            </div>
+        </div>
+        <div class="right-part">
+            <img src="{{ asset('img/test-call-of-duty-modern-warfare.jpg')}}" alt="">
+        </div>
+    </section>
+    </div>
+    
+
+    <div class="container">
+        <div class="about__bottom">
+        <h3>Les Dernières Nouveautés</h3>
+    <section class="grid grid__moovies">
+        <div class="moovie__item">
+            <img src="{{ asset('img/test-call-of-duty-modern-warfare.jpg')}}" alt="">
+        </div>
+        <div class="moovie__item">
+            <img src="{{ asset('img/test-call-of-duty-modern-warfare.jpg')}}" alt="">
+        </div>
+        <div class="moovie__item">
+            <img src="{{ asset('img/test-call-of-duty-modern-warfare.jpg')}}" alt="">
+        </div>
+        <div class="moovie__item">
+            <img src="{{ asset('img/test-call-of-duty-modern-warfare.jpg')}}" alt="">
+        </div>
+    </section>
+    </div>
+    </div>
+
+    
+    {# <section>
+        <h1>Les dernières nouveautés</h1>
+        {{ dump(games) }}
+        {% for g in games %}
+            <a href="{{path('game',{'id':g.id})}}">
+            <div>
+            <img style="max-height: 200px; min-width: 100%" src="{{ asset('/gameImg/') }}{{ g.img }}" alt="">
+            </a>
+            </div>
+        {% endfor %} 
+    </section> #}
+
+</main>
 </div>
 {% endblock %}
 
