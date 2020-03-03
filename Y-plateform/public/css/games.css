@@ -177,3 +177,19 @@ a:link {
 .col-4 img {
   width: 80%;
 }
+
+div1 {
+
+  background-color: #FF3838;
+  color: #ffffff;
+  border-radius: 10px 0 0 10px;
+  
+}
+
+div2 {
+
+  background-color: #FF3838;
+  color: #ffffff;
+  border-radius: 0 10px 10px 0;
+  
+}
