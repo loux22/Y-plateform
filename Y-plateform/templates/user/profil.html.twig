@@ -2,15 +2,9 @@
 {% block title %}- login {% endblock %}
 
 {% block content %} 
+
 <img style="width:20%" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
 
-{{form_start(form)}}
-
-{{form_widget(form)}}
-
-<button type="submit"> Modifier </button>
-
-{{form_end(form)}}
 
 <h5>Pseudo : {{ member[0].user.pseudo}}</h5>
 <h5>Nom : {{ member[0].user.lastname}}</h5>
@@ -18,34 +12,98 @@
 <h5>{{ age }} ans</h5>
 
 {% if member[0].level == true %}
-<h5>level : User </h5>
+    <h5>level : User </h5>
 {% else %}
-<h5>level : Member </h5>
+    <h5>level : Member </h5>
 {% endif %}
+
+<button>Modifier le mot de passe</button>
+<a href="#form"><button onclick="displayHidden()">Modifier le profil</button></a>
 
 {% if member[0].level == true %}
-<h1>Mes Jeux</h1>
-{% for g in game %}
-    <h5>{{ g.name }}</h5>
-    <img style="width:20%;" src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
-    <h5>{{ g.nbDownload }}</h5>
-    <h5>{{ note[0].note }}</h5>
-{% endfor %}
+    <h1>Mes Jeux</h1>
+    {% for g in game %}
+        <h5>{{ g.name }}</h5>
+        <img style="width:20%;" src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
+        <h5>{{ g.nbDownload }}</h5>
+        <h5>{{ note[0].note }}</h5>
+    {% endfor %}
 {% endif %}
 
-<h1>Informations</h1>
+<div id="display">
 
-<h5>Date de naissance: {{ user.dateU.date|date("m/d/Y") }}</h5>
-<h5>Adresse mail : {{ user.mail}}</h5>
-<h5>Téléphone : {{ member[0].phone}} </h5>
+    <h1>Informations</h1>
+
+    <h5>Date de naissance: {{ user.age.date|date("m/d/Y") }}</h5>
+    <h5>Adresse mail : {{ user.mail}}</h5>
+    <h5>Téléphone : {{ member[0].phone}} </h5>
+
+    <br><br>
+    <h1>Localisation</h1>
+    <h5>Adresse : {{member[0].address }}</h5>
+    <h5>Ville : {{member[0].city }} </h5>
+    <h5>Code postal : {{member[0].postal }}</h5>
+
+
+</div>
 
 <br><br>
-<h1>Localisation</h1>
-<h5>Adresse : {{member[0].address }}</h5>
-<h5>Ville : {{member[0].city }} </h5>
-<h5>Code postal : {{member[0].postal }}</h5>
+
+<div id="form">
+    <h1>Informations</h1><br>
+
+    {{form_start(form)}}
+
+    {{form_widget(form)}}
+
+    <button type="submit">Modifier</button>
+
+    {{form_end(form)}}
 
 
+    <h1>Localisation</h1>
 
-<br><br><br><br><br><br>
+
+    {{form_start(formM)}}
+
+    {{form_widget(formM)}}
+
+    <button type="submit">Modifier</button>
+   
+    {{form_end(formM)}}
+
+
+</div>
+
+<br><br><br><br><br><br><br><br>
+
+<style>
+
+    #display {
+        display: block;
+    }
+
+    #form {
+        display: none;
+    }
+
+</style>
+
+<script>
+
+    function displayHidden() {
+        var x = document.getElementById("display");
+        var y = document.getElementById("form");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+            y.style.display = "block";
+        } else {
+            x.style.display = "block";
+            y.style.display = "none";
+        }
+    }
+
+
+</script>
+
 {% endblock %}

@@ -8,6 +8,7 @@ use App\Entity\Game;
 use App\Entity\Note;
 use App\Form\UserType;
 use App\Form\UserModifyType;
+use App\Form\MemberModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,7 +73,7 @@ class UserController extends AbstractController
      */
     public function logout()
     {
-        
+
     }
 
     /**
@@ -106,9 +107,14 @@ class UserController extends AbstractController
         $repository = $this-> getDoctrine() -> getRepository(Note::class);
         $note = $repository -> noteJ($user);
 
-        // ajouter/modifier un avatar 
+        // modifier le profil
         $form = $this -> createForm(UserModifyType::class, $user);
         $form -> handleRequest($request);
+
+        $memberForm = $member[0];
+
+        $formM = $this -> createForm(MemberModifyType::class, $memberForm);
+        $formM -> handleRequest($request);
         
 
         if($form -> isSubmitted() && $form -> isValid()){
@@ -132,6 +138,7 @@ class UserController extends AbstractController
 
         return $this->render('user/profil.html.twig', [
             'form' => $form -> createView(),
+            'formM' => $formM -> createView(),
             'user' => $user,
             'member' => $member,
             'age' => $age,
