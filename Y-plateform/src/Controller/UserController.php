@@ -79,7 +79,7 @@ class UserController extends AbstractController
     /**
      * @Route("/profil", name="profil")
      */
-    public function profil(Request $request)
+    public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // affichage des donnes du user connecté
 
@@ -117,6 +117,8 @@ class UserController extends AbstractController
         $formM = $this -> createForm(MemberModifyType::class, $memberForm);
         $formM -> handleRequest($request);
         
+        $userNewPassword = $request->request->all();
+
 
         if($form -> isSubmitted() && $form -> isValid()){
             if($user -> getAvatar()){
@@ -133,9 +135,6 @@ class UserController extends AbstractController
                 $user -> setAvatar($avatarUser);
             }
             
-            
-           
-
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
@@ -150,10 +149,50 @@ class UserController extends AbstractController
             
         }
 
+        //Changer mot de passe
+        $userNewPassword = $request->request->all();
+        $actuelPassword = $user->getPassword();
+        if($userNewPassword){
+            $userLastPassword = $userNewPassword['lastPassword'];
+            $NewPassword = $userNewPassword['newPassword'];
+            $userRptNewPassword = $userNewPassword['repeatNewPassword'];
+            if (password_verify($userLastPassword, $actuelPassword)) {
+                    if($NewPassword == $userRptNewPassword) {
+
+                        if(strlen($NewPassword) >= 8) {
+                            $newUser = new User; 
+                            $password = $passwordEncoder->encodePassword($newUser, $NewPassword);
+                            $user -> setPassword($password);
+                            $manager = $this-> getDoctrine() -> getManager();
+                            $manager -> persist($user); //commit(git)
+                            $manager -> flush(); // push(git)
+                            $this -> addFlash('success','Le mot de passe a été modifié !');
+                        }else {
+                            $this -> addFlash('errors','Le mot de passe doit faire minimum 8 caractères');
+                        }
+                        
+
+        
+                    } else {
+                        $this -> addFlash('errors','Les deux mots de passe ne sont pas identiques');
+                    }
+
+
+            } else {
+                $this -> addFlash('errors','Le mot de passse ne corresponds pas a celui actuel');
+            }
+            
+        }
+        
+
+
+        
+
         return $this->render('user/profil.html.twig', [
             'form' => $form -> createView(),
             'formM' => $formM -> createView(),
             'user' => $user,
+            'actuelPassword' => $actuelPassword,
             'member' => $member,
             'age' => $age,
             'game' => $game,
@@ -161,13 +200,6 @@ class UserController extends AbstractController
             ]);
     }
 
-    /**
-     * @Route("/profil/edit/{id}", name="editProfil")
-     */
-    public function editProfil($id)
-    {
-        
-    }
 
     /**
      * @Route("/profil/{id}", name="profil_user")
