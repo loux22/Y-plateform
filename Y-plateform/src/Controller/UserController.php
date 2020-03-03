@@ -155,6 +155,10 @@ class UserController extends AbstractController
 
         $repo = $this -> getDoctrine() -> getRepository(User::class);
         $user = $repo -> find($id);
+        
+        if($user == null) {
+            return $this->redirectToRoute('profil');
+        }
 
         $u = $user->getAge();
         $stringValue = $u->format('Y-m-d H:i:s');
@@ -170,6 +174,8 @@ class UserController extends AbstractController
 
         $repository = $this-> getDoctrine() -> getRepository(Note::class);
         $note = $repository -> noteJ($id);
+
+        
 
         return $this->render('user/profil_user.html.twig', [
             'user' => $user,
