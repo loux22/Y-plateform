@@ -13,26 +13,40 @@
 <input type="search" name="" id="" placeholder="Recherche">
 
 <h1>Dashboard</h1>
-
+<br><br>
 
 
 <h4>Téléchargements</h4>
 
-{{ dump(nbDownload) }}
+{% for nbD in nbDownload %}
+    <h3>{{ nbD.nbDownload }}</h3>
+{% endfor %} 
 
+<br>
 <h4>Jeux</h4>
 
-{{ dump(nbGames) }}
 
+{% for nbG in nbGames %}
+    <h3>{{ nbG.nbGames }}</h3>
+{% endfor %} 
+
+<br>
 <h4>Membres</h4>
 
-{{ dump(nbMembers) }}
+{% for nbM in nbMembers %}
+    <h3>{{ nbM.nbMembers }}</h3>
+{% endfor %} 
 
+<br>
 <h4>Utilisateurs</h4>
 
-{{ dump(nbUsers) }}
+{% for nbU in nbUsers %}
+    <h3>{{ nbU.nbUsers }}</h3>
+{% endfor %} 
 
+<br><br>
 <h4>Jeux le plus téléchargé</h4>
+<p>(Diagrammes</p>
 
 
 {% endblock %} 
