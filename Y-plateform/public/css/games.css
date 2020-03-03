@@ -1,6 +1,9 @@
+body{
+  background-color: #4b4b4b;
 
+}
 
-ul {
+.nav2 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -9,11 +12,11 @@ ul {
     border-radius: 5px;
   }
   
-  li {
+  .nav2 li {
     float: left;
   }
   
-  li a {
+  .nav2 li a {
     display: block;
     color: white;
     text-align: center;
@@ -132,3 +135,61 @@ background-color: #D63031;
     from {opacity: .4}
     to {opacity: 1}
   }
+
+  
+.carousel-inner {
+  height: 400px;
+}
+
+
+.carousel-indicators {
+  top: 100%;
+
+}
+
+.breadcrumb {
+  background: #3d3d3d;
+ 
+  
+}
+
+h4{
+  color: #ffff;
+}
+
+.list-group-item {
+
+  background-color: #FF3838;
+  color: #4b4b4b;
+  text-align: center;
+}
+.list-group li1{
+
+  background-color: #D63031;
+  color: #ffff;
+
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.col-4 img {
+  width: 80%;
+}
+
+div1 {
+
+  background-color: #FF3838;
+  color: #ffffff;
+  border-radius: 10px 0 0 10px;
+  
+}
+
+div2 {
+
+  background-color: #FF3838;
+  color: #ffffff;
+  border-radius: 0 10px 10px 0;
+  
+}
