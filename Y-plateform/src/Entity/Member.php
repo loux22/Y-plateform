@@ -22,20 +22,20 @@ class Member
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      * @Error\Length(min=10, max=10, minMessage="le numero de telephone '{{ value }}' n'est pas valide",
-     * maxMessage="le numero de telephone '{{ value }}' n'est pas valide"
+     * maxMessage="le numero de telephone '{{ value }}' n'est pas valide")
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Error\Length(min=8, max=50, minMessage="ton adresse '{{ value }}' est trop courte", 
+     * @Error\Length(min=8, max=50, minMessage="ton adresse {{ value }} est trop courte", 
      * maxMessage="Ton adresse '{{ value }}' est trop longue")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
-     * @Error\Length(min=5, max=5, minMessage="ton code postal '{{ value }}' n'est pas valide", 
+     * @Error\Length(min=5, max=5, minMessage="ton code postal {{ value }} n'est pas valide", 
      * maxMessage="Ton code postal '{{ value }}' n'est pas valide")
      */
     private $postal;

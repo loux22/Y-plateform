@@ -85,6 +85,7 @@ class UserController extends AbstractController
 
         // redirige si pas connecté
         $user = $this->getUser();
+        $avatarUser = $user -> getAvatar();
         if($user === null){
             return $this->redirectToRoute('login');
         }
@@ -118,22 +119,35 @@ class UserController extends AbstractController
         
 
         if($form -> isSubmitted() && $form -> isValid()){
-
-            if($user -> getAvatar() -> getClientOriginalName() != '0.png'){
-                $user -> removeFile();
-                unlink($this->getParameter('upload_avatar') . $lastAvatar);
+            if($user -> getAvatar()){
+                if($user -> getAvatar() -> getClientOriginalName() != '0.png'){
+                    $user -> removeFile();
+                    unlink($this->getParameter('upload_avatar') . $lastAvatar);
+                }
+                
+                $file = $user->getAvatar();
+                $filename = 'fichier_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_avatar'), $filename);
+                $user-> setAvatar($filename);
+            }else{
+                $user -> setAvatar($avatarUser);
             }
             
-            $file = $user->getAvatar();
-            $filename = 'fichier_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('upload_avatar'), $filename);
-            $user-> setAvatar($filename);
+            
            
 
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
             $this -> addFlash('success','modification');
+        }
+
+        if($formM -> isSubmitted() && $formM -> isValid()){
+            $manager = $this-> getDoctrine() -> getManager();
+            $manager -> persist($memberForm); //commit(git)
+            $manager -> flush(); // push(git)
+            $this -> addFlash('success','modification');
+            
         }
 
         return $this->render('user/profil.html.twig', [

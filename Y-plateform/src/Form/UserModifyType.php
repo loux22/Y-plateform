@@ -20,7 +20,8 @@ class UserModifyType extends AbstractType
         $builder
 
             ->add('avatar', FileType::class, [
-                'data_class' => null
+                'data_class' => null,
+                'required' => false
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom :',

@@ -51,12 +51,12 @@
 
 <div id="form">
     <h1>Informations</h1><br>
-
+    
     {{form_start(form)}}
 
     {{form_widget(form)}}
 
-    <button type="submit">Modifier</button>
+    <button type="submit">Confirmer</button>
 
     {{form_end(form)}}
 
@@ -68,14 +68,14 @@
 
     {{form_widget(formM)}}
 
-    <button type="submit">Modifier</button>
+    <button type="submit">Confirmer</button>
    
     {{form_end(formM)}}
 
 
 </div>
 
-<br><br><br><br><br><br><br><br>
+<br>
 
 <style>
 
@@ -90,10 +90,16 @@
 </style>
 
 <script>
+    var x = document.getElementById("display");
+    var y = document.getElementById("form");
+
+    var li = document.querySelectorAll("li");
+    if(li.length == 5){
+        x.style.display = "none";
+            y.style.display = "block";
+    }
 
     function displayHidden() {
-        var x = document.getElementById("display");
-        var y = document.getElementById("form");
         if (x.style.display === "block") {
             x.style.display = "none";
             y.style.display = "block";
@@ -102,6 +108,9 @@
             y.style.display = "none";
         }
     }
+
+
+
 
 
 </script>
