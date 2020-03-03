@@ -17,8 +17,8 @@
     <h5>level : Member </h5>
 {% endif %}
 
-<button>Modifier le mot de passe</button>
-<a href="#form"><button onclick="displayHidden()">Modifier le profil</button></a>
+<a href="#password"><button onclick="displayPassword()">Modifier le mot de passe</button></a>
+<a href="#form"><button onclick="displayForm()">Modifier le profil</button></a>
 
 {% if member[0].level == true %}
     <h1>Mes Jeux</h1>
@@ -75,6 +75,19 @@
 
 </div>
 
+<div id="password">
+    <h1>Modification</h1>
+    <form action="" method="post">
+        <input type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
+        <input type="password" placeholder="Nouveau mot de passe" name="newPassword"><br>
+        <input type="password" placeholder="Confirmation" name="repeatNewPassword"><br>
+
+        <button type="submit">Confirmer</button>
+
+    </form>
+
+</div>
+
 <br>
 
 <style>
@@ -83,15 +96,19 @@
         display: block;
     }
 
-    #form {
+    #form, #password {
         display: none;
     }
+
+
+
 
 </style>
 
 <script>
     var x = document.getElementById("display");
     var y = document.getElementById("form");
+    var z = document.getElementById("password");
 
     var li = document.querySelectorAll("li");
     if(li.length >= 6){
@@ -99,7 +116,7 @@
             y.style.display = "block";
     }
 
-    function displayHidden() {
+    function displayForm() {
         if (x.style.display === "block") {
             x.style.display = "none";
             y.style.display = "block";
@@ -109,7 +126,15 @@
         }
     }
 
-
+    function displayPassword() {
+        if (x.style.display === "block") {
+            x.style.display = "none";
+            z.style.display = "block";
+        } else {
+            x.style.display = "block";
+            z.style.display = "none";
+        }
+    }
 
 
 

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Member tout les leux {% endblock %}
+
+
+{% block content %}
+{% for value in games %}
+<a href="{{ path('memberDashboardGame', {'id': value.id}) }}">
+    <h1>{{value.name}}</h1>
+    <img src="{{ asset('/gameImg/')}}{{value.img }}" alt="">
+</a>
+{% endfor %}
+
+{% endblock %}
