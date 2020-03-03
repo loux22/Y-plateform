@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Member{% endblock %}
+
+{% block content %}
+<h1>Téléchargements : {{NbDowloadGame[0].nbDownload}}</h1>
+<h1>Jeux : {{nbGame[0].nbGame}}</h1>
+<h1>Commentaires : {{nbComments}}</h1>
+{% endblock %}

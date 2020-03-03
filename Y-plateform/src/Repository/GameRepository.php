@@ -39,14 +39,36 @@ class GameRepository extends ServiceEntityRepository
     }
 
 
-    public function getGameList($id_member) {
+    public function getGameList($member) {
         $builder = $this -> createQueryBuilder('m');
         return $builder 
             -> where('m.Member = :Member')
-            -> setParameter('Member', $id_member)
+            -> setParameter('Member', $member)
             -> getQuery()
             -> getResult();
     } 
+
+    public function findNbDownload($member)
+    {
+        return $this->createQueryBuilder('g')
+        -> select("sum(g.nbDownload) as nbDownload")
+        -> where('g.Member = :member')
+        -> setParameter('member', $member)
+        -> getQuery()
+        -> getResult();
+        
+    }
+
+    public function findNbGame($member)
+    {
+        return $this->createQueryBuilder('g')
+        -> select("count(g.id) as nbGame")
+        -> where('g.Member = :member')
+        -> setParameter('member', $member)
+        -> getQuery()
+        -> getResult();
+        
+    }
 
     // /**
     //  * @return Game[] Returns an array of Game objects
