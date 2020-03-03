@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}- Home {% endblock %}
-
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{ asset('css/home.css')}}">
 {% block content %}
 
 <div class="body">
@@ -13,6 +13,44 @@
     </div></a>
    {% endfor %} 
 
+<main>
+
+    <section class="hero__home">
+        <div class="hero__content">
+            <h1>Lorem ipsum dolor sit amet consectetur</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis sequi autem officiis placeat
+                explicabo magni, ipsam asperiores enim consectetur obcaecati corporis incidunt eligendi. Sint quia
+                qui temporibus enim accusantium et?</p>
+        </div>
+    </section>
+
+    <section class="grid grid__moovies">
+        <div class="moovie__item">
+            <img src="/img/Wallpeper_king_lion.jpg" alt="">
+        </div>
+        <div class="moovie__item">
+            <img src="/img/Wallpeper_king_lion.jpg" alt="">
+        </div>
+        <div class="moovie__item">
+            <img src="/img/Wallpeper_king_lion.jpg" alt="">
+        </div>
+        <div class="moovie__item">
+            <img src="/img/Wallpeper_king_lion.jpg" alt="">
+        </div>
+
+    </section>
+
+    <section class="about__home">
+        <div class="left-part">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum vero laudantium nobis voluptatibus,
+            </p>
+        </div>
+        <div class="right-part">
+            <img src="/img/om.jpg" alt="">
+        </div>
+    </section>
+
+</main>
 </div>
 {% endblock %}
 

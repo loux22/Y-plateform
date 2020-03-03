@@ -1,0 +1,126 @@
+
+.hero__home {
+	background-image: url(../img/loup_de_wallstreet.jpg);
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	height: calc(100vh - 60px);
+}
+.hero__content p {
+	color: violet;
+}
+.hero__content H1 {
+	color: rgb(61, 240, 156);
+}
+
+.hero__home .hero__content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, 50%);
+	text-align: center;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	column-gap: 30px;
+}
+
+.moovie__item img {
+	max-width: 100%;
+}
+
+.about__home {
+	display: flex;
+	align-items: center;
+}
+
+.left-part {
+	color: tomato;
+}
+.right-part {
+	width: 50%;
+	padding: 30px;
+}
+
+.right-part img {
+	max-width: 100%;
+}
+
+
+/* RESPONSIVE */
+
+/* 1200px -> large screen desktop */
+/* 992px -> small screen desktop */
+/* 768px -> tablette + smartphone paysage */
+/* 576px -> smartphone */
+/* 320px -> small smartphone */
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 1080px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+	.header__main {
+		display: block;
+	}
+	.header__logo {
+		text-align: center;
+	}
+	.header__nav .nav__list {
+		display: flex;
+		list-style: none;
+		justify-content: center;
+		padding: 0;
+	}
+	.right-part img {
+		width: 100%;
+		padding: 0;
+	}
+	.hero__home .hero__content {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, 50%);
+		text-align: center;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		column-gap: 30px;
+	}
+}
+
+@media (max-width: 576px) {
+	.hero__home .hero__content {
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		transform: translate(-50%, 50%);
+		text-align: center;
+	}
+	.about__home {
+		flex-direction: column-reverse;
+	}
+	.left-part,
+	.right-part {
+		width: 100%;
+	}
+}
+
+@media (max-width: 320px) {
+	.hero__home .hero__content {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		transform: translate(-50%, 50%);
+		text-align: center;
+	}
+}
