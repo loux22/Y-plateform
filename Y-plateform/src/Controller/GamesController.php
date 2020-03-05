@@ -93,9 +93,9 @@ class GamesController extends AbstractController
     public function games()
     {
         $repository = $this->getDoctrine()->getRepository(Game::class);
-        $game = $repository->findAll();
+        $games = $repository->findAll();
 
-        return $this->render('games/games.html.twig', ['game' => $game]);
+        return $this->render('games/games.html.twig', ['games' => $games]);
     }
 
     /**
