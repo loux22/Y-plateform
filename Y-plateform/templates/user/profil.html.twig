@@ -30,7 +30,7 @@
     {% endfor %}
 {% endif %}
 
-<div id="display">
+<div class="display">
 
     <h1>Informations</h1>
 
@@ -49,7 +49,7 @@
 
 <br><br>
 
-<div id="form">
+<div class="form">
     <h1>Informations</h1><br>
     
     {{form_start(form)}}
@@ -75,7 +75,7 @@
 
 </div>
 
-<div id="password">
+<div class="password">
     <h1>Modification</h1>
     <form action="" method="post">
         <input type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
@@ -92,11 +92,11 @@
 
 <style>
 
-    #display {
+    .display {
         display: block;
     }
 
-    #form, #password {
+    .form, .password {
         display: none;
     }
 
@@ -106,9 +106,9 @@
 </style>
 
 <script>
-    var x = document.getElementById("display");
-    var y = document.getElementById("form");
-    var z = document.getElementById("password");
+    var displayBlock = document.querySelector(".display");
+    var formModify = document.querySelector(".form");
+    var password = document.querySelector(".password");
 
     var li = document.querySelectorAll("li");
     if(li.length >= 6){
@@ -117,22 +117,30 @@
     }
 
     function displayForm() {
-        if (x.style.display === "block") {
-            x.style.display = "none";
-            y.style.display = "block";
-        } else {
-            x.style.display = "block";
-            y.style.display = "none";
+        if (password.classList.contains('display')){
+            password.classList.replace('display', 'password');
+            formModify.classList.replace('form', 'display');
         }
+        else if (displayBlock.classList.contains('display')) {
+            displayBlock.classList.replace('display', 'form');
+            formModify.classList.replace('form', 'display');
+        } else {
+            displayBlock.classList.replace('form', 'display');
+            formModify.classList.replace('display', 'form');
+        } 
     }
 
     function displayPassword() {
-        if (x.style.display === "block") {
-            x.style.display = "none";
-            z.style.display = "block";
+        if (formModify.classList.contains('display')){
+            formModify.classList.replace('display', 'form');
+            password.classList.replace('password', 'display');
+        }
+        else if (displayBlock.classList.contains('display')) {
+            displayBlock.classList.replace('display', 'password');
+            password.classList.replace('password', 'display');
         } else {
-            x.style.display = "block";
-            z.style.display = "none";
+            displayBlock.classList.replace('password', 'display');
+            password.classList.replace('display', 'password');
         }
     }
 

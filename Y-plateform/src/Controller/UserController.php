@@ -152,7 +152,7 @@ class UserController extends AbstractController
         //Changer mot de passe
         $userNewPassword = $request->request->all();
         $actuelPassword = $user->getPassword();
-        if($userNewPassword){
+        if(isset($userNewPassword['lastPassword'])){
             $userLastPassword = $userNewPassword['lastPassword'];
             $NewPassword = $userNewPassword['newPassword'];
             $userRptNewPassword = $userNewPassword['repeatNewPassword'];
