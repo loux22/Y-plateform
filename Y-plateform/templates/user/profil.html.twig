@@ -17,8 +17,8 @@
     <h5>level : Member </h5>
 {% endif %}
 
-<a href="#password"><button onclick="displayPassword()">Modifier le mot de passe</button></a>
-<a href="#form"><button onclick="displayForm()">Modifier le profil</button></a>
+<a href="#"><button class="modify-password-js" onclick="displayPassword()">Modifier le mot de passe</button></a>
+<a href="#"><button onclick="displayForm()">Modifier le profil</button></a>
 
 {% if member[0].level == true %}
     <h1>Mes Jeux</h1>
@@ -75,20 +75,22 @@
 
 </div>
 
-<div class="password">
-    <h1>Modification</h1>
-    <form action="" method="post">
-        <input type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
-        <input type="password" placeholder="Nouveau mot de passe" name="newPassword"><br>
-        <input type="password" placeholder="Confirmation" name="repeatNewPassword"><br>
+
+<div class="popup password">
+    <div class="popup-content">
+        <h1>Modification</h1>
+        <img class="close" src="{{ asset('/img/close.png')}}" alt="">
+        <form action="" method="post">
+        <input class="modify-password" type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
+        <input class="modify-password" type="password" placeholder="Nouveau mot de passe" name="newPassword"><br>
+        <input class="modify-password" type="password" placeholder="Confirmation" name="repeatNewPassword"><br>
 
         <button type="submit">Confirmer</button>
 
     </form>
-
+        
+    </div>
 </div>
-
-<br>
 
 <style>
 
@@ -99,6 +101,43 @@
     .form, .password {
         display: none;
     }
+
+
+    .popup{
+        background: rgba(0,0,0, 0.6);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        display: none;
+        justify-content: center;
+        align-items: center; 
+    }
+
+    .popup-content{
+        height: 350px;
+        width: 600px;
+        background: white;
+        padding: 20px;
+        border-radius: 2px;
+        position: relative;
+        box-shadow: 6px 6px 29px -4px rgba(0,0,0, 0.75);
+    }
+
+    .modify-password{
+        margin: 5px auto;
+        display: block;
+        width: 50%;
+        padding: 8px;
+    }
+
+    .close{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
+
 
 
 
@@ -143,6 +182,18 @@
             password.classList.replace('display', 'password');
         }
     }
+
+    modifyPassword = document.querySelector('.modify-password-js')
+    modifyPassword.addEventListener('click', function(){
+        document.querySelector('.popup').style.display = 'flex'
+        document.querySelector('body').style.overflow = 'hidden'
+    })
+
+    document.querySelector('.close').addEventListener('click', function(){
+        document.querySelector('.popup').style.display = 'none'
+        document.querySelector('body').style.overflow = 'visible'
+    })
+
 
 
 
