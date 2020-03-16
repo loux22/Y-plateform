@@ -16,11 +16,31 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i <= 5; $i++) {
-            $category = new Category;
-            $category->setTitle('category' . $i);
-            $manager->persist($category);
-        }
+
+        $category = new Category;
+        $category->setTitle('action');
+        $manager->persist($category);
+
+        $category = new Category;
+        $category->setTitle('aventure');
+        $manager->persist($category);
+
+        $category = new Category;
+        $category->setTitle('course');
+        $manager->persist($category);
+        
+        $category = new Category;
+        $category->setTitle('independant');
+        $manager->persist($category);
+        
+        $category = new Category;
+        $category->setTitle('rpg');
+        $manager->persist($category);
+
+        $category = new Category;
+        $category->setTitle('sport');
+        $manager->persist($category);
+
 
         for ($i = 1; $i <= 5; $i++) {
             $user = new User;
@@ -43,7 +63,6 @@ class AppFixtures extends Fixture
             for ($j = 0; $j <= 3; $j++) {
                 $game = new Game;
                 $game->setMember($member);
-                $game->setCategory($category);
                 $game->setName('Game' . $j);
                 $game->setDateG(new \DateTime('201' . $j . '-01-22'));
                 $game->setIsActive(1);
@@ -52,6 +71,7 @@ class AppFixtures extends Fixture
                 $game->setImg('0.png');
                 $game->setUrl('0.png');
                 $game->setPrix($j);
+                $game->addCategory($category);
                 $manager->persist($game);
 
                 for ($l = 0; $l < 5; $l++) {

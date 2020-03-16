@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Game;
 use App\Entity\Note;
 use App\Entity\Member;
@@ -94,8 +95,69 @@ class GamesController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $games = $repository->findAll();
+        $last3game = $repository->last3Games();
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repository->findAll();
 
-        return $this->render('games/games.html.twig', ['games' => $games]);
+        return $this->render('games/games.html.twig', [
+            'games' => $games,
+            'last3game' => $last3game,
+            'category' => $category
+        ]);
+    }
+
+    /**
+     * @Route("/library/{cat}", name="category")
+     * voir tout les jeux 
+     */
+    public function category($cat)
+    {
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $games = $repository->GamesCategory($cat);
+        $last3game = $repository->last3Games();
+
+        if ($cat == 'new') {
+            $games = $repository->NewGames();
+        } elseif ($cat == 'pop') {
+            $allGames = $repository->findAll();
+            $repo = $this->getDoctrine()->getRepository(Note::class);
+            $games = [];
+            foreach ($allGames as $key => $value) {
+                $games[$key][0] = $repo->note($value);
+                $games[$key][1] = $value;
+            }
+            foreach ($games as $key => $value) {
+                foreach ($games as $keys => $values) {
+                    if ($keys + 1 != count($games)) {
+                        if ($games[$keys + 1][0] > $values[0]) {
+                            $objet = $values;
+                            $games[$keys] = $games[$keys + 1];
+                            $games[$keys + 1] = $objet;
+                        }
+                    }
+                }
+            }
+            foreach ($games as $key => $value) {
+                if($key >= 5){
+                    unset($games[$key]);
+                }else{
+                    $games[$key] = $value[1];
+                }
+            }
+        } elseif ($cat == 'better') {
+            $games = $repository->BetterSaleGames();
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repository->findAll();
+
+
+
+        return $this->render('games/games.html.twig', [
+            'games' => $games,
+            'last3game' => $last3game,
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -179,7 +241,7 @@ class GamesController extends AbstractController
                 'message' => "pas autoriser",
             ], 403);
         }
-    $a = 0;
+        $a = 0;
         if ($comment->isLikedByUser($user)) {
             if ($comment->likeOrDislike($user) === true) {
                 $a = 0;
@@ -196,10 +258,10 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'user' => $user
                     ]);
-        
+
                     $manager->remove($like);
                     $manager->flush();
-        
+
                     $likejson = $repo->findBy([
                         'comment' => $comment,
                         'value' => true
@@ -208,14 +270,14 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'value' => false
                     ]);
-        
+
                     return $this->json([
                         'code' => 200,
                         'message' => "like supprimer",
                         'likes' => count($likejson),
                         'dislikes' => count($dislikejson),
                         'a' => $a
-        
+
                     ], 200);
                 }
             } elseif ($comment->likeOrDislike($user) === false) {
@@ -233,10 +295,10 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'user' => $user
                     ]);
-        
+
                     $manager->remove($like);
                     $manager->flush();
-        
+
                     $likejson = $repo->findBy([
                         'comment' => $comment,
                         'value' => true
@@ -245,25 +307,26 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'value' => false
                     ]);
-        
+
                     return $this->json([
                         'code' => 200,
                         'message' => "like supprimer",
                         'likes' => count($likejson),
                         'dislikes' => count($dislikejson),
                         'a' => $a
-        
+
                     ], 200);
                 }
-            } if($a == 0){
+            }
+            if ($a == 0) {
                 $like = $likeRepo->findOneBy([
                     'comment' => $comment,
                     'user' => $user
                 ]);
-    
+
                 $manager->remove($like);
                 $manager->flush();
-    
+
                 $likejson = $repo->findBy([
                     'comment' => $comment,
                     'value' => true
@@ -272,18 +335,16 @@ class GamesController extends AbstractController
                     'comment' => $comment,
                     'value' => false
                 ]);
-    
+
                 return $this->json([
                     'code' => 200,
                     'message' => "like supprimer",
                     'likes' => count($likejson),
                     'dislikes' => count($dislikejson),
 
-    
+
                 ], 200);
             }
-
-            
         }
 
         $like = new CommentLike();
