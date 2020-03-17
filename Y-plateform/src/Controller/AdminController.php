@@ -123,31 +123,45 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/dashboardAdmin/{id}", name="dashboardAdminMember")
+    * @Route("/dashboardAdminMember/{id}", name="dashboardAdminMember")
     */
 
     public function dashboardAdminMember($id) {
 
-        $repo = $this -> getDoctrine() -> getRepository(User::class);
-        $user = $repo -> find($id);
-
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
-        $member = $repository -> getUserProfil($user);
+        $mbr = $repository -> find($id);
+        $member = $repository -> getUserProfil($mbr);
 
         $repository = $this-> getDoctrine() -> getRepository(Game::class);
-        $nbDownload = $repository -> findNbDownload($user);
-        $nbGame = $repository -> findNbGame($user);
+        $nbDownload = $repository -> findNbDownload($member);
+        $nbGame = $repository -> findNbGame($member);
         
         $repository = $this-> getDoctrine() -> getRepository(Comment::class);
-        $nbComment = $repository -> NbAllCommentGame($user);
+        $nbComment = $repository -> NbAllCommentGame($member);
         
 
         return $this->render('admin/dashboardAdminMember.html.twig', [
-            'user' => $user,
             'member' => $member,
             'nbDownload' => $nbDownload,
             'nbGame' => $nbGame,
             'nbComment' => $nbComment
+        ]);
+    }
+
+
+    /**
+    * @Route("/dashboardAdminUser/{id}", name="dashboardAdminUser")
+    */
+
+    public function dashboardAdminUser($id) {
+
+        $repository = $this-> getDoctrine() -> getRepository(User::class);
+        $user = $repository -> find($id);
+
+        
+
+        return $this->render('admin/dashboardAdminUser.html.twig', [
+            'user' => $user,
         ]);
     }
     
