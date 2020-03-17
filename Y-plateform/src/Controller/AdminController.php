@@ -2,11 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
+
+      /**
+     * @Route("/loginAdmin", name="loginAdmin")
+     */
+    public function login(AuthenticationUtils $authenticationUtils)
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        return $this->render('admin/loginAdmin.html.twig', [
+            'error' => $error
+        ]);
+    }
     /**
      * @Route("/games", name="games")
      * voir tous les jeux

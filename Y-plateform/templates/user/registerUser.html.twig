@@ -5,18 +5,37 @@
 
 
     <div class="space">
-        {{form_start(UserForm)}}
+        {% if form_errors(UserForm.username) %} {{form_errors(UserForm.username)}} {% endif %} {{form_widget(UserForm.username, { 'attr': {'class': 'lol'} })}}
+
+    </div>
+
+    <div class="space">
+        {% if form_errors(UserForm.lastname) %} {{form_errors(UserForm.lastname)}} {% endif %} {{form_widget(UserForm.lastname, { 'attr': {'class': 'lol'}})}}
+    </div>
+
+    <div class="space">
+        {% if form_errors(UserForm.pseudo) %} {{form_errors(UserForm.pseudo)}} {% endif %} {{form_widget(UserForm.pseudo,{ 'attr': {'class': 'pd'}})}} {% if form_errors(UserForm.age) %} {{form_errors(UserForm.age)}} {% endif %} {{form_widget(UserForm.age)}}
     </div>
 
 
     <div class="space">
-
-        {{form_widget(UserForm)}}
-
-
-
+        {% if form_errors(UserForm.mail) %} {{form_errors(UserForm.mail)}} {% endif %} {{form_widget(UserForm.mail,{ 'attr': {'class': 'lol'}})}}
     </div>
 
-    <button type="submit"> S'inscrire </button> {{form_end(UserForm)}}
-</div>
-{% endblock %}
+    <div class="space">
+        {% if form_errors(UserForm.password.first) %} {{form_errors(UserForm.password.first)}} {% endif %} {{form_widget(UserForm.password.first,{ 'attr': {'class': 'lol'}})}}
+    </div>
+    <div class="space">
+        {{form_widget(UserForm.password.second,{ 'attr': {'class': 'lol'}})}}
+    </div>
+    <div class="container ps p-0">
+        <div class="psw">
+            <P>En créant un compte, vous acceptez les <a href="#">Conditions générales de vente</a> d'Y-plateform.</P>
+        </div>
+    </div>
+
+
+    <div>
+        <button class="conf" type="submit"> Confirmer </button> {{form_end(UserForm)}}
+    </div>
+    {% endblock %}
