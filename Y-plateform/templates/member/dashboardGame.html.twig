@@ -3,9 +3,6 @@
 {% block title %}Dashboard Member Jeux {% endblock %}
 
 {% block content %}
-{{dump(category)}}
-    <label for="">activer</label>
-    <input type="checkbox" name="" id="">
     <button class="modify-game-js">modifier</button>
     <a href="{{ path('GameDelete', {'id': game.id}) }}">supprimer</a >
     <h1>Dashboard {{game.name}}</h1>

@@ -136,6 +136,9 @@ class MemberController extends AbstractController
         $repo = $this-> getDoctrine() -> getRepository(Category::class);
         $categoryGame = $repo -> categorieGame($game);
         foreach ($categoryGame as $key => $value) {
+            $category = new Category;
+            $category -> setTitle($value -> getTitle());
+            $manager -> persist($category);
             $manager -> remove($value); 
         }
 
