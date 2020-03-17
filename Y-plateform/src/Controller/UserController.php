@@ -200,6 +200,13 @@ class UserController extends AbstractController
             ]);
     }
 
+    /**
+     * @Route("/profilup", name="profilup")
+     */
+    public function profilup(){
+        return $this->render('user/profil.html.twig');
+    }
+
 
     /**
      * @Route("/profil/{id}", name="profil_user")
