@@ -270,6 +270,8 @@ class Game
         return $this->category;
     }
 
+    
+
     public function addCategory(Category $category): self
     {
         if (!$this->category->contains($category)) {

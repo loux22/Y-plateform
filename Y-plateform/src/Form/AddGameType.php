@@ -30,15 +30,10 @@ class AddGameType extends AbstractType
                 ]
             ])
             ->add('url', FileType::class)
-            ->add('prix', IntegerType::class, [
-                'attr' => [
-                    'placeholder' => "Prix",
-                ]
-            ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'title'
-            ])
+            // ->add('category', EntityType::class, [
+            //     'class' => Category::class,
+            //     'choice_label' => 'title'
+            // ])
         ;
     }
 

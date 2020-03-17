@@ -1,21 +1,11 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Dashboard Member tout les leux {% endblock %}
-
+{% block title %}- Ajouter un jeu
+{% endblock %}
 
 {% block content %}
-<button type="submit" class="add-game-js" >Ajouter un jeu</button>
-{% for value in games %}
-<a href="{{ path('memberDashboardGame', {'id': value.id}) }}">
-    <h1>{{value.name}}</h1>
-    <img src="{{ asset('/gameImg/')}}{{value.img }}" alt="">
-</a>
-{% endfor %}
 
-
-<div class="popup">
+	<div class="popup">
 		<div class="popup-content">
-            <img class="close" src="{{ asset('/img/close.png')}}" alt="">
 			<h1>Ajouter un jeu</h1>
 			{{form_start(formGame)}}
 
@@ -59,14 +49,13 @@
             cursor: pointer;
         }
     </style>
-
 {% endblock %}
 
 {% block js %}
 <script>
 
-    addGame = document.querySelector('.add-game-js')
-    addGame.addEventListener('click', function(){
+    modifyGame = document.querySelector('.modify-game-js')
+    modifyGame.addEventListener('click', function(){
         document.querySelector('.popup').style.display = 'flex'
         document.querySelector('body').style.overflow = 'hidden'
     })
