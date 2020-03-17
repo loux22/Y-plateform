@@ -71,13 +71,16 @@
 
       <div class="row mt-5" >
         {% for game in games %}
+        
         <div id="img1" class="col-4 mt-2">
+          <a href="{{path('game', {id : game.id})}}">
           <img src="{{ asset('/gameImg/')}}{{game.img}}" class="rounded float-left" alt="..." >
+        </a>
         </div>
-
         <div id="img2" class="col-8 mt-2">
           {{game.name}}
         </div>
+      
         {% endfor %}
 
       </div>
