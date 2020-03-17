@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}- Dashboard Admin Membre {% endblock %}
+
+{% block content %}
+
+<h4>Panel Admin</h4>
+<a href="{{ path('dashboardAdmin') }}">Dashboard</a>
+<h6>Utilisateurs</h6>
+<a href="{{ path('userList') }}">Utilisateurs</a><br>
+<a href="{{ path('memberList') }}">Membres</a>
+<h6>Demandes</h6>
+<a href="">Ajout de jeu</a><br>
+
+<input type="search" name="" id="" placeholder="Recherche">
+
+<h1>Dashboard {{ user.username }} {{ user.lastname }}</h1>
+<br><br>
+
+<a href="{{path('profil', {id : user.id})}}">Voir profil</a>
+<a href="">Passer membre</a>
+
+
+{% endblock %}

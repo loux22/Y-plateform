@@ -1,48 +1,26 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Dashboard Member Jeux {% endblock %}
+{% block title %}- Ajouter un jeu
+{% endblock %}
 
 {% block content %}
-    <button class="modify-game-js">modifier</button>
-    <a href="{{ path('GameDelete', {'id': game.id}) }}">supprimer</a >
-    <h1>Dashboard {{game.name}}</h1>
 
-    <h1>Nombre telechargement : {{game.nbDownload}}</h1>
-    <h1>Commentaire : {{game.comments | length}}</h1>
-    <h1>note : {{note[0].note}}</h1>
+	<div class="popup">
+		<div class="popup-content">
+			<h1>Ajouter un jeu</h1>
+			{{form_start(formGame)}}
 
+			{{form_widget(formGame)}}
 
-    <h1>Infos du jeux</h1>
-    <img src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
-    <p>{{game.descriptionG}}</p>
+			<button type="submit">
+				Ajouter
+			</button>
 
-    <h1>Commentaires</h1>
-    {% for comment in comments %}
-        <p>desc : {{comment.descriptionC}}</p>
-        <p>pseudo : {{comment.user.pseudo}}</p>
-        <p>date : {{comment.dateC.date|date("F jS \\a\\t g:ia") }}</p>
-    {% endfor %}
+			{{form_end(formGame)}}
 
-    <h1>Categorie</h1>
-    {% for value in category %}
-        <p>{{value.title}}</p>
-    {% endfor %}
-    <button>+</button>
+		</div>
+	</div>
 
-
-    <div class="popup">
-        <div class="popup-content">
-            <h1>Modification</h1>
-            <img class="close" src="{{ asset('/img/close.png')}}" alt="">
-           
-            {{form_start(formModifyGame)}}
-            {{form_widget(formModifyGame)}}
-            <button type="submit"> Modifier </button> {{form_end(formModifyGame)}}
-
-        </div>
-    </div>
-
-    <style>
+<style>
         .popup{
             background: rgba(0,0,0, 0.6);
             width: 100%;

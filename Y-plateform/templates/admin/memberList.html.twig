@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}- Liste Utilisateurs {% endblock %}
+{% block title %}- Liste Membres {% endblock %}
 
 {% block content %}
 
@@ -13,10 +13,10 @@
 
 <input type="search" name="" id="" placeholder="Recherche">
 
-<h1>Tableau Utilisateurs</h1>
+<h1>Tableau Membres</h1>
 <br><br>
 
-{{ dump(users) }}
+{{ dump(members) }}
 
 <table class="table table-bordered">
   <thead>
@@ -30,17 +30,17 @@
     </tr>
   </thead>
   <tbody>
-    {% for user in users %}
+    {% for member in members %}
     <tr>
-      <th scope="row">{{ user.id }}</th>
-      <td>{{ user.username }} {{ user.lastname }}</td>
-      <td>{{ user.mail }}</td>
-      <td><i>{{ user.age.date|date("m/d/Y") }}</i></td>
-      <td>{{ user.dateU.date|date("m/d/Y") }}</td>
-      <td><a href="{{ path('dashboardAdminMember', {id : user.id}) }}">Voir dashboard</a></td>
+      <th scope="row">{{ member.user.id }}</th>
+      <td>{{ member.user.username}} {{ member.user.lastname}}</td>
+      <td>{{ member.user.mail }}</td>
+      <td><i>{{ member.user.age.date|date("m/d/Y") }}</i></td>
+      <td>{{ member.user.dateU.date|date("m/d/Y") }}</td>
+      <td><a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}">Voir dashboard</a></td>
     </tr>
     {% endfor %}
-  </tbody>
+  </tbody> 
 </table>
 
 <nav aria-label="Page navigation example">
