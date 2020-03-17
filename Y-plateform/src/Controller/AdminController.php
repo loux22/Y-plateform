@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\Member;
 use App\Entity\User;
+use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -137,12 +138,16 @@ class AdminController extends AbstractController
         $nbDownload = $repository -> findNbDownload($user);
         $nbGame = $repository -> findNbGame($user);
         
+        $repository = $this-> getDoctrine() -> getRepository(Comment::class);
+        $nbComment = $repository -> NbAllCommentGame($user);
+        
 
         return $this->render('admin/dashboardAdminMember.html.twig', [
             'user' => $user,
             'member' => $member,
             'nbDownload' => $nbDownload,
-            'nbGame' => $nbGame
+            'nbGame' => $nbGame,
+            'nbComment' => $nbComment
         ]);
     }
     
