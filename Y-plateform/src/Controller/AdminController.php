@@ -106,10 +106,10 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/memberList", name="memberList")
-     */
+    * @Route("/memberList", name="memberList")
+    */
 
-     public function memberList() {
+    public function memberList() {
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $members = $repository -> allMembers();
@@ -119,6 +119,31 @@ class AdminController extends AbstractController
             'members' => $members,
             // 'ages' => $ages
         ]);
-     }
+    }
+
+    /**
+    * @Route("/dashboardAdmin/{id}", name="dashboardAdminMember")
+    */
+
+    public function dashboardAdminMember($id) {
+
+        $repo = $this -> getDoctrine() -> getRepository(User::class);
+        $user = $repo -> find($id);
+
+        $repository = $this-> getDoctrine() -> getRepository(Member::class);
+        $member = $repository -> getUserProfil($user);
+
+        $repository = $this-> getDoctrine() -> getRepository(Game::class);
+        $nbDownload = $repository -> findNbDownload($user);
+        $nbGame = $repository -> findNbGame($user);
+        
+
+        return $this->render('admin/dashboardAdminMember.html.twig', [
+            'user' => $user,
+            'member' => $member,
+            'nbDownload' => $nbDownload,
+            'nbGame' => $nbGame
+        ]);
+    }
     
 }
