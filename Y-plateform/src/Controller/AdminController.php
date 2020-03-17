@@ -57,6 +57,11 @@ class AdminController extends AbstractController
     
     }
 
+    /**
+    * @Route("/dashboardAdmin", name="dashboardAdmin")
+    */
+    
+    public function dashboardAdmin() {
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $nbDownload = $repository->allNbDownload();
         $nbGames = $repository->allNbGames();
