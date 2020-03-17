@@ -1,9 +1,6 @@
-body{
-
-    background-color: #9F9C9C ; 
+body {
+    background-color: #4B4B4B;
 }
-
-
 
 .hero__home {
     background-image: url('../gameImg/ad.png');
@@ -12,7 +9,6 @@ body{
     background-size: cover;
     position: relative;
     height: 100vh;
-    
 }
 
 .hero__home .hero__content {
@@ -22,13 +18,38 @@ body{
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
-    max-width: 1000px ;
+    max-width: 1000px;
 }
 
 .breadcrumb {
-background-color: white;
-color: #FF3838;
-font-family: 'Poppins';
-font-weight: bold;
+    background-color: white;
+    color: #FF3838;
+    font-family: 'Poppins';
+    font-weight: bold;
+}
 
+.separation {
+    font-family: 'Poppins';
+    font-weight: bold;
+    width: 1440px;
+    height: 50px;
+    left: 0px;
+    top: 953px;
+    background: #FF3838;
+    text-indent: 25px;
+    font-size: 36px;
+    line-height: 54px;
+    display: flex;
+    align-items: center;
+    color: #F8F8F8;
+}
+
+.text p {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 42px;
+    text-align: justify;
+    color: #F8F8F8;
 }
