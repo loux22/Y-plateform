@@ -75,7 +75,7 @@ class Game
     private $notes;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="game")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="games")
      */
     private $category;
 
@@ -84,6 +84,7 @@ class Game
     {
         $this->comments = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,14 +262,28 @@ class Game
         return $this;
     }
 
-    public function getCategory(): ?Category
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategory(): Collection
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    public function addCategory(Category $category): self
     {
-        $this->category = $category;
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->category->contains($category)) {
+            $this->category->removeElement($category);
+        }
 
         return $this;
     }

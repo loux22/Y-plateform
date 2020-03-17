@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Game;
+use App\Entity\Member;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 
 class AdminController extends AbstractController
 {
@@ -53,39 +57,22 @@ class AdminController extends AbstractController
     
     }
 
-    /**
-     * @Route("/removeComment/{id}", name="removeComment")
-     */
-    public function removeComment($id)
-    {
-    
-    }
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $nbDownload = $repository->allNbDownload();
+        $nbGames = $repository->allNbGames();
 
-    /**
-     * @Route("/members", name="members")
-     * voir tous les membres
-     */
-    public function members()
-    {
-        
-    }
+        $repository2 = $this->getDoctrine()->getRepository(Member::class);
+        $nbMembers = $repository2->allNbMembers();
 
-    /**
-     * @Route("/member/{id}", name="member")
-     * voir un membres
-     */
-    public function member()
-    {
+        $repository3 = $this->getDoctrine()->getRepository(User::class);
+        $nbUsers = $repository3->allNbUsers();
         
-    }
-
-    /**
-     * @Route("/deleteMember/{id}", name="deleteMember")
-     * voir un membres
-     */
-    public function deleteMember()
-    {
-        
+        return $this->render('admin/index.html.twig', [
+            'nbDownload' => $nbDownload,
+            'nbGames' => $nbGames,
+            'nbMembers' => $nbMembers,
+            'nbUsers' => $nbUsers
+        ]);
     }
 
 }

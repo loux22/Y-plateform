@@ -33,6 +33,17 @@ class CommentRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function FindAllCommentGame($member)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.game', 'g')
+            ->andWhere('g.Member = :member')
+            ->setParameter('member', $member)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 
     /*

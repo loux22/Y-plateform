@@ -8,6 +8,7 @@ use App\Entity\Game;
 use App\Entity\Note;
 use App\Form\UserType;
 use App\Form\UserModifyType;
+use App\Form\MemberModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +25,7 @@ class UserController extends AbstractController
     {
         $user = new User;
         $member = new Member;
-        // redirige si connecter
+        // redirige si connecté
         $userLog = $this->getUser();
         if($userLog != null){
             return $this->redirectToRoute('profil');
@@ -50,8 +51,8 @@ class UserController extends AbstractController
             $manager -> persist($member); //commit(git)
             $manager -> flush(); // push(git)
 
-            $this -> addFlash('success','Vous étes inscris');
-            return $this->redirectToRoute('registerUser');
+            $this -> addFlash('success','Vous êtes inscris');
+            return $this->redirectToRoute('login');
         }
         return $this->render('user/registerUser.html.twig', ['UserForm' => $form -> createView()]);
     } 
@@ -72,18 +73,19 @@ class UserController extends AbstractController
      */
     public function logout()
     {
-        
+
     }
 
     /**
      * @Route("/profil", name="profil")
      */
-    public function profil(Request $request)
+    public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        // affichage des donnes du user connecter
+        // affichage des donnes du user connecté
 
-        // redirige si pas connecter 
+        // redirige si pas connecté
         $user = $this->getUser();
+        $avatarUser = $user -> getAvatar();
         if($user === null){
             return $this->redirectToRoute('login');
         }
@@ -92,7 +94,7 @@ class UserController extends AbstractController
         $datetime1 = new \DateTime(); // date actuelle
         $datetime2 = new \DateTime($stringValue);
         $age = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
-        // recuperer dernier avatar de l'user conneter, a deplacer dans modifier
+        // recuperer dernier avatar de l'user connecté, a deplacer dans modifier
         $lastAvatar = $user -> getAvatar();
         ////////////////////////////////////////
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -106,33 +108,91 @@ class UserController extends AbstractController
         $repository = $this-> getDoctrine() -> getRepository(Note::class);
         $note = $repository -> noteJ($user);
 
-        // ajouter/modifier un avatar 
+        // modifier le profil
         $form = $this -> createForm(UserModifyType::class, $user);
         $form -> handleRequest($request);
+
+        $memberForm = $member[0];
+
+        $formM = $this -> createForm(MemberModifyType::class, $memberForm);
+        $formM -> handleRequest($request);
         
+        $userNewPassword = $request->request->all();
+
 
         if($form -> isSubmitted() && $form -> isValid()){
-
-            if($user -> getAvatar() -> getClientOriginalName() != '0.png'){
-                $user -> removeFile();
-                unlink($this->getParameter('upload_avatar') . $lastAvatar);
+            if($user -> getAvatar()){
+                if($user -> getAvatar() -> getClientOriginalName() != '0.png'){
+                    $user -> removeFile();
+                    unlink($this->getParameter('upload_avatar') . $lastAvatar);
+                }
+                
+                $file = $user->getAvatar();
+                $filename = 'fichier_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_avatar'), $filename);
+                $user-> setAvatar($filename);
+            }else{
+                $user -> setAvatar($avatarUser);
             }
             
-            $file = $user->getAvatar();
-            $filename = 'fichier_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('upload_avatar'), $filename);
-            $user-> setAvatar($filename);
-           
-
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
             $this -> addFlash('success','modification');
         }
 
+        if($formM -> isSubmitted() && $formM -> isValid()){
+            $manager = $this-> getDoctrine() -> getManager();
+            $manager -> persist($memberForm); //commit(git)
+            $manager -> flush(); // push(git)
+            $this -> addFlash('success','modification');
+            
+        }
+
+        //Changer mot de passe
+        $userNewPassword = $request->request->all();
+        $actuelPassword = $user->getPassword();
+        if(isset($userNewPassword['lastPassword'])){
+            $userLastPassword = $userNewPassword['lastPassword'];
+            $NewPassword = $userNewPassword['newPassword'];
+            $userRptNewPassword = $userNewPassword['repeatNewPassword'];
+            if (password_verify($userLastPassword, $actuelPassword)) {
+                    if($NewPassword == $userRptNewPassword) {
+
+                        if(strlen($NewPassword) >= 8) {
+                            $newUser = new User; 
+                            $password = $passwordEncoder->encodePassword($newUser, $NewPassword);
+                            $user -> setPassword($password);
+                            $manager = $this-> getDoctrine() -> getManager();
+                            $manager -> persist($user); //commit(git)
+                            $manager -> flush(); // push(git)
+                            $this -> addFlash('success','Le mot de passe a été modifié !');
+                        }else {
+                            $this -> addFlash('errors','Le mot de passe doit faire minimum 8 caractères');
+                        }
+                        
+
+        
+                    } else {
+                        $this -> addFlash('errors','Les deux mots de passe ne sont pas identiques');
+                    }
+
+
+            } else {
+                $this -> addFlash('errors','Le mot de passse ne corresponds pas a celui actuel');
+            }
+            
+        }
+        
+
+
+        
+
         return $this->render('user/profil.html.twig', [
             'form' => $form -> createView(),
+            'formM' => $formM -> createView(),
             'user' => $user,
+            'actuelPassword' => $actuelPassword,
             'member' => $member,
             'age' => $age,
             'game' => $game,
@@ -140,13 +200,6 @@ class UserController extends AbstractController
             ]);
     }
 
-    /**
-     * @Route("/profil/edit/{id}", name="editProfil")
-     */
-    public function editProfil($id)
-    {
-        
-    }
 
     /**
      * @Route("/profil/{id}", name="profil_user")
@@ -209,8 +262,6 @@ class UserController extends AbstractController
     {
         
     }
-
-
 
 
 }
