@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block title %}- Dashboard Admin Membre {% endblock %}
 
-{% block title %}- dashboard Admin {% endblock %}
-
-{% block content %} 
+{% block content %}
 
 <h4>Panel Admin</h4>
 <a href="{{ path('dashboardAdmin') }}">Dashboard</a>
@@ -12,9 +11,13 @@
 
 <input type="search" name="" id="" placeholder="Recherche">
 
-<h1>Dashboard</h1>
+{{ dump(member) }}
+<h1>Dashboard {{ member[0].user.username }} {{ member[0].user.lastname }}</h1>
 <br><br>
 
+<a href="">Voir ses jeux</a>
+<a href="{{path('profil', {id : member[0].user.id})}}">Voir profil</a>
+<a href="">Enlever membre</a>
 
 <h4>Téléchargements</h4>
 
@@ -25,28 +28,9 @@
 <br>
 <h4>Jeux</h4>
 
-
-{% for nbG in nbGames %}
-    <h3>{{ nbG.nbGames }}</h3>
+{% for nbG in nbGame %}
+    <h3>{{ nbG.nbGame }}</h3>
 {% endfor %} 
 
-<br>
-<h4>Membres</h4>
 
-{% for nbM in nbMembers %}
-    <h3>{{ nbM.nbMembers }}</h3>
-{% endfor %} 
-
-<br>
-<h4>Utilisateurs</h4>
-
-{% for nbU in nbUsers %}
-    <h3>{{ nbU.nbUsers }}</h3>
-{% endfor %} 
-
-<br><br>
-<h4>Jeux le plus téléchargé</h4>
-<p>(Diagrammes</p>
-
-
-{% endblock %} 
+{% endblock %}
