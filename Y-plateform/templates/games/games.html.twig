@@ -1,26 +1,32 @@
 {% extends 'base.html.twig' %}
-{% block title %}- Games {% endblock %}
-{% block link %} <link rel="stylesheet" href="{{ asset('/css/games.css')}}">{% endblock %}
+{% block title %}- Games
+{% endblock %}
+{% block link %}
+<link rel="stylesheet" href="{{ asset('/css/games.css')}}">
+{% endblock %}
 {% block content %}
-
-<!-- {% for value in game %}
-
-<h5>{{ value.name }}</h5> -->
-
-<!-- {% endfor %} -->
-
+{{dump(games)}}
 <div class="container mt-5">
 
-  <div class="nav2">
-          <ul>
-              <li> <a href="#"> Nouveauté</a> </li>
-              <li> <a href="#"> Populaire</a> </li>
-              <li> <a href="#"> Meilleures Ventes</a> </li>
-              <div class="search-container">
-                  <input type="text" placeholder="Rechercher un jeu..">
-              </div>
-          </ul>
-  </div>
+	<div class="nav2">
+		<ul>
+			<li>
+				<a href="{{path('category', {cat : 'new'})}}">
+					Nouveauté</a>
+			</li>
+			<li>
+				<a href="{{path('category', {cat : 'pop'})}}">
+					Populaire</a>
+			</li>
+			<li>
+				<a href="{{path('category', {cat : 'better'})}}">
+					Meilleures Ventes</a>
+			</li>
+			<div class="search-container">
+				<input type="text" placeholder="Rechercher un jeu..">
+			</div>
+		</ul>
+	</div>
 
 </div>
 
@@ -141,15 +147,10 @@
 
 </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 {% endblock %}
-{% block js %}<script href="{{ asset('js/games.js')}}"></script> {% endblock %}
+{% block js %}
+<script href="{{ asset('js/games.js')}}"></script>
+{% endblock %}

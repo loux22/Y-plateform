@@ -5,8 +5,7 @@ ul {
 }
 
 body {
-    background: #9F9C9C;
-    ;
+    background: #4B4B4B;
 }
 
 .centre {
@@ -36,4 +35,58 @@ h1 {
     line-height: 80px;
     text-transform: uppercase;
     color: #FF3838;
+}
+
+.conf {
+    width: 384px;
+    height: 47px;
+    left: 478px;
+    top: 755px;
+    font-size: large;
+    color: white;
+    background: rgba(255, 56, 56, 0.9);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.lol {
+    font-family: 'Poppins', sans-serif;
+    height: 40px;
+    width: 384px;
+    background: #f8f8f8;
+    border: 1px solid #ededed;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.pd {
+    font-family: 'Poppins', sans-serif;
+    width: 110px;
+    height: 40px;
+    background: #f8f8f8;
+    border: 1px solid #ededed;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 6px;
+}
+
+.psw {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    line-height: 10px;
+    text-align: center;
+}
+
+.ps {
+    display: flex;
+    justify-content: center;
+    width: 384px;
 }

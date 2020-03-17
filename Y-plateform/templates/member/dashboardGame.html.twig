@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Member Jeux {% endblock %}
+
+{% block content %}
+{{dump(game)}}
+    <label for="">activer</label>
+    <input type="checkbox" name="" id="">
+    <button>modifier</button>
+    <button>supprimer</button>
+    <h1>Dashboard {{game.name}}</h1>
+
+    <h1>Nombre telechargement : {{game.nbDownload}}</h1>
+    <h1>Commentaire : {{game.comments | length}}</h1>
+    <h1>note : {{note[0].note}}</h1>
+
+
+    <h1>Infos du jeux</h1>
+    <img src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
+    <p>{{game.descriptionG}}</p>
+
+    <h1>Commentaires</h1>
+    {% for comment in comments %}
+        <p>desc : {{comment.descriptionC}}</p>
+        <p>pseudo : {{comment.user.pseudo}}</p>
+        <p>date : {{comment.dateC.date|date("F jS \\a\\t g:ia") }}</p>
+    {% endfor %}
+
+    <h1>Categorie</h1>
+    <p>{{game.category.title}}</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+{% endblock %}

@@ -24,15 +24,16 @@ class Category
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\game", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Game", mappedBy="category")
      */
-    private $game;
+    private $games;
 
    
 
     public function __construct()
     {
         $this->game = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
 
    
@@ -55,33 +56,30 @@ class Category
     }
 
     /**
-     * @return Collection|game[]
+     * @return Collection|Game[]
      */
-    public function getGame(): Collection
+    public function getGames(): Collection
     {
-        return $this->game;
+        return $this->games;
     }
 
-    public function addGame(game $game): self
+    public function addGame(Game $game): self
     {
-        if (!$this->game->contains($game)) {
-            $this->game[] = $game;
-            $game->setCategory($this);
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->addCategory($this);
         }
 
         return $this;
     }
 
-    public function removeGame(game $game): self
+    public function removeGame(Game $game): self
     {
-        if ($this->game->contains($game)) {
-            $this->game->removeElement($game);
-            // set the owning side to null (unless already changed)
-            if ($game->getCategory() === $this) {
-                $game->setCategory(null);
-            }
+        if ($this->games->contains($game)) {
+            $this->games->removeElement($game);
+            $game->removeCategory($this);
         }
 
         return $this;
-    }   
+    }
 }

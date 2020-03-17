@@ -39,14 +39,100 @@ class GameRepository extends ServiceEntityRepository
     }
 
 
-    public function getGameList($id_member) {
+    public function getGameList($member) {
         $builder = $this -> createQueryBuilder('m');
         return $builder 
             -> where('m.Member = :Member')
-            -> setParameter('Member', $id_member)
+            -> setParameter('Member', $member)
             -> getQuery()
             -> getResult();
     } 
+
+    public function findNbDownload($member)
+    {
+        return $this->createQueryBuilder('g')
+        -> select("sum(g.nbDownload) as nbDownload")
+        -> where('g.Member = :member')
+        -> setParameter('member', $member)
+        -> getQuery()
+        -> getResult();
+        
+    }
+
+
+    public function findNbGame($member)
+    {
+        return $this->createQueryBuilder('g')
+        -> select("count(g.id) as nbGame")
+        -> where('g.Member = :member')
+        -> setParameter('member', $member)
+        -> getQuery()
+        -> getResult();
+        
+    }
+
+
+    public function allNbDownload()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> select("sum(g.nbDownload) as nbDownload")
+            -> getQuery()
+            -> getResult();
+    }
+
+
+    public function allNbGames()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> select("count(g.id) as nbGames")
+            -> getQuery()
+            -> getResult();
+    }
+
+    public function last3Games()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            ->orderBy('g.date_g', 'DESC')
+            ->setMaxResults(3)
+            -> getQuery()
+            -> getResult();
+    }
+
+    public function GamesCategory($category)
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> leftJoin('g.category', 'c')
+            -> where('c.id = :category')
+            -> setParameter('category', $category)
+            -> getQuery()
+            -> getResult();
+    }
+//affiche les nouveau jeux
+    public function NewGames()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> orderBy('g.date_g', 'DESC')
+            -> setMaxResults(5)
+            -> getQuery()
+            -> getResult();
+    }
+
+    public function BetterSaleGames()
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            -> orderBy('g.nbDownload', 'DESC')
+            -> setMaxResults(5)
+            -> getQuery()
+            -> getResult();
+    }
+
+
 
     // /**
     //  * @return Game[] Returns an array of Game objects

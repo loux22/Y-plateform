@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %} {% block title %}- login {% endblock %} {% block link %}
+<link rel="stylesheet" href="{{ asset('/css/login_a.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet"> {% endblock %} {% block content %}
+
+
+<h1>
+    Connexion
+</h1>
+
+
+<div class="connex">
+    <form action="{{ path('login') }}" method="post">
+        {% if error %}
+        <div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <center>
+            <div class=idt>
+                <input class="mai" placeholder="Identifiant" required name="_username" type="text">
+            </div>
+
+            <div class=esp>
+                <input class="mai" placeholder="Mot de passe" required name="_password" type="password">
+            </div>
+            <div class="container ip p-0">
+                <div class="imp">
+                    <input type="checkbox" checked="checked">
+                    <label class="m-0 mx-2">Se souvenir de moi</label>
+                </div>
+            </div>
+
+            <div class="container ps p-0">
+                <div class="psw">
+                    <p> <a href="#">Mot de passe oublié</a></p>
+                </div>
+            </div>
+
+            <div class="esp">
+                <button class="conf" type="submit">Confirmation</button>
+            </div>
+          
+
+
+
+    </form>
+    </center>
+    {% endblock %} {#
+    <P>Vous ne possedez pas de compte ? <a href="{{ path('login') }}">Inscrivez-vous</a> </P> <a href="{{ path('logout') }}">deconnexion</a> #} {##}
