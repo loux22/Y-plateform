@@ -131,7 +131,7 @@ class UserController extends AbstractController
                 $filename = 'fichier_' . time() . '_' . rand(1,99999) . '_' . md5(uniqid()) . '.' . $file->guessExtension();
                 $file->move($this->getParameter('upload_avatar'), $filename);
                 $user-> setAvatar($filename);
-            }else{
+            } else{
                 $user -> setAvatar($avatarUser);
             }
             

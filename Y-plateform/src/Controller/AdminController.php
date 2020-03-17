@@ -81,7 +81,7 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/UserList", name="UserList")
+    * @Route("/userList", name="userList")
     */
 
     public function UserList() {
@@ -89,20 +89,36 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
 
-
-        // $u = $users->getAge();
-        // $stringValue = $u->format('Y-m-d H:i:s');
-        // $datetime1 = new \DateTime(); // date actuelle
-        // $datetime2 = new \DateTime($stringValue);
-        // $age = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
-    
-            
+        // for ($i=1; $i <= 100; $i++) { 
+        //     $u = $users->getAge();
+        //     $stringValue = $u->format('Y-m-d H:i:s');
+        //     $datetime1 = new \DateTime(); // date actuelle
+        //     $datetime2 = new \DateTime($stringValue);
+        //     $ages = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
+        // }
         
+    
 
         return $this->render('admin/userList.html.twig', [
             'users' => $users,
             // 'ages' => $ages
         ]);
     }
+
+    /**
+     * @Route("/memberList", name="memberList")
+     */
+
+     public function memberList() {
+
+        $repository = $this->getDoctrine()->getRepository(Member::class);
+        $members = $repository -> allMembers();
+
+
+        return $this->render('admin/memberList.html.twig', [
+            'members' => $members,
+            // 'ages' => $ages
+        ]);
+     }
     
 }
