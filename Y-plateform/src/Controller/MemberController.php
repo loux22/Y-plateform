@@ -7,6 +7,7 @@ use App\Entity\Note;
 use App\Entity\Member;
 use App\Entity\Comment;
 use App\Entity\Category;
+use App\Form\AddGameType;
 use App\Entity\CommentLike;
 use App\Form\ModifyGameType;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,23 +47,64 @@ class MemberController extends AbstractController
     /**
      * @Route("/memberDashboard/games", name="memberDashboardGames")
      */
-    public function memberDashboardGames()
+    public function memberDashboardGames(Request $request)
     {
-        $userLog = $this->getUser();
+        $user = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
-        $member = $repository -> getUserProfil($userLog);
+        $member = $repository -> getUserProfil($user);
         $member = $member[0];
 
         $repoGame = $this-> getDoctrine() -> getRepository(Game::class);
 
         $games = $repoGame -> getGameList($member);
 
+        $repository = $this->getDoctrine()->getRepository(Member::class);
+        $member = $repository->getUserProfil($user);
+        $member = $member[0];
+        if ($member->getLevel() === false) {
+            return $this->redirectToRoute('profil');
+        }
+        $game = new Game;
+        $form = $this->createForm(AddGameType::class, $game);
 
-        
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // add img game
+            $fileImg = $game->getImg();
+            $filename = 'GameImg_' . time() . '_' . rand(1, 99999) . '_' . md5(uniqid()) . '.' . $fileImg->guessExtension();
+            $fileImg->move($this->getParameter('upload_gameImg'), $filename);
+            $game->setImg($filename);
+
+            // add .exe game
+            $fileUrl = $game->getUrl();
+            $filename = 'Exe_' . time() . '_' . rand(1, 99999) . '_' . md5(uniqid()) . '.' . $fileUrl->guessExtension();
+            $fileUrl->move($this->getParameter('upload_gameUrl'), $filename);
+            $game->setUrl($filename);
+
+
+            $game->setDateG(new \DateTime());
+            $game->setIsActive(false);
+            $game->setNbDownload(0);
+            $game->setPrix(0);
+
+            $manager = $this->getDoctrine()->getManager();
+            // $category = $manager->find(Category::class, $game->getCategory());
+            // $game->addCategory($game->getCategory());
+            $game->setMember($member);
+
+            $manager->persist($game); //commit(git)
+            $manager->flush(); // push(git)
+
+            $this->addFlash('success', 'Votre jeu a bien été ajouter');
+            return $this->redirectToRoute('memberDashboardGames');
+        }
+    
         return $this->render('member/dashboardGames.html.twig', [
             'games' => $games,
+            'formGame' => $form->createView(),
         ]);
     }
 
@@ -178,4 +220,7 @@ class MemberController extends AbstractController
         $this -> addFlash('success',"Le jeu " . $gameName . ' a bien été supprimé');
         return $this->redirectToRoute('memberDashboardGames');
     }
+
+
+    
 }
