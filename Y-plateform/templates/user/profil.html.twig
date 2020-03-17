@@ -1,15 +1,45 @@
 {% extends 'base.html.twig' %}
 {% block title %}- profil {% endblock %}
+{% block link %}
+<link rel="stylesheet" href="{{ asset('/css/profil.css')}}">
+{% endblock %}
 
 {% block content %} 
 
-<img style="width:20%" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
+<div class="cont">
 
+    <div class="image">
+        <div class="container">
+        <div class="row">
+                <div class="col-3">
 
-<h5>Pseudo : {{ member[0].user.pseudo}}</h5>
-<h5>Nom : {{ member[0].user.lastname}}</h5>
-<h5>Prénom : {{ member[0].user.username}}</h5>
-<h5>{{ age }} ans</h5>
+                    <img class="pp" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
+                
+                </div>
+                <div class="col-8">
+                <h5 class="info1">Pseudo : {{ member[0].user.pseudo}}</h5>
+                    <div class="info">
+                    
+                        <h5>Nom : {{ member[0].user.lastname}}</h5>
+                        <h5>Prénom : {{ member[0].user.username}}</h5>
+                        <h5>{{ age }} ans</h5>
+                        {% if member[0].level == true %}
+                         <h5>level : User </h5>
+                        {% else %}
+                        <h5>level : Member </h5>
+                        {% endif %}
+                    
+                    </div>
+                    
+
+                </div>
+
+            </div>  
+                
+        </div>
+
+    </div>
+
 
 {% if member[0].level == false %}
     <h5>level : User </h5>
@@ -17,16 +47,33 @@
     <h5>level : Member </h5>
 {% endif %}
 
-<a href="#"><button class="modify-password-js" onclick="displayPassword()">Modifier le mot de passe</button></a>
-<a href="#"><button onclick="displayForm()">Modifier le profil</button></a>
+
+
+<a href="#"><button id="btn" class="modify-password-js" onclick="displayPassword()">Modifier le mot de passe</button></a>
+<a href="#"><button id="btn" onclick="displayForm()">Modifier le profil</button></a>
 
 {% if member[0].level == true %}
-    <h1>Mes Jeux</h1>
+   <div class="title mt-5">
+        <h1>Mes Jeux</h1>
+   </div> 
     {% for g in game %}
-        <h5>{{ g.name }}</h5>
-        <img style="width:20%;" src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
-        <h5>{{ g.nbDownload }}</h5>
-        <h5>{{ note[0].note }}</h5>
+
+        <div class="row mt-5">
+            <div class="col-8" >
+
+                <div class="row mt-5" >
+                    <div id="img1" class="col-4 mt-2">
+                        <img  src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
+                        <h5>{{ g.nbDownload }}</h5>
+                        <h5>{{ note[0].note }}</h5>
+                    </div>
+
+                    <div id="img2" class="col-8 mt-2">
+                        <h5>{{ g.name }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 {% endif %}
 

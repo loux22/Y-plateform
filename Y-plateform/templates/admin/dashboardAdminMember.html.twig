@@ -5,8 +5,10 @@
 
 <h4>Panel Admin</h4>
 <a href="{{ path('dashboardAdmin') }}">Dashboard</a>
-<a href="{{ path('userList') }}">Utilisateurs</a>
+<h6>Utilisateurs</h6>
+<a href="{{ path('userList') }}">Utilisateurs</a><br>
 <a href="{{ path('memberList') }}">Membres</a>
+<h6>Demandes</h6>
 <a href="">Ajout de jeu</a><br>
 
 <input type="search" name="" id="" placeholder="Recherche">
@@ -32,5 +34,14 @@
     <h3>{{ nbG.nbGame }}</h3>
 {% endfor %} 
 
+<br>
+<h4>Commentaires</h4>
+
+{% for nbC in nbComment %}
+    <h3>{{ nbC.nbComment }}</h3>
+{% endfor %} 
+
+<br><br>
+<h6>(Diagrammes)</h6>
 
 {% endblock %}

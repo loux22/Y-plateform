@@ -11,6 +11,7 @@ use App\Form\AddGameType;
 use App\Entity\CommentLike;
 use App\Form\ModifyGameType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -221,6 +222,21 @@ class MemberController extends AbstractController
         return $this->redirectToRoute('memberDashboardGames');
     }
 
-
-    
+     /**
+     * @Route("/searchCategory", name="searchCategory")
+     */
+    public function searchCategory(Request $request): Response
+    {
+        $getCategory = $request->get('category');
+        $repository = $this-> getDoctrine() -> getRepository(Category::class);
+        $category = $repository -> searchCategory($getCategory);
+        if($category){
+            foreach ($category as $key => $value) {
+                echo '<div> <input type="checkbox" id="-'. $value -> getId().'" name="CategoryId[]" value="'. $value -> getId().'">' . $value -> getTitle() . '<div>';
+            }
+        } else{
+            echo 'aucune categorie trouver';
+        }  
+        return new Response();
+    }
 }

@@ -45,6 +45,17 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
     
+    public function NbAllCommentGame($member)
+    {
+        return $this->createQueryBuilder('c')
+            -> select("count(c.id) as nbComment")
+            ->leftJoin('c.game', 'g')
+            ->andWhere('g.Member = :member')
+            ->setParameter('member', $member)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Comment
