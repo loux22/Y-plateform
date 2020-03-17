@@ -41,6 +41,16 @@ class NoteRepository extends ServiceEntityRepository
          
     }
 
+    public function AllNoteGame($game){
+        $builder = $this -> createQueryBuilder('n');
+        return $builder 
+                -> where('n.game = :game')
+                -> setParameter('game', $game)
+                -> getQuery()
+                -> getResult();
+         
+    }
+
     // /**
     //  * @return Note[] Returns an array of Note objects
     //  */

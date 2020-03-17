@@ -57,6 +57,11 @@ class AdminController extends AbstractController
     
     }
 
+    /**
+    * @Route("/dashboardAdmin", name="dashboardAdmin")
+    */
+
+    public function dashboardAdmin() {
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $nbDownload = $repository->allNbDownload();
         $nbGames = $repository->allNbGames();
@@ -75,4 +80,29 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+    * @Route("/UserList", name="UserList")
+    */
+
+    public function UserList() {
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findAll();
+
+
+        // $u = $users->getAge();
+        // $stringValue = $u->format('Y-m-d H:i:s');
+        // $datetime1 = new \DateTime(); // date actuelle
+        // $datetime2 = new \DateTime($stringValue);
+        // $age = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
+    
+            
+        
+
+        return $this->render('admin/userList.html.twig', [
+            'users' => $users,
+            // 'ages' => $ages
+        ]);
+    }
+    
 }
