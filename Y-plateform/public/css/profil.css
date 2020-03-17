@@ -1,0 +1,133 @@
+
+body{
+background-color: #9F9C9C;
+
+}
+
+.info1 {
+    text-align: center;
+    color: #FF3838;
+    padding-right: 500px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.info{
+    color: white;
+}
+
+.image{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 205px;
+}
+
+#btn{
+
+    font-family: 'Poppins', sans-serif;
+    height: 40px;
+    width: 200px;
+    color: white;
+    background: #FF3838;
+    border: 1px solid #FF3838;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 6px;
+    text-align: center;
+    float: right;
+    margin-right: 100px;
+}
+h1{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.title{
+    background-color: #FF3838;
+    padding-left: 310px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+
+
+    
+}
+.row{
+    padding-left: 110px;
+}
+
+.col-4 img {
+    width: 80%;
+}
+  
+#img1 {
+  
+    background-color: #FF3838;
+    color: #ffffff;
+    border-radius: 10px 0 0 10px;
+    
+}
+  
+#img2 {
+  
+    background-color: #FF3838;
+    color: #ffffff;
+    border-radius: 0 10px 10px 0;
+    
+}
+
+.pp{
+    width:20%;
+    background-size : contain;
+    background-position : 50% 50%; 
+    display : inline-block;
+    width : 150px; height : 150px;
+    border: none;
+    -moz-border-radius : 75px;
+    -webkit-border-radius : 75px;
+    border-radius : 75px;
+    
+}
+
+
+.display {
+    display: block;
+}
+
+.form, .password {
+    display: none;
+}
+
+
+.popup{
+    background: rgba(0,0,0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    display: none;
+    justify-content: center;
+    align-items: center; 
+}
+
+.popup-content{
+    height: 350px;
+    width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 6px 6px 29px -4px rgba(0,0,0, 0.75);
+}
+
+.modify-password{
+    margin: 5px auto;
+    display: block;
+    width: 50%;
+    padding: 8px;
+}
+
+.close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
