@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}- Liste Utilisateurs {% endblock %}
+
+{% block content %}
+
+<h4>Panel Admin</h4>
+<a href="">Dashboard</a>
+<a href="">Utilisateurs</a>
+<a href="">Membres</a>
+<a href="">Ajout de jeu</a><br>
+
+<input type="search" name="" id="" placeholder="Recherche">
+
+<h1>Tableau Utilisateurs</h1>
+<br><br>
+
+{{ dump(users) }}
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Age</th>
+      <th scope="col">Date de création</th>
+      <th scope="col">Modifier / Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.username }} {{ user.lastname }}</td>
+      <td>{{ user.mail }}</td>
+      <td></td>
+      <td></td>
+      <td>logos</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
