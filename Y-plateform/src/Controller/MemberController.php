@@ -92,15 +92,22 @@ class MemberController extends AbstractController
             $game->setPrix(0);
 
             $manager = $this->getDoctrine()->getManager();
-            // $category = $manager->find(Category::class, $game->getCategory());
-            // $game->addCategory($game->getCategory());
-            $game->setMember($member);
-
-            $manager->persist($game); //commit(git)
-            $manager->flush(); // push(git)
-
-            $this->addFlash('success', 'Votre jeu a bien été ajouter');
-            return $this->redirectToRoute('memberDashboardGames');
+            $category = $request->request->all();
+            
+            if (isset($category['CategoryId'])) {
+                $category = $category['CategoryId'];
+                foreach ($category as $key => $value) {
+                    $newCategory = $manager->find(Category::class, $value);
+                    $game->addCategory($newCategory);
+                }
+                $game->setMember($member);
+                $manager->persist($game);
+                $manager->flush($game);
+                $this->addFlash('success', 'La création de votre jeu est une réussite ');
+                return $this->redirectToRoute('memberDashboardGames');
+            } else {
+                $this->addFlash('errors', 'tu dois ajouter au moins 1 categorie');
+            }
         }
     
         return $this->render('member/dashboardGames.html.twig', [
@@ -154,6 +161,7 @@ class MemberController extends AbstractController
             }else{
                 $game -> setImg($gameImg);
             }
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($game); //commit(git)
             $manager->flush(); // push(git)
