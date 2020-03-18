@@ -19,9 +19,11 @@ class AdminController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        $navbar = true;
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('admin/loginAdmin.html.twig', [
-            'error' => $error
+            'error' => $error,
+            'navbar' => $navbar
         ]);
     }
     /**
@@ -63,6 +65,7 @@ class AdminController extends AbstractController
     */
 
     public function dashboardAdmin() {
+        $navbar = false;
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $nbDownload = $repository->allNbDownload();
         $nbGames = $repository->allNbGames();
@@ -77,7 +80,8 @@ class AdminController extends AbstractController
             'nbDownload' => $nbDownload,
             'nbGames' => $nbGames,
             'nbMembers' => $nbMembers,
-            'nbUsers' => $nbUsers
+            'nbUsers' => $nbUsers,
+            'navbar' => $navbar
         ]);
     }
 
@@ -86,6 +90,7 @@ class AdminController extends AbstractController
     */
 
     public function UserList() {
+        $navbar = false;
 
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
@@ -102,6 +107,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/userList.html.twig', [
             'users' => $users,
+            'navbar' => $navbar
             // 'ages' => $ages
         ]);
     }
@@ -111,6 +117,7 @@ class AdminController extends AbstractController
     */
 
     public function memberList() {
+        $navbar = false;
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $members = $repository -> allMembers();
@@ -118,6 +125,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/memberList.html.twig', [
             'members' => $members,
+            'navbar' => $navbar
             // 'ages' => $ages
         ]);
     }
@@ -127,6 +135,7 @@ class AdminController extends AbstractController
     */
 
     public function dashboardAdminMember($id) {
+        $navbar = false;
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
         $mbr = $repository -> find($id);
@@ -144,7 +153,8 @@ class AdminController extends AbstractController
             'member' => $member,
             'nbDownload' => $nbDownload,
             'nbGame' => $nbGame,
-            'nbComment' => $nbComment
+            'nbComment' => $nbComment,
+            'navbar' => $navbar
         ]);
     }
 
@@ -154,6 +164,7 @@ class AdminController extends AbstractController
     */
 
     public function dashboardAdminUser($id) {
+        $navbar = false;
 
         $repository = $this-> getDoctrine() -> getRepository(User::class);
         $user = $repository -> find($id);
@@ -162,6 +173,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/dashboardAdminUser.html.twig', [
             'user' => $user,
+            'navbar' => $navbar
         ]);
     }
     

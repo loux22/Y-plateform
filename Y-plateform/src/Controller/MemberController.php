@@ -22,6 +22,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboard()
     {
+        $navbar = false;
         $userLog = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -41,7 +42,8 @@ class MemberController extends AbstractController
             'NbDowloadGame' => $nbDowloadGame,
             'nbGame' => $nbGame,
             'member' => $member,
-            'nbComments' => $nbComments
+            'nbComments' => $nbComments,
+            'navbar' => $navbar
         ]);
     }
 
@@ -50,6 +52,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboardGames(Request $request)
     {
+        $navbar = false;
         $user = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -113,6 +116,7 @@ class MemberController extends AbstractController
         return $this->render('member/dashboardGames.html.twig', [
             'games' => $games,
             'formGame' => $form->createView(),
+            'navbar' => $navbar
         ]);
     }
 
@@ -121,6 +125,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboardGame($id, Request $request)
     {
+        $navbar = false;
         $userLog = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -173,6 +178,7 @@ class MemberController extends AbstractController
             'comments' => $comments,
             'category' => $category,
             'formModifyGame' => $form -> createView(),
+            'navbar' => $navbar
         ]);
     }
 
