@@ -59,7 +59,7 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/dashboardAdmin", name="dashboardAdmin")
+    * @Route("/dashboard/admin", name="dashboardAdmin")
     */
 
     public function dashboardAdmin() {
@@ -82,7 +82,7 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/userList", name="userList")
+    * @Route("/dashboard/admin/userList", name="userList")
     */
 
     public function UserList() {
@@ -107,7 +107,7 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/memberList", name="memberList")
+    * @Route("/dashboard/admin/memberList", name="memberList")
     */
 
     public function memberList() {
@@ -123,7 +123,7 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/dashboardAdminMember/{id}", name="dashboardAdminMember")
+    * @Route("/dashboard/admin/member/{id}", name="dashboardAdminMember")
     */
 
     public function dashboardAdminMember($id) {
@@ -150,7 +150,7 @@ class AdminController extends AbstractController
 
 
     /**
-    * @Route("/dashboardAdminUser/{id}", name="dashboardAdminUser")
+    * @Route("/dashboard/admin/user/{id}", name="dashboardAdminUser")
     */
 
     public function dashboardAdminUser($id) {

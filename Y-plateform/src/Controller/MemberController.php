@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MemberController extends AbstractController
 {
      /**
-     * @Route("/memberDashboard", name="memberDashboard")
+     * @Route("/dashboard/member", name="memberDashboard")
      */
     public function memberDashboard()
     {
@@ -46,7 +46,7 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/memberDashboard/games", name="memberDashboardGames")
+     * @Route("/dashboard/member/games", name="memberDashboardGames")
      */
     public function memberDashboardGames(Request $request)
     {
@@ -117,7 +117,7 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/memberDashboard/game/{id}", name="memberDashboardGame")
+     * @Route("/dashboard/member/game/{id}", name="memberDashboardGame")
      */
     public function memberDashboardGame($id, Request $request)
     {
@@ -177,7 +177,7 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/memberDashboard/game/delete/{id}", name="GameDelete")
+     * @Route("/dashboard/member/game/delete/{id}", name="GameDelete")
      */
     public function gameDelete($id)
     {
