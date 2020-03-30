@@ -20,6 +20,7 @@
 			{{form_start(formGame)}}
 
 			{{form_widget(formGame)}}
+            <label for="">Categories</label>
             <input class="search-js" type="text">
             <div class="result-search-js"></div>
 			<button type="submit">
@@ -96,7 +97,7 @@
                     success: function(data){
                         if(data != ""){
                             $('.result-search-js').append(data);
-                            console.log(category);
+                            console.log(data);
                         }else{
                             $('.result-search-js').textContent = "aucune categorie";
                         }
