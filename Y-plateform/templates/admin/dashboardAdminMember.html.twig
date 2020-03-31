@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}- Dashboard Admin Membre {% endblock %}
+
+{% block content %}
+
+<h4>Panel Admin</h4>
+<a href="{{ path('dashboardAdmin') }}">Dashboard</a>
+<h6>Utilisateurs</h6>
+<a href="{{ path('userList') }}">Utilisateurs</a><br>
+<a href="{{ path('memberList') }}">Membres</a>
+<h6>Demandes</h6>
+<a href="">Ajout de jeu</a><br>
+
+<input type="search" name="" id="" placeholder="Recherche">
+
+<h1>Dashboard {{ member[0].user.username }} {{ member[0].user.lastname }}</h1>
+<br><br>
+
+<a href="">Voir ses jeux</a>
+<a href="{{path('profil', {id : member[0].user.id})}}">Voir profil</a>
+<a href="">Enlever membre</a>
+
+<h4>Téléchargements</h4>
+
+{% for nbD in nbDownload %}
+    <h3>{{ nbD.nbDownload }}</h3>
+{% endfor %} 
+
+<br>
+<h4>Jeux</h4>
+
+{% for nbG in nbGame %}
+    <h3>{{ nbG.nbGame }}</h3>
+{% endfor %} 
+
+<br>
+<h4>Commentaires</h4>
+
+{% for nbC in nbComment %}
+    <h3>{{ nbC.nbComment }}</h3>
+{% endfor %} 
+
+<br><br>
+<h6>(Diagrammes)</h6>
+
+{% endblock %}

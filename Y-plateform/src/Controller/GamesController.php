@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Game;
 use App\Entity\Note;
 use App\Entity\Member;
@@ -19,7 +20,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GamesController extends AbstractController
 {
 
-
+    public function navbar(Request $request){
+        $currentRoute = $request->attributes->get('_route');
+        $route = $this->get('router')->generate($currentRoute, [], true);
+        $route = explode("/", $route);
+        $navbar = true;
+        if(isset($route[1])){
+            if($route[1] === "dashboard"){
+                $navbar = false;
+            }
+        }
+        return $navbar;
+    }
 
     /**
      * @Route("/", name="home")
@@ -30,58 +42,13 @@ class GamesController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $games = $repository->lastGames();
 
+        $navbar = true;
+        
+        
+
         return $this->render('games/home.html.twig', [
-            'games' => $games
-        ]);
-    }
-
-    /**
-     * @Route("/addgame", name="addgame")
-     * page d'accueil
-     */
-    public function addGame(Request $request)
-    {
-        $user = $this->getUser();
-        $repository = $this->getDoctrine()->getRepository(Member::class);
-        $member = $repository->getUserProfil($user);
-        $member = $member[0];
-        if ($member->getLevel() === false) {
-            return $this->redirectToRoute('profil');
-        }
-        $game = new Game;
-        $form = $this->createForm(AddGameType::class, $game);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            // add img game
-            $fileImg = $game->getImg();
-            $filename = 'GameImg_' . time() . '_' . rand(1, 99999) . '_' . md5(uniqid()) . '.' . $fileImg->guessExtension();
-            $fileImg->move($this->getParameter('upload_gameImg'), $filename);
-            $game->setImg($filename);
-
-            // add .exe game
-            $fileUrl = $game->getUrl();
-            $filename = 'Exe_' . time() . '_' . rand(1, 99999) . '_' . md5(uniqid()) . '.' . $fileUrl->guessExtension();
-            $fileUrl->move($this->getParameter('upload_gameUrl'), $filename);
-            $game->setUrl($filename);
-
-
-            $game->setDateG(new \DateTime());
-            $game->setIsActive(false);
-            $game->setNbDownload(0);
-            $game->setMember($member);
-
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($game); //commit(git)
-            $manager->flush(); // push(git)
-
-            $this->addFlash('success', 'Votre jeu a bien été ajouter');
-            return $this->redirectToRoute('games');
-        }
-        return $this->render('games/addgame.html.twig', [
-            'formGame' => $form->createView(),
+            'games' => $games,
+            'navbar' => $navbar
         ]);
     }
 
@@ -92,10 +59,77 @@ class GamesController extends AbstractController
      */
     public function games()
     {
-        $repository = $this->getDoctrine()->getRepository(Game::class);
-        $game = $repository->findAll();
+        $navbar = true;
 
-        return $this->render('games/games.html.twig', ['game' => $game]);
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $games = $repository->findAll();
+        $last3game = $repository->last3Games();
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repository->findAll();
+
+        return $this->render('games/games.html.twig', [
+            'games' => $games,
+            'last3game' => $last3game,
+            'category' => $category,
+            'navbar' => $navbar
+        ]);
+    }
+
+    /**
+     * @Route("/library/{cat}", name="category")
+     * voir tout les jeux 
+     */
+    public function category(string $cat)
+    {
+        $navbar = true;
+
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $games = $repository->GamesCategory($cat);
+        $last3game = $repository->last3Games();
+
+        if ($cat == 'new') {
+            $games = $repository->NewGames();
+        } elseif ($cat == 'pop') {
+            $allGames = $repository->findAll();
+            $repo = $this->getDoctrine()->getRepository(Note::class);
+            $games = [];
+            foreach ($allGames as $key => $value) {
+                $games[$key][0] = $repo->note($value);
+                $games[$key][1] = $value;
+            }
+            foreach ($games as $key => $value) {
+                foreach ($games as $keys => $values) {
+                    if ($keys + 1 != count($games)) {
+                        if ($games[$keys + 1][0] > $values[0]) {
+                            $objet = $values;
+                            $games[$keys] = $games[$keys + 1];
+                            $games[$keys + 1] = $objet;
+                        }
+                    }
+                }
+            }
+            foreach ($games as $key => $value) {
+                if($key >= 5){
+                    unset($games[$key]);
+                }else{
+                    $games[$key] = $value[1];
+                }
+            }
+        } elseif ($cat == 'better') {
+            $games = $repository->BetterSaleGames();
+        }
+
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repository->findAll();
+
+
+
+        return $this->render('games/games.html.twig', [
+            'games' => $games,
+            'last3game' => $last3game,
+            'category' => $category,
+            'navbar' => $navbar
+        ]);
     }
 
     /**
@@ -104,6 +138,7 @@ class GamesController extends AbstractController
      */
     public function game($id, Request $request)
     {
+        $navbar = true;
         $userlog = $this->getUser();
 
         $manager = $this->getDoctrine()->getManager();
@@ -156,6 +191,7 @@ class GamesController extends AbstractController
             'commentForm' => $form->createView(),
             'like' => $like,
             'dislike' => $dislike,
+            'navbar' => $navbar
         ]);
     }
 
@@ -179,7 +215,7 @@ class GamesController extends AbstractController
                 'message' => "pas autoriser",
             ], 403);
         }
-    $a = 0;
+        $a = 0;
         if ($comment->isLikedByUser($user)) {
             if ($comment->likeOrDislike($user) === true) {
                 $a = 0;
@@ -196,10 +232,10 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'user' => $user
                     ]);
-        
+
                     $manager->remove($like);
                     $manager->flush();
-        
+
                     $likejson = $repo->findBy([
                         'comment' => $comment,
                         'value' => true
@@ -208,14 +244,14 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'value' => false
                     ]);
-        
+
                     return $this->json([
                         'code' => 200,
                         'message' => "like supprimer",
                         'likes' => count($likejson),
                         'dislikes' => count($dislikejson),
                         'a' => $a
-        
+
                     ], 200);
                 }
             } elseif ($comment->likeOrDislike($user) === false) {
@@ -233,10 +269,10 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'user' => $user
                     ]);
-        
+
                     $manager->remove($like);
                     $manager->flush();
-        
+
                     $likejson = $repo->findBy([
                         'comment' => $comment,
                         'value' => true
@@ -245,25 +281,26 @@ class GamesController extends AbstractController
                         'comment' => $comment,
                         'value' => false
                     ]);
-        
+
                     return $this->json([
                         'code' => 200,
                         'message' => "like supprimer",
                         'likes' => count($likejson),
                         'dislikes' => count($dislikejson),
                         'a' => $a
-        
+
                     ], 200);
                 }
-            } if($a == 0){
+            }
+            if ($a == 0) {
                 $like = $likeRepo->findOneBy([
                     'comment' => $comment,
                     'user' => $user
                 ]);
-    
+
                 $manager->remove($like);
                 $manager->flush();
-    
+
                 $likejson = $repo->findBy([
                     'comment' => $comment,
                     'value' => true
@@ -272,18 +309,16 @@ class GamesController extends AbstractController
                     'comment' => $comment,
                     'value' => false
                 ]);
-    
+
                 return $this->json([
                     'code' => 200,
                     'message' => "like supprimer",
                     'likes' => count($likejson),
                     'dislikes' => count($dislikejson),
 
-    
+
                 ], 200);
             }
-
-            
         }
 
         $like = new CommentLike();

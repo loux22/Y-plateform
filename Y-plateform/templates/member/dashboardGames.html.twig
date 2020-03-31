@@ -4,6 +4,7 @@
 
 
 {% block content %}
+<button type="submit" class="add-game-js" >Ajouter un jeu</button>
 {% for value in games %}
 <a href="{{ path('memberDashboardGame', {'id': value.id}) }}">
     <h1>{{value.name}}</h1>
@@ -11,4 +12,101 @@
 </a>
 {% endfor %}
 
+
+<div class="popup">
+		<div class="popup-content">
+            <img class="close" src="{{ asset('/img/close.png')}}" alt="">
+			<h1>Ajouter un jeu</h1>
+			{{form_start(formGame)}}
+
+			{{form_widget(formGame)}}
+            <label for="">Categories</label>
+            <input class="search-js" type="text">
+            <div class="result-search-js"></div>
+			<button type="submit">
+				Ajouter
+			</button>
+
+			{{form_end(formGame)}}
+
+		</div>
+	</div>
+
+<style>
+        .popup{
+            background: rgba(0,0,0, 0.6);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0%;
+            display: none;
+            justify-content: center;
+            align-items: center; 
+        }
+    
+        .popup-content{
+            height: 350px;
+            width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 2px;
+            position: relative;
+            box-shadow: 6px 6px 29px -4px rgba(0,0,0, 0.75);
+        }
+    
+        .close{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+    </style>
+
 {% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script>
+
+    addGame = document.querySelector('.add-game-js')
+    addGame.addEventListener('click', function(){
+        document.querySelector('.popup').style.display = 'flex'
+        document.querySelector('body').style.overflow = 'hidden'
+    })
+
+    document.querySelector('.close').addEventListener('click', function(){
+        document.querySelector('.popup').style.display = 'none'
+        document.querySelector('body').style.overflow = 'visible'
+    })
+
+
+
+    $(document).ready(function(){
+        $('.search-js').keyup(function(){
+            $('.result-search-js').html('');
+            var category = $(this).val();
+            if (category != ''){
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ path('searchCategory') }}",
+                    data: 'category=' + encodeURIComponent(category),
+                    success: function(data){
+                        if(data != ""){
+                            $('.result-search-js').append(data);
+                            console.log(data);
+                        }else{
+                            $('.result-search-js').textContent = "aucune categorie";
+                        }
+                    }
+                })
+                
+            }
+            
+        })
+    });
+</script>
+{% endblock %} 

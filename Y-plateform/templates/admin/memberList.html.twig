@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block title %}- Liste Membres {% endblock %}
+
+{% block content %}
+
+<h4>Panel Admin</h4>
+<a href="{{ path('dashboardAdmin') }}">Dashboard</a>
+<h6>Utilisateurs</h6>
+<a href="{{ path('userList') }}">Utilisateurs</a><br>
+<a href="{{ path('memberList') }}">Membres</a>
+<h6>Demandes</h6>
+<a href="">Ajout de jeu</a><br>
+
+<input type="search" name="" id="" placeholder="Recherche">
+
+<h1>Tableau Membres</h1>
+<br><br>
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Âge</th>
+      <th scope="col">Date de création</th>
+      <th scope="col">Modifier / Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in members %}
+    <tr>
+      <th scope="row">{{ member.user.id }}</th>
+      <td>{{ member.user.username}} {{ member.user.lastname}}</td>
+      <td>{{ member.user.mail }}</td>
+      <td><i>{{ member.user.age.date|date("m/d/Y") }}</i></td>
+      <td>{{ member.user.dateU.date|date("m/d/Y") }}</td>
+      <td><a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}">Voir dashboard</a></td>
+    </tr>
+    {% endfor %}
+    {{ knp_pagination_render(members) }}
+  </tbody> 
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+{% endblock %}
