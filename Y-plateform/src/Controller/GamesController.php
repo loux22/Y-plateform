@@ -20,13 +20,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GamesController extends AbstractController
 {
 
-    public function navbar(Request $request){
+    public function navbar(Request $request)
+    {
         $currentRoute = $request->attributes->get('_route');
         $route = $this->get('router')->generate($currentRoute, [], true);
         $route = explode("/", $route);
         $navbar = true;
-        if(isset($route[1])){
-            if($route[1] === "dashboard"){
+        if (isset($route[1])) {
+            if ($route[1] === "dashboard") {
                 $navbar = false;
             }
         }
@@ -43,8 +44,8 @@ class GamesController extends AbstractController
         $games = $repository->lastGames();
 
         $navbar = true;
-        
-        
+
+
 
         return $this->render('games/home.html.twig', [
             'games' => $games,
@@ -109,9 +110,9 @@ class GamesController extends AbstractController
                 }
             }
             foreach ($games as $key => $value) {
-                if($key >= 5){
+                if ($key >= 5) {
                     unset($games[$key]);
-                }else{
+                } else {
                     $games[$key] = $value[1];
                 }
             }
@@ -349,5 +350,26 @@ class GamesController extends AbstractController
             'dislikes' => count($dislikejson),
             'a' => $a
         ], 200);
+    }
+
+    /**
+     * @Route("/searchGame", name="searchGame")
+     */
+    public function searchCategory(Request $request): Response
+    {
+
+
+        $getGame = $request->get('game');
+        $repo = $this->getDoctrine()->getRepository(Game::class);
+        $game = $repo->searchGames($getGame);
+        if ($game) {
+            foreach ($game as $key => $value) {
+                echo '<div><a href="{{ path("game", {id : ' . $value -> getId() . '}) }}' . '" class="search-bar">' . $value -> getName() . '</a></div>';
+                                    // {{ path('game', {id : game.id})}}
+            }
+        } else {
+            echo 'aucune jeux trouvés';
+        }
+        return new Response();
     }
 }
