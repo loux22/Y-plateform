@@ -3,6 +3,7 @@
 {% block title %}- dashboard Admin {% endblock %}
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css')}}">
+<link rel="stylesheet" href="{{ asset('/css/dashboard.css')}}">
 <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
@@ -89,7 +90,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg topbar mb-4 static-top shadow">
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -164,11 +165,11 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card border-left-primar shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-primar text-uppercase mb-1">
                                             Téléchargements</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             {{nbDownload[0].nbDownload}}</div>
@@ -183,11 +184,11 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-succes shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Jeux
+                                        <div class="text-xs font-weight-bold text-succes text-uppercase mb-1">Jeux
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{nbGames[0].nbGames}}</div>
                                     </div>
@@ -201,11 +202,11 @@
 
                     <!-- Pending Requests Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card border-left-warningg shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-warningg text-uppercase mb-1">
                                             Membres</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{nbMembers[0].nbMembers}}</div>
                                     </div>
@@ -219,14 +220,14 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card border-left-successs shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-succes text-uppercase mb-1">
                                             Utilisateurs
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{nbUsers[0].nbUsers}}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white-800">{{nbUsers[0].nbUsers}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
