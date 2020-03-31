@@ -154,6 +154,16 @@ body {
 
 }
 
+.nd {
+    float: right;
+}
+
+
+.gname{
+    padding-top: 20px;
+}
+
+
 .btn-modf{
 
     width: 384px;

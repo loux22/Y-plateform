@@ -62,12 +62,13 @@
             <div class="row mt-5">
                 <div id="img1" class="col-4 mt-2">
                     <img src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
-                    <h5>{{ g.nbDownload }}</h5>
-                    <h5>{{ note[0].note }}</h5>
+                   
                 </div>
 
                 <div id="img2" class="col-8 mt-2">
-                    <h5>{{ g.name }}</h5>
+                    <h5 class="gname">{{ g.name }}</h5>
+                    <h5 class="nd">{{ g.nbDownload }}</h5>
+                    <h5 class="nd">{{ note[0].note }}</h5>
                 </div>
             </div>
         </div>
