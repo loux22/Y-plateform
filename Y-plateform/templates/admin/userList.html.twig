@@ -36,34 +36,17 @@
       <td>{{ user.mail }}</td>
       <td>{{ user.age.date|date("m/d/Y") }}</td>
       <td>{{ user.dateU.date|date("m/d/Y") }}</td>
-      <td><a href="{{ path('dashboardAdminMember', {id : user.id}) }}">Voir dashboard</a></td>
+      <td><a href="{{ path('dashboardAdminMember', {id : user.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
+      <span class="iconify" onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur ?');" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></td>
     </tr>
     {% endfor %}
-    <div class="navigation">
-      {{ knp_pagination_render(users) }}
-    </div> 
-    
+    {# {{ knp_pagination_filter(users, {'id': 'id'}) }} #}
+    {# {{ knp_pagination_filter(users, {'g.id': 'Id', 'g.username': 'Username'}) }} #}
   </tbody>
 </table>
+<div class="navigation">
+  {{ knp_pagination_render(users) }}
+</div> 
 
-{# <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav> #}
 
 {% endblock %}
