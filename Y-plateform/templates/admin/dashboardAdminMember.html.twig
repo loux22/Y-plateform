@@ -17,8 +17,17 @@
 <br><br>
 
 <a href="">Voir ses jeux</a>
-<a href="{{path('profil_user', {id : member[0].user.id}) }}">Voir profil</a>
-<a href="{{ path('userRole', {id : member[0].user.id}) }}">Enlever membre</a>
+<a href="{{ path('profil_user', {id : member[0].user.id}) }}">Voir profil</a>
+
+
+{% if member[0].user.roles[0] == 'ROLE_USER' %}
+    <a href="{{ path('userRole', {id : member[0].user.id}) }}">Passer membre</a>
+{% endif %}
+{% if member[0].user.roles[0] == 'ROLE_MEMBER' %}
+    <a href="{{ path('userRole', {id : member[0].user.id}) }}">Enlever membre</a>
+{% endif %} 
+
+
 
 <h4>Téléchargements</h4>
 

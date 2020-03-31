@@ -97,6 +97,7 @@ class User implements UserInterface
         $this->comments = new ArrayCollection();
         $this->roles = ['ROLE_USER'];
         $this->commentLikes = new ArrayCollection();
+        // $this->roles = ['ROLE_MEMBER'];
     }
 
     public function getId(): ?int
@@ -203,6 +204,19 @@ class User implements UserInterface
     public function getRoles(){
         return $this->roles;
     }
+
+    public function setRoleMember() {
+        $this->roles = ['ROLE_MEMBER'];
+
+        return $this;
+    }
+
+    public function setRoleUser() {
+        $this->roles = ['ROLE_USER'];
+
+        return $this;
+    }
+
 
     public function eraseCredentials(){
 

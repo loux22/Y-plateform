@@ -231,36 +231,24 @@ class AdminController extends AbstractController
 
         $l = $member->getLevel();
 
-        // $r = $user->getRoles();
-        // if($r == 'ROLE_USER' && $l == 0) {
-        //     $user->setRoles('ROLE_MEMBER');
-        //     $member->setLevel(1);
-        //     $manager = $this -> getDoctrine() -> getManager();
-        //     $manager -> persist($user, $member);
-        //     $manager->flush();
-        // }  
+        $r = $user->getRoles();
 
-        // if($r == 'ROLE_MEMBER' && $l == 1) {
-        //     $user->setRoles('ROLE_USER');
-        //     $member->setLevel(0);
-        //     $manager = $this -> getDoctrine() -> getManager();
-        //     $manager -> persist($user, $member);
-        //     $manager->flush();
-        // }  
 
-        if($l == 0) {
+        if($r == 'ROLE_USER' || $l == 0) {
+            $user->setRoleMember('ROLE_MEMBER');
             $member->setLevel(1);
             $manager = $this -> getDoctrine() -> getManager();
-            $manager -> persist($member);
+            $manager -> persist($user, $member);
             $manager->flush();
         }  
 
-        if($l == 1) {
+        if($r == 'ROLE_MEMBER' || $l == 1) {
+            $user->setRoleUser('ROLE_USER');
             $member->setLevel(0);
             $manager = $this -> getDoctrine() -> getManager();
-            $manager -> persist($member);
+            $manager -> persist($user, $member);
             $manager->flush();
-        } 
+        }  
 
 
         return $this -> redirectToRoute('userList');
