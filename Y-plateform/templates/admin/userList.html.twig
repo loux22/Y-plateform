@@ -39,6 +39,7 @@
       <td><a href="{{ path('dashboardAdminMember', {id : user.id}) }}">Voir dashboard</a></td>
     </tr>
     {% endfor %}
+    {{ knp_pagination_render(users) }}
   </tbody>
 </table>
 
