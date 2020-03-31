@@ -20,4 +20,13 @@
 <a href="{{ path('userRole', {id : user.id}) }}">Passer membre</a>
 
 
+{# {% if user.roles[0] == 'ROLE_USER' %}
+    <a href="{{ path('userRole', {id : user.id}) }}">Passer membre</a>
+{% endif %}
+{% if user.roles[0] == 'ROLE_MEMBER' %}
+    <a href="{{ path('userRole', {id : user.id}) }}">Enlever membre</a>
+{% endif %} #}
+
+
+
 {% endblock %}

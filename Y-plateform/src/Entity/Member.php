@@ -84,9 +84,8 @@ class Member
         $this->games = new ArrayCollection();
         $this->notes = new ArrayCollection();
         $this->commentLikes = new ArrayCollection();
+        $this->roles = ['ROLE_MEMBER'];
     }
-
-    
 
     
 
