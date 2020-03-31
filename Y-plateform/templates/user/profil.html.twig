@@ -2,7 +2,7 @@
 {% block title %}- profil {% endblock %}
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/profil.css')}}">
-{% endblock %}
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet"> {% endblock %} 
 
 {% block content %}
 
@@ -77,17 +77,27 @@
 
 {% endif %}
 
-<div class="title py-2">
+<div class="title py-2 mt-5">
     <div class="container">
         <h1>Informations</h1>
     </div>
 </div>
 
-<div class="container display">
+<div  class="container display">
 
-    <h5>Date de naissance: {{ user.age.date|date("m/d/Y") }}</h5>
-    <h5>Adresse mail : {{ user.mail}}</h5>
-    <h5>Téléphone : {{ member[0].phone}} </h5>
+
+   
+        
+    <h4 class="inform"> &bull; Date de naissance:</h4>
+    <h4 class="informs"> {{ user.age.date|date("m/d/Y") }} </h4>
+
+    <h4 class="inform"> &bull; Adresse mail :</h4>
+    <h4 class="informs"> {{ user.mail}} </h4>
+
+    <h4 class="inform"> &bull; Téléphone : </h4>
+    <h4 class="informs" > {{ member[0].phone}} </h4>
+
+   
 
 </div>
 
@@ -98,9 +108,12 @@
 </div>
 
 <div class="container display">
-    <h5>Adresse : {{member[0].address }}</h5>
-    <h5>Ville : {{member[0].city }} </h5>
-    <h5>Code postal : {{member[0].postal }}</h5>
+    <h4 class="inform"> &bull; Adresse : </h4>
+    <div class="informs"> {{member[0].address }} </div>
+    <h4 class="inform"> &bull; Ville :  </h4>
+    <div class="informs"> {{member[0].city }} </div>
+    <h4 class="inform"> &bull; Code postal : </h4>
+    <div class="informs"> {{member[0].postal }} </div>
 </div>
 
 
@@ -135,69 +148,20 @@
 
 <div class="popup password">
     <div class="popup-content">
-        <h1>Modification</h1>
+        <h1 class="modf">Modification</h1>
         <img class="close" src="{{ asset('/img/close.png')}}" alt="">
         <form action="" method="post">
             <input class="modify-password" type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
             <input class="modify-password" type="password" placeholder="Nouveau mot de passe" name="newPassword"><br>
             <input class="modify-password" type="password" placeholder="Confirmation" name="repeatNewPassword"><br>
 
-            <button type="submit">Confirmer</button>
+            <button class="btn-modf" type="submit">Confirmer</button>
 
         </form>
 
     </div>
 </div>
 
-<<<<<<< HEAD
-=======
-<style>
-    .display {
-        display: block;
-    }
-
-    .form,
-    .password {
-        display: none;
-    }
-
-
-    .popup {
-        background: rgba(0, 0, 0, 0.6);
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0%;
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .popup-content {
-        height: 350px;
-        width: 600px;
-        background: white;
-        padding: 20px;
-        border-radius: 2px;
-        position: relative;
-        box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
-    }
-
-    .modify-password {
-        margin: 5px auto;
-        display: block;
-        width: 50%;
-        padding: 8px;
-    }
-
-    .close {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        cursor: pointer;
-    }
-</style>
->>>>>>> 3050da5bba5fa8e1808c452cebc130170735ee3b
 
 <script>
     var displayBlock = document.querySelector(".display");
@@ -207,12 +171,8 @@
     var li = document.querySelectorAll("li");
     if (li.length >= 6) {
         x.style.display = "none";
-<<<<<<< HEAD
             y.style.display = "block";
 
-=======
-        y.style.display = "block";
->>>>>>> 3050da5bba5fa8e1808c452cebc130170735ee3b
     }
 
     function displayForm() {
