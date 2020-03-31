@@ -108,7 +108,7 @@ class AdminController extends AbstractController
         $users = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
-            5 // Nombre de résultats par page
+            3 // Nombre de résultats par page
         );
     
 
@@ -132,7 +132,7 @@ class AdminController extends AbstractController
         $members = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
-            5 // Nombre de résultats par page
+            3 // Nombre de résultats par page
         );
 
         return $this->render('admin/memberList.html.twig', [
