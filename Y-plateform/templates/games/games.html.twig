@@ -7,25 +7,26 @@
 {% block content %}
 <div class="container mt-5">
 
-	<div class="nav2">
-		<ul>
-			<li>
-				<a href="{{path('category', {cat : 'new'})}}">
-					Nouveauté</a>
-			</li>
-			<li>
-				<a href="{{path('category', {cat : 'pop'})}}">
-					Populaire</a>
-			</li>
-			<li>
-				<a href="{{path('category', {cat : 'better'})}}">
-					Meilleures Ventes</a>
-			</li>
-			<div class="search-container">
-				<input type="text" placeholder="Rechercher un jeu..">
-			</div>
-		</ul>
-	</div>
+  <div class="nav2">
+    <ul>
+      <li>
+        <a href="{{path('category', {cat : 'new'})}}">
+          Nouveauté</a>
+      </li>
+      <li>
+        <a href="{{path('category', {cat : 'pop'})}}">
+          Populaire</a>
+      </li>
+      <li>
+        <a href="{{path('category', {cat : 'better'})}}">
+          Meilleures Ventes</a>
+      </li>
+      <div class="search-container">
+        <input class="search-js" type="text" placeholder="Rechercher un jeu..">
+        <div class="result-search-js"></div>
+      </div>
+    </ul>
+  </div>
 
 </div>
 
@@ -39,16 +40,16 @@
     </ol>
     <div class="carousel-inner">
       {% for key,value in last3game %}
-			{% if key == 0 %}
-			<div class="carousel-item active">
-				<img class="d-block w-100" src="{{ asset('/gameImg/')}}{{value.img}}" alt="First slide">
+      {% if key == 0 %}
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="{{ asset('/gameImg/')}}{{value.img}}" alt="First slide">
       </div>
       {% else %}
-			<div class="carousel-item">
-				<img class="d-block w-100" src="{{ asset('/gameImg/')}}{{value.img}}" alt="First slide">
-			</div>
-			{% endif %}
-			{% endfor %}
+      <div class="carousel-item">
+        <img class="d-block w-100" src="{{ asset('/gameImg/')}}{{value.img}}" alt="First slide">
+      </div>
+      {% endif %}
+      {% endfor %}
       <h5>Nom du jeu</h5>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -61,26 +62,26 @@
     </a>
 
     <div class="breadcrumb">
-    <h4> Nom du jeu </h4>
-  </div>
+      <h4> Nom du jeu </h4>
+    </div>
 
   </div>
-  
+
   <div class="row mt-5">
-    <div class="col-8" >
+    <div class="col-8">
 
-      <div class="row mt-5" >
+      <div class="row mt-5">
         {% for game in games %}
-        
+
         <div id="img1" class="col-4 mt-2">
           <a href="{{path('game', {id : game.id})}}">
-          <img src="{{ asset('/gameImg/')}}{{game.img}}" class="rounded float-left" alt="..." >
-        </a>
+            <img src="{{ asset('/gameImg/')}}{{game.img}}" class="rounded float-left" alt="...">
+          </a>
         </div>
         <div id="img2" class="col-8 mt-2">
           {{game.name}}
         </div>
-      
+
         {% endfor %}
 
       </div>
@@ -88,23 +89,22 @@
 
     </div>
 
-  <div class="col-4 mt-5">
-  
-    <div>
-      <ul class="list-group ">
-      <a href="#">
-      <li1 class="list-group-item"> Catégorie</li1>
-      </a>
+    <div class="col-4 mt-5">
 
-      {% for value in category %}
-					<a href="{{path('category', {cat : value.id})}}"
-						class="list-group-item">{{value.title|capitalize}}</a>
-					{% endfor %}
+      <div>
+        <ul class="list-group ">
+          <a href="#">
+            <li1 class="list-group-item"> Catégorie</li1>
+          </a>
 
-      </ul>
+          {% for value in category %}
+          <a href="{{path('category', {cat : value.id})}}" class="list-group-item">{{value.title|capitalize}}</a>
+          {% endfor %}
+
+        </ul>
+      </div>
+
     </div>
-  
-  </div>
   </div>
 
 
@@ -117,4 +117,33 @@
 {% endblock %}
 {% block js %}
 <script href="{{ asset('js/games.js')}}"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $('.search-js').keyup(function(){
+      $('.result-search-js').html('');
+      var game = $(this).val();
+      if (game != ''){
+          $.ajax({
+              type: 'GET',
+              url: "{{ path('searchGame') }}",
+              data: 'game=' + encodeURIComponent(game),
+              success: function(data){
+                  if(data != ""){
+                      $('.result-search-js').append(data);
+                  }else{
+                      $('.result-search-js').textContent = "aucune jeux";
+                  }
+              }
+          })
+          
+      }
+      
+  })
+});
+</script>
 {% endblock %}

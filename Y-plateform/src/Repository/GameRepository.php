@@ -132,6 +132,16 @@ class GameRepository extends ServiceEntityRepository
             -> getResult();
     }
 
+    public function searchGames($game)
+    {
+        $builder = $this -> createQueryBuilder('g');
+        return $builder
+            ->where('g.name LIKE :game')
+            ->setParameter('game', $game.'%')
+            -> getQuery()
+            -> getResult();
+    }
+
 
 
     // /**
