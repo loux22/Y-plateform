@@ -72,7 +72,7 @@
 
 <script>
 
-    addGame = document.querySelector('.add-game-js')
+    var addGame = document.querySelector('.add-game-js')
     addGame.addEventListener('click', function(){
         document.querySelector('.popup').style.display = 'flex'
         document.querySelector('body').style.overflow = 'hidden'
@@ -83,12 +83,17 @@
         document.querySelector('body').style.overflow = 'visible'
     })
 
+    document.querySelector('.close').addEventListener('click', function(){
+        document.querySelector('.popup').style.display = 'none'
+        document.querySelector('body').style.overflow = 'visible'
+    })
 
 
     $(document).ready(function(){
         $('.search-js').keyup(function(){
             $('.result-search-js').html('');
             var category = $(this).val();
+            
             if (category != ''){
                 $.ajax({
                     type: 'GET',
@@ -97,7 +102,15 @@
                     success: function(data){
                         if(data != ""){
                             $('.result-search-js').append(data);
-                            console.log(data);
+                            /*var searchBar = document.querySelectorAll('.search-bar')
+                            searchBar.forEach(value => {
+                                console.log(value)
+                                value.addEventListener('click', function(){
+                                    value.checked = true
+                                })
+                            });*/
+                            
+                            // console.log(data);
                         }else{
                             $('.result-search-js').textContent = "aucune categorie";
                         }
