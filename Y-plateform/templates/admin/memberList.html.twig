@@ -23,7 +23,7 @@
       <th scope="col">ID</th>
       <th scope="col">Nom</th>
       <th scope="col">Email</th>
-      <th scope="col">Âge</th>
+      <th scope="col">Date de naissance</th>
       <th scope="col">Date de création</th>
       <th scope="col">Modifier / Supprimer</th>
     </tr>
@@ -34,15 +34,16 @@
       <th scope="row">{{ member.user.id }}</th>
       <td>{{ member.user.username}} {{ member.user.lastname}}</td>
       <td>{{ member.user.mail }}</td>
-      <td><i>{{ member.user.age.date|date("m/d/Y") }}</i></td>
+      <td>{{ member.user.age.date|date("m/d/Y") }}</td>
       <td>{{ member.user.dateU.date|date("m/d/Y") }}</td>
       <td><a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}">Voir dashboard</a></td>
     </tr>
     {% endfor %}
+    {{ knp_pagination_render(members) }}
   </tbody> 
 </table>
 
-<nav aria-label="Page navigation example">
+{# <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
@@ -60,6 +61,6 @@
       </a>
     </li>
   </ul>
-</nav>
+</nav> #}
 
 {% endblock %}

@@ -4,101 +4,110 @@
 <link rel="stylesheet" href="{{ asset('/css/profil.css')}}">
 {% endblock %}
 
-{% block content %} 
+{% block content %}
 
-<div class="cont">
 
-    <div class="image">
-        <div class="container">
-        <div class="row">
-                <div class="col-3">
+<div class="container image">
 
-                    <img class="pp" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
-                
-                </div>
-                <div class="col-8">
-                <h5 class="info1">Pseudo : {{ member[0].user.pseudo}}</h5>
-                    <div class="info">
-                    
-                        <h5>Nom : {{ member[0].user.lastname}}</h5>
-                        <h5>Prénom : {{ member[0].user.username}}</h5>
-                        <h5>{{ age }} ans</h5>
-                        {% if member[0].level == true %}
-                         <h5>level : User </h5>
-                        {% else %}
-                        <h5>level : Member </h5>
-                        {% endif %}
-                    
-                    </div>
-                    
+    <div class="row">
+        <div class="col-3">
 
-                </div>
+            <img class="pp" src="{{ asset('/avatar/')}}{{member[0].user.avatar }}" alt="">
 
-            </div>  
-                
+        </div>
+        <div class="col-8">
+            <h5 class="info1">Pseudo : {{ member[0].user.pseudo}}</h5>
+            <div class="info">
+
+                <h5>Nom : {{ member[0].user.lastname}}</h5>
+                <h5>Prénom : {{ member[0].user.username}}</h5>
+                <h5>{{ age }} ans</h5>
+                {% if member[0].level == true %}
+                <h5>level : User </h5>
+                {% else %}
+                <h5>level : Member </h5>
+                {% endif %}
+
+            </div>
         </div>
 
     </div>
 
-
-{% if member[0].level == false %}
+    {% if member[0].level == false %}
     <h5>level : User </h5>
-{% else %}
+    {% else %}
     <h5>level : Member </h5>
-{% endif %}
+    {% endif %}
 
+    <div class="btn-profil">
+        <button id="btn" class="modify-password-js" onclick="displayPassword()">Modifier le mot de
+            passe</button>
+        <button id="btn" onclick="displayForm()">Modifier le profil</button>
+    </div>
 
-
-<a href="#"><button id="btn" class="modify-password-js" onclick="displayPassword()">Modifier le mot de passe</button></a>
-<a href="#"><button id="btn" onclick="displayForm()">Modifier le profil</button></a>
+</div>
 
 {% if member[0].level == true %}
-   <div class="title mt-5">
+<div class="title py-2">
+    <div class="container">
         <h1>Mes Jeux</h1>
-   </div> 
+    </div>
+</div>
+
+<div class="container">
     {% for g in game %}
+    <div class="row mt-5">
+        <div class="col-8">
 
-        <div class="row mt-5">
-            <div class="col-8" >
+            <div class="row mt-5">
+                <div id="img1" class="col-4 mt-2">
+                    <img src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
+                    <h5>{{ g.nbDownload }}</h5>
+                    <h5>{{ note[0].note }}</h5>
+                </div>
 
-                <div class="row mt-5" >
-                    <div id="img1" class="col-4 mt-2">
-                        <img  src="{{ asset('/gameImg/')}}{{g.img }}" alt="">
-                        <h5>{{ g.nbDownload }}</h5>
-                        <h5>{{ note[0].note }}</h5>
-                    </div>
-
-                    <div id="img2" class="col-8 mt-2">
-                        <h5>{{ g.name }}</h5>
-                    </div>
+                <div id="img2" class="col-8 mt-2">
+                    <h5>{{ g.name }}</h5>
                 </div>
             </div>
         </div>
+    </div>
     {% endfor %}
+</div>
+
 {% endif %}
 
-<div class="display">
+<div class="title py-2">
+    <div class="container">
+        <h1>Informations</h1>
+    </div>
+</div>
 
-    <h1>Informations</h1>
+<div class="container display">
 
     <h5>Date de naissance: {{ user.age.date|date("m/d/Y") }}</h5>
     <h5>Adresse mail : {{ user.mail}}</h5>
     <h5>Téléphone : {{ member[0].phone}} </h5>
 
-    <br><br>
-    <h1>Localisation</h1>
+</div>
+
+<div class="title py-2">
+    <div class="container">
+        <h1>Localisation</h1>
+    </div>
+</div>
+
+<div class="container display">
     <h5>Adresse : {{member[0].address }}</h5>
     <h5>Ville : {{member[0].city }} </h5>
     <h5>Code postal : {{member[0].postal }}</h5>
-
-
 </div>
 
-<br><br>
 
-<div class="form">
-    <h1>Informations</h1><br>
-    
+
+<div class="container form">
+    <h1>Informations</h1>
+
     {{form_start(form)}}
 
     {{form_widget(form)}}
@@ -116,11 +125,12 @@
     {{form_widget(formM)}}
 
     <button type="submit">Confirmer</button>
-   
+
     {{form_end(formM)}}
 
 
 </div>
+
 
 
 <div class="popup password">
@@ -128,57 +138,57 @@
         <h1>Modification</h1>
         <img class="close" src="{{ asset('/img/close.png')}}" alt="">
         <form action="" method="post">
-        <input class="modify-password" type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
-        <input class="modify-password" type="password" placeholder="Nouveau mot de passe" name="newPassword"><br>
-        <input class="modify-password" type="password" placeholder="Confirmation" name="repeatNewPassword"><br>
+            <input class="modify-password" type="password" placeholder="Ancien mot de passe" name="lastPassword"><br>
+            <input class="modify-password" type="password" placeholder="Nouveau mot de passe" name="newPassword"><br>
+            <input class="modify-password" type="password" placeholder="Confirmation" name="repeatNewPassword"><br>
 
-        <button type="submit">Confirmer</button>
+            <button type="submit">Confirmer</button>
 
-    </form>
-        
+        </form>
+
     </div>
 </div>
 
 <style>
-
     .display {
         display: block;
     }
 
-    .form, .password {
+    .form,
+    .password {
         display: none;
     }
 
 
-    .popup{
-        background: rgba(0,0,0, 0.6);
+    .popup {
+        background: rgba(0, 0, 0, 0.6);
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0%;
         display: none;
         justify-content: center;
-        align-items: center; 
+        align-items: center;
     }
 
-    .popup-content{
+    .popup-content {
         height: 350px;
         width: 600px;
         background: white;
         padding: 20px;
         border-radius: 2px;
         position: relative;
-        box-shadow: 6px 6px 29px -4px rgba(0,0,0, 0.75);
+        box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
     }
 
-    .modify-password{
+    .modify-password {
         margin: 5px auto;
         display: block;
         width: 50%;
         padding: 8px;
     }
 
-    .close{
+    .close {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -192,13 +202,13 @@
     var password = document.querySelector(".password");
 
     var li = document.querySelectorAll("li");
-    if(li.length >= 6){
+    if (li.length >= 6) {
         x.style.display = "none";
-            y.style.display = "block";
+        y.style.display = "block";
     }
 
     function displayForm() {
-        if (password.classList.contains('display')){
+        if (password.classList.contains('display')) {
             password.classList.replace('display', 'password');
             formModify.classList.replace('form', 'display');
         }
@@ -208,11 +218,11 @@
         } else {
             displayBlock.classList.replace('form', 'display');
             formModify.classList.replace('display', 'form');
-        } 
+        }
     }
 
     function displayPassword() {
-        if (formModify.classList.contains('display')){
+        if (formModify.classList.contains('display')) {
             formModify.classList.replace('display', 'form');
             password.classList.replace('password', 'display');
         }
@@ -226,12 +236,12 @@
     }
 
     modifyPassword = document.querySelector('.modify-password-js')
-    modifyPassword.addEventListener('click', function(){
+    modifyPassword.addEventListener('click', function () {
         document.querySelector('.popup').style.display = 'flex'
         document.querySelector('body').style.overflow = 'hidden'
     })
 
-    document.querySelector('.close').addEventListener('click', function(){
+    document.querySelector('.close').addEventListener('click', function () {
         document.querySelector('.popup').style.display = 'none'
         document.querySelector('body').style.overflow = 'visible'
     })

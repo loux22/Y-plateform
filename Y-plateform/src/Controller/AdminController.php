@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminController extends AbstractController
 {
@@ -89,11 +91,11 @@ class AdminController extends AbstractController
     * @Route("/dashboard/admin/userList", name="userList")
     */
 
-    public function UserList() {
+    public function UserList(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
 
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository->findAll();
+        $donnees = $repository->findAll();
 
         // for ($i=1; $i <= 100; $i++) { 
         //     $u = $users->getAge();
@@ -102,7 +104,12 @@ class AdminController extends AbstractController
         //     $datetime2 = new \DateTime($stringValue);
         //     $ages = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
         // }
-        
+
+        $users = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            3 // Nombre de résultats par page
+        );
     
 
         return $this->render('admin/userList.html.twig', [
@@ -116,12 +123,17 @@ class AdminController extends AbstractController
     * @Route("/dashboard/admin/memberList", name="memberList")
     */
 
-    public function memberList() {
+    public function memberList(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
-        $members = $repository -> allMembers();
+        $donnees = $repository -> allMembers();
 
+        $members = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            3 // Nombre de résultats par page
+        );
 
         return $this->render('admin/memberList.html.twig', [
             'members' => $members,
