@@ -36,11 +36,12 @@
       <td>{{ user.mail }}</td>
       <td>{{ user.age.date|date("m/d/Y") }}</td>
       <td>{{ user.dateU.date|date("m/d/Y") }}</td>
-      <td><a href="{{ path('dashboardAdminMember', {id : user.id}) }}">Voir dashboard</a></td>
+      <td><a href="{{ path('dashboardAdminMember', {id : user.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
+      <span class="iconify" onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur ?');" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></td>
     </tr>
     {% endfor %}
     {# {{ knp_pagination_filter(users, {'id': 'id'}) }} #}
-    {{ knp_pagination_filter(users, {'g.id': 'Id', 'g.username': 'Username'}) }}
+    {# {{ knp_pagination_filter(users, {'g.id': 'Id', 'g.username': 'Username'}) }} #}
   </tbody>
 </table>
 <div class="navigation">
