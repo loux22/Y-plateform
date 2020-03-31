@@ -37,10 +37,10 @@
       <td>
         <a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
         {% if member.user.isActiveU == true %}
-          <span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span>
+          <a href="{{ path('userState', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
         {% endif %}
         {% if member.user.isActiveU == false %}
-          <span class="iconify" data-inline="false" data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span>
+          <a href="{{ path('userState', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span></a>
         {% endif %}
       </td>
     </tr>
