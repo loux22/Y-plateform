@@ -22,7 +22,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboard()
     {
-        $this->denyAccessUnlessGranted('ROLE_MEMBER');
+        // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $navbar = false;
         $userLog = $this->getUser();
 
@@ -53,7 +53,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboardGames(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_MEMBER');
+        // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $navbar = false;
         $user = $this->getUser();
 
@@ -127,7 +127,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboardGame($id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_MEMBER');
+        // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $pop = 0;
         if (isset($_GET['pop']) && $_GET['pop'] == 1) {
             $pop = 1;
@@ -210,7 +210,7 @@ class MemberController extends AbstractController
      */
     public function gameDelete($id)
     {
-        $this->denyAccessUnlessGranted('ROLE_MEMBER');
+        // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $manager = $this->getDoctrine()->getManager();
         $game = $manager->find(Game::class, $id);
 
@@ -265,7 +265,7 @@ class MemberController extends AbstractController
      */
     public function game($idGame, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_MEMBER');
+        // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $manager = $this->getDoctrine()->getManager();
         $game = $manager->find(Game::class, $idGame);
 
