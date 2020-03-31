@@ -189,4 +189,32 @@ class AdminController extends AbstractController
         ]);
     }
     
+    /**
+    * @Route("/dashboard/admin/user/state/{id}", name="userState")
+    */
+
+    public function userState(Request $request, $id) {
+
+        $repository = $this-> getDoctrine() -> getRepository(User::class);
+        $user = $repository -> find($id);
+
+        $u = $user->getIsActiveU();
+
+        if($u == 1) {
+            $user->setIsActiveU(false);
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($user);
+            $manager->flush();
+        }  
+
+        if($u == 0) {
+            $user->setIsActiveU(true);
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($user);
+            $manager->flush();
+        }  
+        
+
+        return $this -> redirectToRoute('userList');
+    }
 }
