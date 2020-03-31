@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}- dashboard Admin {% endblock %}
-
-
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css')}}">
 <link
@@ -15,37 +13,6 @@
     }
 </style>
 {% endblock %}
-
-<h4>Téléchargements</h4>
-
-{% for nbD in nbDownload %}
-<h3>{{ nbD.nbDownload }}</h3>
-{% endfor %}
-
-<br>
-<h4>Jeux</h4>
-
-
-{% for nbG in nbGames %}
-<h3>{{ nbG.nbGames }}</h3>
-{% endfor %}
-
-<br>
-<h4>Membres</h4>
-
-{% for nbM in nbMembers %}
-<h3>{{ nbM.nbMembers }}</h3>
-{% endfor %}
-
-<br>
-<h4>Utilisateurs</h4>
-
-{% for nbU in nbUsers %}
-<h3>{{ nbU.nbUsers }}</h3>
-{% endfor %}
-
-
-
 {% block content %}
 
 <!-- Page Wrapper -->
@@ -204,7 +171,7 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Téléchargements</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            4454545454</div>
+                                            {{nbDownload[0].nbDownload}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -222,7 +189,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Jeux
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">45454545</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{nbGames[0].nbGames}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -240,7 +207,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             Membres</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">45454545</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{nbMembers[0].nbMembers}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -259,7 +226,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Utilisateurs
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">45454545</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{nbUsers[0].nbUsers}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

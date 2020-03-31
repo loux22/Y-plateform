@@ -23,6 +23,7 @@ class UserController extends AbstractController
      */
     public function registerUser(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $navbar = true;
         $user = new User;
         $member = new Member;
         // redirige si connecté
@@ -54,7 +55,10 @@ class UserController extends AbstractController
             $this -> addFlash('success','Vous êtes inscris');
             return $this->redirectToRoute('login');
         }
-        return $this->render('user/registerUser.html.twig', ['UserForm' => $form -> createView()]);
+        return $this->render('user/registerUser.html.twig', [
+            'UserForm' => $form -> createView(),
+            'navbar' => $navbar
+            ]);
     } 
 
     /**
@@ -62,9 +66,11 @@ class UserController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        $navbar = true;
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('user/login.html.twig', [
-            'error' => $error
+            'error' => $error,
+            'navbar' => $navbar
         ]);
     }
 
@@ -81,6 +87,7 @@ class UserController extends AbstractController
      */
     public function profil(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $navbar = true;
         // affichage des donnes du user connecté
 
         // redirige si pas connecté
@@ -196,7 +203,8 @@ class UserController extends AbstractController
             'member' => $member,
             'age' => $age,
             'game' => $game,
-            'note' => $note
+            'note' => $note,
+            'navbar' => $navbar
             ]);
     }
 
@@ -212,7 +220,7 @@ class UserController extends AbstractController
      * @Route("/profil/{id}", name="profil_user")
      */
     public function profilUser(Request $request, $id) {
-
+        $navbar = true;
         $repo = $this -> getDoctrine() -> getRepository(User::class);
         $user = $repo -> find($id);
         
@@ -242,7 +250,8 @@ class UserController extends AbstractController
             'member' => $member,
             'age' => $age,
             'game' => $game,
-            'note' => $note
+            'note' => $note,
+            'navbar' => $navbar
         ]);
     }
 
@@ -274,7 +283,8 @@ class UserController extends AbstractController
      * @Route("/recoverPassword", name="recoverPassword")
      */
     public function recoverPassword(){
-        return $this->render('user/recoverPassword.html.twig');
+        $navbar = true;
+        return $this->render('user/recoverPassword.html.twig',['navbar' => $navbar]);
     }
 
 

@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminController extends AbstractController
 {
@@ -19,9 +21,11 @@ class AdminController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        $navbar = true;
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('admin/loginAdmin.html.twig', [
-            'error' => $error
+            'error' => $error,
+            'navbar' => $navbar
         ]);
     }
     /**
@@ -59,10 +63,11 @@ class AdminController extends AbstractController
     }
 
     /**
-    * @Route("/dashboardAdmin", name="dashboardAdmin")
+    * @Route("/dashboard/admin", name="dashboardAdmin")
     */
 
     public function dashboardAdmin() {
+        $navbar = false;
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $nbDownload = $repository->allNbDownload();
         $nbGames = $repository->allNbGames();
@@ -77,18 +82,20 @@ class AdminController extends AbstractController
             'nbDownload' => $nbDownload,
             'nbGames' => $nbGames,
             'nbMembers' => $nbMembers,
-            'nbUsers' => $nbUsers
+            'nbUsers' => $nbUsers,
+            'navbar' => $navbar
         ]);
     }
 
     /**
-    * @Route("/userList", name="userList")
+    * @Route("/dashboard/admin/userList", name="userList")
     */
 
-    public function UserList() {
+    public function UserList(Request $request, PaginatorInterface $paginator) {
+        $navbar = false;
 
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository->findAll();
+        $donnees = $repository->findAll();
 
         // for ($i=1; $i <= 100; $i++) { 
         //     $u = $users->getAge();
@@ -97,36 +104,50 @@ class AdminController extends AbstractController
         //     $datetime2 = new \DateTime($stringValue);
         //     $ages = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
         // }
-        
+
+        $users = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            3 // Nombre de résultats par page
+        );
     
 
         return $this->render('admin/userList.html.twig', [
             'users' => $users,
+            'navbar' => $navbar
             // 'ages' => $ages
         ]);
     }
 
     /**
-    * @Route("/memberList", name="memberList")
+    * @Route("/dashboard/admin/memberList", name="memberList")
     */
 
-    public function memberList() {
+    public function memberList(Request $request, PaginatorInterface $paginator) {
+        $navbar = false;
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
-        $members = $repository -> allMembers();
+        $donnees = $repository -> allMembers();
 
+        $members = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            3 // Nombre de résultats par page
+        );
 
         return $this->render('admin/memberList.html.twig', [
             'members' => $members,
+            'navbar' => $navbar
             // 'ages' => $ages
         ]);
     }
 
     /**
-    * @Route("/dashboardAdminMember/{id}", name="dashboardAdminMember")
+    * @Route("/dashboard/admin/member/{id}", name="dashboardAdminMember")
     */
 
     public function dashboardAdminMember($id) {
+        $navbar = false;
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
         $mbr = $repository -> find($id);
@@ -144,16 +165,18 @@ class AdminController extends AbstractController
             'member' => $member,
             'nbDownload' => $nbDownload,
             'nbGame' => $nbGame,
-            'nbComment' => $nbComment
+            'nbComment' => $nbComment,
+            'navbar' => $navbar
         ]);
     }
 
 
     /**
-    * @Route("/dashboardAdminUser/{id}", name="dashboardAdminUser")
+    * @Route("/dashboard/admin/user/{id}", name="dashboardAdminUser")
     */
 
     public function dashboardAdminUser($id) {
+        $navbar = false;
 
         $repository = $this-> getDoctrine() -> getRepository(User::class);
         $user = $repository -> find($id);
@@ -162,6 +185,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/dashboardAdminUser.html.twig', [
             'user' => $user,
+            'navbar' => $navbar
         ]);
     }
     

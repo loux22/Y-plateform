@@ -20,7 +20,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GamesController extends AbstractController
 {
 
-
+    public function navbar(Request $request){
+        $currentRoute = $request->attributes->get('_route');
+        $route = $this->get('router')->generate($currentRoute, [], true);
+        $route = explode("/", $route);
+        $navbar = true;
+        if(isset($route[1])){
+            if($route[1] === "dashboard"){
+                $navbar = false;
+            }
+        }
+        return $navbar;
+    }
 
     /**
      * @Route("/", name="home")
@@ -31,8 +42,13 @@ class GamesController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $games = $repository->lastGames();
 
+        $navbar = true;
+        
+        
+
         return $this->render('games/home.html.twig', [
-            'games' => $games
+            'games' => $games,
+            'navbar' => $navbar
         ]);
     }
 
@@ -43,6 +59,8 @@ class GamesController extends AbstractController
      */
     public function games()
     {
+        $navbar = true;
+
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $games = $repository->findAll();
         $last3game = $repository->last3Games();
@@ -52,7 +70,8 @@ class GamesController extends AbstractController
         return $this->render('games/games.html.twig', [
             'games' => $games,
             'last3game' => $last3game,
-            'category' => $category
+            'category' => $category,
+            'navbar' => $navbar
         ]);
     }
 
@@ -60,8 +79,10 @@ class GamesController extends AbstractController
      * @Route("/library/{cat}", name="category")
      * voir tout les jeux 
      */
-    public function category($cat)
+    public function category(string $cat)
     {
+        $navbar = true;
+
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $games = $repository->GamesCategory($cat);
         $last3game = $repository->last3Games();
@@ -107,6 +128,7 @@ class GamesController extends AbstractController
             'games' => $games,
             'last3game' => $last3game,
             'category' => $category,
+            'navbar' => $navbar
         ]);
     }
 
@@ -116,6 +138,7 @@ class GamesController extends AbstractController
      */
     public function game($id, Request $request)
     {
+        $navbar = true;
         $userlog = $this->getUser();
 
         $manager = $this->getDoctrine()->getManager();
@@ -168,6 +191,7 @@ class GamesController extends AbstractController
             'commentForm' => $form->createView(),
             'like' => $like,
             'dislike' => $dislike,
+            'navbar' => $navbar
         ]);
     }
 

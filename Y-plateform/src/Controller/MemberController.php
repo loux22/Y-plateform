@@ -11,16 +11,18 @@ use App\Form\AddGameType;
 use App\Entity\CommentLike;
 use App\Form\ModifyGameType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MemberController extends AbstractController
 {
      /**
-     * @Route("/memberDashboard", name="memberDashboard")
+     * @Route("/dashboard/member", name="memberDashboard")
      */
     public function memberDashboard()
     {
+        $navbar = false;
         $userLog = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -40,15 +42,17 @@ class MemberController extends AbstractController
             'NbDowloadGame' => $nbDowloadGame,
             'nbGame' => $nbGame,
             'member' => $member,
-            'nbComments' => $nbComments
+            'nbComments' => $nbComments,
+            'navbar' => $navbar
         ]);
     }
 
     /**
-     * @Route("/memberDashboard/games", name="memberDashboardGames")
+     * @Route("/dashboard/member/games", name="memberDashboardGames")
      */
     public function memberDashboardGames(Request $request)
     {
+        $navbar = false;
         $user = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -91,28 +95,37 @@ class MemberController extends AbstractController
             $game->setPrix(0);
 
             $manager = $this->getDoctrine()->getManager();
-            // $category = $manager->find(Category::class, $game->getCategory());
-            // $game->addCategory($game->getCategory());
-            $game->setMember($member);
-
-            $manager->persist($game); //commit(git)
-            $manager->flush(); // push(git)
-
-            $this->addFlash('success', 'Votre jeu a bien été ajouter');
-            return $this->redirectToRoute('memberDashboardGames');
+            $category = $request->request->all();
+            
+            if (isset($category['CategoryId'])) {
+                $category = $category['CategoryId'];
+                foreach ($category as $key => $value) {
+                    $newCategory = $manager->find(Category::class, $value);
+                    $game->addCategory($newCategory);
+                }
+                $game->setMember($member);
+                $manager->persist($game);
+                $manager->flush($game);
+                $this->addFlash('success', 'La création de votre jeu est une réussite ');
+                return $this->redirectToRoute('memberDashboardGames');
+            } else {
+                $this->addFlash('errors', 'tu dois ajouter au moins 1 categorie');
+            }
         }
     
         return $this->render('member/dashboardGames.html.twig', [
             'games' => $games,
             'formGame' => $form->createView(),
+            'navbar' => $navbar
         ]);
     }
 
     /**
-     * @Route("/memberDashboard/game/{id}", name="memberDashboardGame")
+     * @Route("/dashboard/member/game/{id}", name="memberDashboardGame")
      */
     public function memberDashboardGame($id, Request $request)
     {
+        $navbar = false;
         $userLog = $this->getUser();
 
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
@@ -153,6 +166,7 @@ class MemberController extends AbstractController
             }else{
                 $game -> setImg($gameImg);
             }
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($game); //commit(git)
             $manager->flush(); // push(git)
@@ -164,11 +178,12 @@ class MemberController extends AbstractController
             'comments' => $comments,
             'category' => $category,
             'formModifyGame' => $form -> createView(),
+            'navbar' => $navbar
         ]);
     }
 
     /**
-     * @Route("/memberDashboard/game/delete/{id}", name="GameDelete")
+     * @Route("/dashboard/member/game/delete/{id}", name="GameDelete")
      */
     public function gameDelete($id)
     {
@@ -221,6 +236,21 @@ class MemberController extends AbstractController
         return $this->redirectToRoute('memberDashboardGames');
     }
 
-
-    
+     /**
+     * @Route("/searchCategory", name="searchCategory")
+     */
+    public function searchCategory(Request $request): Response
+    {
+        $getCategory = $request->get('category');
+        $repository = $this-> getDoctrine() -> getRepository(Category::class);
+        $category = $repository -> searchCategory($getCategory);
+        if($category){
+            foreach ($category as $key => $value) {
+                echo '<div> <input type="checkbox" id="-'. $value -> getId().'" name="CategoryId[]" value="'. $value -> getId().'">' . $value -> getTitle() . '<div>';
+            }
+        } else{
+            echo 'aucune categorie trouver';
+        }  
+        return new Response();
+    }
 }
