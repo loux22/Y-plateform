@@ -119,34 +119,74 @@
 
 
 <div class="container form">
-    <h1>Informations</h1>
+    <div class="title py-2 mt-5">
+        <div class="container">
+            <h1>Informations</h1>
+        </div>
+    </div>
 
     {{form_start(form)}}
 
-    {{form_widget(form.avatar)}}
-    {{form_widget(form.username)}}
-    {{form_widget(form.lastname)}}
-    {{form_widget(form.pseudo)}}
-    {{form_widget(form.age)}}
+    <div class="space"> 
+        <h4 class="inform"> &bull; Image de profil :   </h4>     
+        {{form_widget(form.avatar)}} 
+    </div>
 
-    <button type="submit">Confirmer</button>
+    <div class="space"> 
+        <h4 class="inform"> &bull; Nom : </h4>
+        {{form_widget(form.username)}} 
+        
+    </div>
+
+    <div class="space">
+        <h4 class="inform"> &bull; Prénom : </h4> 
+        {{form_widget(form.lastname)}} 
+    </div> 
+
+    <div class="space"> 
+        <h4 class="inform"> &bull; Pseudo : </h4>
+        {{form_widget(form.pseudo)}}  
+     </div>
+
+    <div class="space"> 
+        <h4 class="inform"> &bull; Date de naissance : </h4>
+        {{form_widget(form.age)}}      
+    </div>
+
+  
 
     {{form_end(form)}}
 
 
-    <h1>Localisation</h1>
+    <div class="title py-2 mt-5">
+        <div class="container">
+            <h1>Localisation</h1>
+        </div>
+    </div>
 
 
     {{form_start(formM)}}
 
-    {{form_widget(formM.phone)}}
-    {{form_widget(formM.address)}}
-    {{form_widget(formM.postal)}}
-    {{form_widget(formM.city)}}
+    <div class="space">  
+        <h4 class="inform"> &bull; Adresse : </h4>
+        {{form_widget(formM.address)}}   
+    </div>
 
-    <button type="submit">Confirmer</button>
+    <div class="space"> 
+        <h4 class="inform"> &bull; Ville : </h4>
+        {{form_widget(formM.city)}}      
+    </div>
+
+    <div class="space"> 
+        <h4 class="inform"> &bull; Code Postal : </h4>
+        {{form_widget(formM.postal)}}     
+    </div>
 
     {{form_end(formM)}}
+
+        <button class="btn-conf" type="submit">Confirmer</button>
+
+    
 
 
 </div>
