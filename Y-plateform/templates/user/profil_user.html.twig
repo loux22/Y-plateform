@@ -21,17 +21,78 @@
 {% endfor %}
 {% endif %}
 
-<h1>Informations</h1>
+<div class="title py-2 mt-5">
+    <div class="container">
+        <h1>Informations</h1>
+    </div>
+</div>
 
-<h5>Date de naissance: {{ user.dateU.date|date("m/d/Y") }}</h5>
-<h5>Adresse mail : {{ user.mail}}</h5>
-<h5>Téléphone : {{ member[0].phone}} </h5>
+<div  class="container display">
 
-<br><br>
-<h1>Localisation</h1>
-<h5>Adresse : {{member[0].address }}</h5>
-<h5>Ville : {{member[0].city }} </h5>
-<h5>Code postal : {{member[0].postal }}</h5>
 
+   
+        
+    <h4 class="inform"> &bull; Date de naissance:</h4>
+    <h4 class="informs"> {{ user.age.date|date("m/d/Y") }} </h4>
+
+    <h4 class="inform"> &bull; Adresse mail :</h4>
+    <h4 class="informs"> {{ user.mail}} </h4>
+
+    <h4 class="inform"> &bull; Téléphone : </h4>
+    <h4 class="informs" > {{ member[0].phone}} </h4>
+
+   
+
+</div>
+
+<div class="title py-2">
+    <div class="container">
+        <h1>Localisation</h1>
+    </div>
+</div>
+
+<div class="container display">
+    <h4 class="inform"> &bull; Adresse : </h4>
+    <div class="informs"> {{member[0].address }} </div>
+    <h4 class="inform"> &bull; Ville :  </h4>
+    <div class="informs"> {{member[0].city }} </div>
+    <h4 class="inform"> &bull; Code postal : </h4>
+    <div class="informs"> {{member[0].postal }} </div>
+</div>
+
+
+
+<div class="container form">
+    <h1>Informations</h1>
+
+    {{form_start(form)}}
+
+    {{form_widget(form.avatar)}}
+    {{form_widget(form.username)}}
+    {{form_widget(form.lastname)}}
+    {{form_widget(form.pseudo)}}
+    {{form_widget(form.age)}}
+
+    <button type="submit">Confirmer</button>
+
+    {{form_end(form)}}
+
+
+    <h1>Localisation</h1>
+
+
+    {{form_start(formM)}}
+
+    {{form_widget(formM.phone)}}
+    {{form_widget(formM.address)}}
+    {{form_widget(formM.postal)}}
+    {{form_widget(formM.city)}}
+
+    <button type="submit">Confirmer</button>
+
+    {{form_end(formM)}}
+
+
+</div>
 <br><br><br><br><br><br>
 {% endblock %}
