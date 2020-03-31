@@ -193,7 +193,7 @@ class AdminController extends AbstractController
     * @Route("/dashboard/admin/user/state/{id}", name="userState")
     */
 
-    public function userState(Request $request, $id) {
+    public function userState($id) {
 
         $repository = $this-> getDoctrine() -> getRepository(User::class);
         $user = $repository -> find($id);
@@ -213,8 +213,57 @@ class AdminController extends AbstractController
             $manager -> persist($user);
             $manager->flush();
         }  
-        
 
         return $this -> redirectToRoute('userList');
     }
+
+    /**
+    * @Route("/dashboard/admin/user/role/{id}", name="userRole")
+    */
+
+    public function userRole($id) {
+
+        $repository = $this-> getDoctrine() -> getRepository(User::class);
+        $user = $repository -> find($id);
+
+        $repository = $this-> getDoctrine() -> getRepository(Member::class);
+        $member = $repository -> find($id);
+
+        $l = $member->getLevel();
+
+        // $r = $user->getRoles();
+        // if($r == 'ROLE_USER' && $l == 0) {
+        //     $user->setRoles('ROLE_MEMBER');
+        //     $member->setLevel(1);
+        //     $manager = $this -> getDoctrine() -> getManager();
+        //     $manager -> persist($user, $member);
+        //     $manager->flush();
+        // }  
+
+        // if($r == 'ROLE_MEMBER' && $l == 1) {
+        //     $user->setRoles('ROLE_USER');
+        //     $member->setLevel(0);
+        //     $manager = $this -> getDoctrine() -> getManager();
+        //     $manager -> persist($user, $member);
+        //     $manager->flush();
+        // }  
+
+        if($l == 0) {
+            $member->setLevel(1);
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($member);
+            $manager->flush();
+        }  
+
+        if($l == 1) {
+            $member->setLevel(0);
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($member);
+            $manager->flush();
+        } 
+
+
+        return $this -> redirectToRoute('userList');
+    }
+
 }
