@@ -14,7 +14,13 @@
     <button type="button" class="btn btn-light">Action</button>
     <button type="button" class="btn btn-light">Course</button>
     <button type="button" class="btn btn-light mr-5">RPG</button>
-    <button type="button" class="btn btn-primary btn-lg">Télécharger</button>
+    <div class="container ps p-0">
+        <div class="telecharge">
+            <button type="button" class="btn btn-primary btn-lg">Télécharger</button>
+        </div>
+    </div>
+    <div class="inf">
+    </div>
 
 
 
@@ -31,9 +37,20 @@
     <div class="separation">
         <h5>Commentaires</h5>
     </div>
-    <div class="ok">
 
+    <div class="inf">
     </div>
+
+    <div class="com">
+        <img src="{{ asset('img/jsc.jpg/')}}">
+
+        <div class="barre">
+        </div>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dictum in commodo aliquam tempor. Nulla diam maecenas integer commodo faucibus accumsan, scelerisque scelerisque eget. A praesent sapien ac nunc pellentesque ultricies nisi. Aliquam
+            a, elementum in volutpat semper lacinia integer.</p>
+    </div>
+
 
 
 
@@ -59,60 +76,60 @@
 
     {# {{dump(like)}} {{dump(dislike)}} #} {#
     <p>{{game.name}}</p>
-    <img src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
+    <img src=" {{ asset( '/gameImg/')}}{{game.img }} " alt=" ">
     <p>{{game.descriptionG}}</p>
     <p>{{note[0].note}}</p>
     <button>telecharger</button> {% for key,value in comments %}
-    <img src={{ asset( '/avatar/')}}{{value.user.avatar }} "" alt="">
+    <img src={{ asset( '/avatar/')}}{{value.user.avatar }} " " alt=" ">
     <p>{{value.user.pseudo}}</p>
     <p>{{value.descriptionC}}</p>
-    <p>{{value.dateC.date|date("F jS \\a\\t g:ia") }}</p>
+    <p>{{value.dateC.date|date("F jS \\a\\t g:ia ") }}</p>
 
 
-    <a href="{{ path('comment_like', {'id' : value.id})}}" class="js-like">
+    <a href="{{ path( 'comment_like', { 'id' : value.id})}} " class="js-like ">
     {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%} #}
 
     {# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
-    {# {% if like[key][0] != "0" %}
-    <i class="fas fa-thumbs-up" id="{{key}}j"><span class="js-likes">{{like[key] | length}}</span></i>
+    {# {% if like[key][0] != "0 " %}
+    <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">{{like[key] | length}}</span></i>
     {% else %}
-    <i class="fas fa-thumbs-up" id="{{key}}j"><span class="js-likes">0</span></i>
+    <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
     {% endif %}
 
     {% else %}
 
-    {% if like[key][0] != "0" %}
-    <i class="far fa-thumbs-up" id="{{key}}j"><span class="js-likes">{{like[key] | length}}</span></i>
+    {% if like[key][0] != "0 " %}
+    <i class="far fa-thumbs-up " id="{{key}}j "><span class="js-likes ">{{like[key] | length}}</span></i>
     {% else %}
-    <i class="far fa-thumbs-up" id="{{key}}j"><span class="js-likes">0</span></i>
+    <i class="far fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
     {% endif %}
 
     {% endif %}
 </a>
 
 
-    <a href="{{ path('comment_dislike', {'id' : value.id})}}" class="js-like">
+    <a href="{{ path( 'comment_dislike', { 'id' : value.id})}} " class="js-like ">
     {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
 
-    {% if dislike[key][0] != "0" %}
-    <i class="fas fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+    {% if dislike[key][0] != "0 " %}
+    <i class="fas fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">{{dislike[key] | length}}</span></i>
     {% else %}
-    <i class="fas fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">0</span></i>
+    <i class="fas fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">0</span></i>
     {% endif %}
 
     {% else %}
 
-    {% if dislike[key][0] != "0" %}
-    <i class="far fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">{{dislike[key] | length}}</span></i>
+    {% if dislike[key][0] != "0 " %}
+    <i class="far fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">{{dislike[key] | length}}</span></i>
     {% else %}
-    <i class="far fa-thumbs-down" id="{{key}}j"><span class="js-dislikes">0</span></i>
+    <i class="far fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">0</span></i>
     {% endif %}
 
     {% endif %}
 </a> {% endfor %} {% if app.user != null %} {{form_start(commentForm)}} {{form_errors(commentForm)}} {{form_widget(commentForm)}}
 
-    <button type="submit">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #} {% endblock %} {% block js %}
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <button type="submit ">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #} {% endblock %} {% block js %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js "></script>
     <script>
         function onClickBtnLike(event) {
             event.preventDefault() // permet de pas changer de page au click
@@ -168,15 +185,15 @@
 
             }).catch(function(error) { // catch si il y'a une erreur, then si tout se pass bien
                 if (error.response.status === 403) {
-                    window.alert("il faut être connecté pour liker")
+                    window.alert("il faut être connecté pour liker ")
                 } else {
-                    window.alert("une erreur s'est produite, nos equipe travail la dessus")
+                    window.alert("une erreur s 'est produite, nos equipe travail la dessus")
                 }
             })
         }
 
-        document.querySelectorAll('a.js-like').forEach(function(link) {
-            link.addEventListener('click', onClickBtnLike)
+        document.querySelectorAll('a.js-like ').forEach(function(link) {
+            link.addEventListener('click ', onClickBtnLike)
         })
     </script>
     {% endblock %}
