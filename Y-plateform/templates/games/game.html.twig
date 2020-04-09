@@ -1,6 +1,10 @@
-{% extends 'base.html.twig' %} {% block title %}- Home {% endblock %} {% block link %}
+{% extends 'base.html.twig' %}
+{% block title %}- Home {% endblock %}
+{% block link %}
 <link rel="stylesheet" href="{{ asset('/css/game.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> {% endblock %} {% block content %}
+<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+{% endblock %}
+{% block content %}
 <div class="container mt-5">
     <section class="hero__home">
         <div class="hero__content">
@@ -22,59 +26,58 @@
     <div class="inf">
     </div>
 
+</div>
 
-
-
-    <div class="separation">
+<div class="title py-2 mt-5">
+    <div class="container">
         <h5>Description</h5>
     </div>
+</div>
 
+<div class="container">
     <div class="text">
-        <p>Assassin's Creed Odyssey est une nouvelle entrée dans la franchise qui se déroule avant Assassin's Creed Origins. il sera possible d'y incarner le descendant de Leonidas de Sparte, garçon ou fille, dans la Grèce Antique. Au programme des nouveautés,
-            un nouveau système de combat, des batailles rangées et un côté RPG encore plus poussé avec un système de dialogue à choix multiples.</p>
+        <p>Assassin's Creed Odyssey est une nouvelle entrée dans la franchise qui se déroule
+            avant Assassin's Creed
+            Origins. il sera possible d'y incarner le descendant de Leonidas de Sparte, garçon ou fille, dans la Grèce
+            Antique. Au programme des nouveautés,
+            un nouveau système de combat, des batailles rangées et un côté RPG encore plus poussé avec un système de
+            dialogue à choix multiples.</p>
     </div>
+</div>
 
-    <div class="separation">
+
+<div class="title py-2 mt-5">
+    <div class="container">
         <h5>Commentaires</h5>
     </div>
+</div>
 
-    <div class="inf">
-    </div>
+<div class="container mt-4">
 
     <div class="com">
-        <img src="{{ asset('img/jsc.jpg/')}}">
-
-        <div class="barre">
+        <div class="item">
+            <div class="avatar">
+                <img src="{{ asset('img/jsc.jpg/')}}">
+            </div>
+            <div class="pseudo">
+                <p>pseudo</p>
+            </div>
         </div>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dictum in commodo aliquam tempor. Nulla diam maecenas integer commodo faucibus accumsan, scelerisque scelerisque eget. A praesent sapien ac nunc pellentesque ultricies nisi. Aliquam
-            a, elementum in volutpat semper lacinia integer.</p>
+        <div class="item">
+            <div class="line"></div>
+        </div>
+        <div class="item">
+            <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dictum in commodo
+                aliquam tempor. Nulla diam
+                maecenas integer commodo faucibus accumsan, scelerisque scelerisque eget. A praesent sapien ac nunc
+                pellentesque ultricies nisi. Aliquam
+                a, elementum in volutpat semper lacinia integer.</p>
+        </div>
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {# {{dump(like)}} {{dump(dislike)}} #} {#
+</div>
+{# {{dump(like)}} {{dump(dislike)}} #} {#
     <p>{{game.name}}</p>
     <img src=" {{ asset( '/gameImg/')}}{{game.img }} " alt=" ">
     <p>{{game.descriptionG}}</p>
@@ -89,8 +92,8 @@
     <a href="{{ path( 'comment_like', { 'id' : value.id})}} " class="js-like ">
     {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%} #}
 
-    {# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
-    {# {% if like[key][0] != "0 " %}
+{# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
+{# {% if like[key][0] != "0 " %}
     <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">{{like[key] | length}}</span></i>
     {% else %}
     <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
@@ -128,72 +131,74 @@
     {% endif %}
 </a> {% endfor %} {% if app.user != null %} {{form_start(commentForm)}} {{form_errors(commentForm)}} {{form_widget(commentForm)}}
 
-    <button type="submit ">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #} {% endblock %} {% block js %}
-    <script src="https://unpkg.com/axios/dist/axios.min.js "></script>
-    <script>
-        function onClickBtnLike(event) {
-            event.preventDefault() // permet de pas changer de page au click
+    <button type="submit ">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #}
+{% endblock %}
+{% block js %}
+<script src="https://unpkg.com/axios/dist/axios.min.js "></script>
+<script>
+    function onClickBtnLike(event) {
+        event.preventDefault() // permet de pas changer de page au click
 
-            const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
-            const countLikes = this.querySelector('span.js-likes')
-            const countDislikes = this.querySelector('span.js-dislikes')
-            const icone = this.querySelector('i')
-            const allIcones = document.querySelectorAll('i')
+        const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
+        const countLikes = this.querySelector('span.js-likes')
+        const countDislikes = this.querySelector('span.js-dislikes')
+        const icone = this.querySelector('i')
+        const allIcones = document.querySelectorAll('i')
 
-            axios.get(url).then(function(response) {
-                if (countLikes != null) {
-                    const likes = response.data.likes
-                    countLikes.textContent = likes
-                } else {
-                    const dislikes = response.data.dislikes
-                    countDislikes.textContent = dislikes
-                }
+        axios.get(url).then(function (response) {
+            if (countLikes != null) {
+                const likes = response.data.likes
+                countLikes.textContent = likes
+            } else {
+                const dislikes = response.data.dislikes
+                countDislikes.textContent = dislikes
+            }
 
-                $boolean = false
-                allIcones.forEach(element => {
-                    if (icone.classList.contains('far') && element.classList.contains('fas')) {
-                        if (element.getAttribute('id') === icone.getAttribute('id')) {
-                            $boolean = true;
-                            element.classList.replace('fas', 'far')
-                            icone.classList.replace('far', 'fas')
-                            if (icone.classList.contains('fa-thumbs-down')) {
-                                icone.textContent = response.data.dislikes
-                                element.textContent = response.data.likes
-                            } else {
-                                element.textContent = response.data.dislikes
-                                icone.textContent = response.data.likes
-                            }
-
-                        }
-                    }
-
-                });
-                if ($boolean === false) {
-                    if (icone.classList.contains('fas')) { // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
-                        icone.classList.replace('fas', 'far')
-                    } else {
+            $boolean = false
+            allIcones.forEach(element => {
+                if (icone.classList.contains('far') && element.classList.contains('fas')) {
+                    if (element.getAttribute('id') === icone.getAttribute('id')) {
+                        $boolean = true;
+                        element.classList.replace('fas', 'far')
                         icone.classList.replace('far', 'fas')
+                        if (icone.classList.contains('fa-thumbs-down')) {
+                            icone.textContent = response.data.dislikes
+                            element.textContent = response.data.likes
+                        } else {
+                            element.textContent = response.data.dislikes
+                            icone.textContent = response.data.likes
+                        }
+
                     }
                 }
 
-
-
-
-
-
-
-
-            }).catch(function(error) { // catch si il y'a une erreur, then si tout se pass bien
-                if (error.response.status === 403) {
-                    window.alert("il faut être connecté pour liker ")
+            });
+            if ($boolean === false) {
+                if (icone.classList.contains('fas')) { // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
+                    icone.classList.replace('fas', 'far')
                 } else {
-                    window.alert("une erreur s 'est produite, nos equipe travail la dessus")
+                    icone.classList.replace('far', 'fas')
                 }
-            })
-        }
+            }
 
-        document.querySelectorAll('a.js-like ').forEach(function(link) {
-            link.addEventListener('click ', onClickBtnLike)
+
+
+
+
+
+
+
+        }).catch(function (error) { // catch si il y'a une erreur, then si tout se pass bien
+            if (error.response.status === 403) {
+                window.alert("il faut être connecté pour liker ")
+            } else {
+                window.alert("une erreur s 'est produite, nos equipe travail la dessus")
+            }
         })
-    </script>
-    {% endblock %}
+    }
+
+    document.querySelectorAll('a.js-like ').forEach(function (link) {
+        link.addEventListener('click ', onClickBtnLike)
+    })
+</script>
+{% endblock %}
