@@ -28,39 +28,7 @@ class AdminController extends AbstractController
             'navbar' => $navbar
         ]);
     }
-    /**
-     * @Route("/games", name="games")
-     * voir tous les jeux
-     */
-    public function games()
-    {
-        
-    }
 
-    /**
-     * @Route("/game/{id}", name="game")
-     * voir un jeux
-     */
-    public function game($id)
-    {
-    
-    }
-
-    /**
-     * @Route("/removeGame/{id}", name="removeGame")
-     */
-    public function removeGame($id)
-    {
-    
-    }
-
-    /**
-     * @Route("/verifyGame/{id}", name="verifyGame")
-     */
-    public function verifyGame($id)
-    {
-    
-    }
 
     /**
     * @Route("/dashboard/admin", name="dashboardAdmin")
@@ -94,8 +62,21 @@ class AdminController extends AbstractController
     public function UserList(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
 
-        $repository = $this->getDoctrine()->getRepository(User::class);
-        $donnees = $repository->findAll();
+        $repository = $this->getDoctrine()->getRepository(Member::class);
+        $member = $repository->findBy([
+            'level' => 0
+        ]);
+        $donnees = [];
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
+        foreach ($member as $key => $value) {
+            foreach ($users as $keys => $user) {
+                if ($value -> getUser() == $user){
+                    $donnees[] = $user;
+                }
+            }
+            
+        }
 
         // for ($i=1; $i <= 100; $i++) { 
         //     $u = $users->getAge();
@@ -114,7 +95,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/userList.html.twig', [
             'users' => $users,
-            'navbar' => $navbar
+            'navbar' => $navbar,
             // 'ages' => $ages
         ]);
     }
@@ -260,19 +241,36 @@ class AdminController extends AbstractController
 
     public function ajoutJeux(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
-
+        $repoMember = $this->getDoctrine()->getRepository(Member::class);
+        $members = $repoMember -> findAll();
+        $repoUser = $this->getDoctrine()->getRepository(User::class);
+        $users = $repoUser -> findAll();
         $repository = $this->getDoctrine()->getRepository(Game::class);
-        $donnees = $repository -> allGames();
+        $games = $repository -> allGames();
+
+        $mail = [];
+        foreach ($games as $key => $game) {
+            foreach ($members as $keys => $member) {
+                if($game -> getMember() == $member){
+                    foreach ($users as $k => $user) {
+                        if($member -> getUser() == $user){
+                            $mail[] = $user -> getMail();
+                        }
+                    }
+                }
+            }
+        }
 
         $games = $paginator->paginate(
-            $donnees, 
+            $games, 
             $request->query->getInt('page', 1),
             20 // Nombre de résultats par page
         );
 
         return $this->render('admin/ajoutJeux.html.twig', [
             'games' => $games,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'mail' => $mail
             // 'ages' => $ages
         ]);
     }

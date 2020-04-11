@@ -22,7 +22,7 @@
                 <h5>Nom : {{ member[0].user.lastname}}</h5>
                 <h5>Prénom : {{ member[0].user.username}}</h5>
                 <h5>{{ age }} ans</h5>
-                {% if member[0].level == true %}
+                {% if member[0].level == false %}
                 <h5>level : User </h5>
                 {% else %}
                 <h5>level : Member </h5>
@@ -32,12 +32,6 @@
         </div>
 
     </div>
-
-    {% if member[0].level == false %}
-    <h5>level : User </h5>
-    {% else %}
-    <h5>level : Member </h5>
-    {% endif %}
 
     <div class="btn-profil">
         <button id="btn" class="modify-password-js" onclick="displayPassword()">Modifier le mot de

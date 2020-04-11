@@ -364,8 +364,7 @@ class GamesController extends AbstractController
         $game = $repo->searchGames($getGame);
         if ($game) {
             foreach ($game as $key => $value) {
-                echo '<div><a href="{{ path("game", {id : ' . $value -> getId() . '}) }}' . '" class="search-bar">' . $value -> getName() . '</a></div>';
-                                    // {{ path('game', {id : game.id})}}
+                echo "<a href='{{path('game', {id : " . $value -> getId() . "})}}'>" . $value -> getName() . "</a>";     
             }
         } else {
             echo 'aucune jeux trouvés';

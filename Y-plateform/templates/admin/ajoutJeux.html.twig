@@ -17,6 +17,7 @@
 
 {% block content %}
 
+{{dump(mail)}}
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -179,11 +180,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for game in games %}
+                {% for key,game in games %}
                 <tr>
                 <th scope="row">{{ game.id }}</th>
                 <td>{{ game.name}}</td>
-                <td>{{ game.member.id }}</td>
+                <td>{{ mail[key] }}</td>
                 <td>{{ game.dateG|date("m/d/Y") }}</td>
                 <td>
                     <a href="{{ path('memberDashboardGame', {id : game.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
