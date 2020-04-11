@@ -254,4 +254,27 @@ class AdminController extends AbstractController
         return $this -> redirectToRoute('userList');
     }
 
+    /**
+     * @Route("/dashboard/admin/ajoutJeux", name="ajoutJeux")
+     */
+
+    public function ajoutJeux(Request $request, PaginatorInterface $paginator) {
+        $navbar = false;
+
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $donnees = $repository -> allGames();
+
+        $games = $paginator->paginate(
+            $donnees, 
+            $request->query->getInt('page', 1),
+            20 // Nombre de résultats par page
+        );
+
+        return $this->render('admin/ajoutJeux.html.twig', [
+            'games' => $games,
+            'navbar' => $navbar
+            // 'ages' => $ages
+        ]);
+    }
+
 }

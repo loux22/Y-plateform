@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %}- Ajout jeux {% endblock %}
+
+{% block content %}
+
+
+<h4>Panel Admin</h4>
+<a href="{{ path('dashboardAdmin') }}">Dashboard</a>
+<h6>Utilisateurs</h6>
+<a href="{{ path('userList') }}">Utilisateurs</a><br>
+<a href="{{ path('memberList') }}">Membres</a>
+<h6>Demandes</h6>
+<a href="">Ajout de jeu</a><br>
+
+<h1>Ajout de jeux</h1>
+<br><br>
+
+{{ dump(games) }}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date de création</th>
+      <th scope="col">Modifier / Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for game in games %}
+    <tr>
+      <th scope="row">{{ game.id }}</th>
+      <td>{{ game.name}}</td>
+      <td>{{ game.member.id }}</td>
+      <td>{{ game.dateG|date("m/d/Y") }}</td>
+      <td>
+        {# <a href="{{ path('') }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a> #}
+        <span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span>
+        <a href=""><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody> 
+</table>
+<div class="navigation">
+  {{ knp_pagination_render(games) }}
+</div> 
+
+
+{% endblock %}
