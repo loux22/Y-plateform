@@ -10,7 +10,7 @@
 <a href="{{ path('userList') }}">Utilisateurs</a><br>
 <a href="{{ path('memberList') }}">Membres</a>
 <h6>Demandes</h6>
-<a href="{{ path('ajoutJeux') }}">Ajout de jeu</a><br>
+<a href="">Ajout de jeu</a><br>
 
 <h1>Ajout de jeux</h1>
 <br><br>
@@ -34,8 +34,7 @@
       <td>{{ game.member.id }}</td>
       <td>{{ game.dateG|date("m/d/Y") }}</td>
       <td>
-        {# <a href="{{ path('') }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a> #}
-        <span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span>
+        <a href="{{ path('memberDashboardGame', {id : game.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
         <a href=""><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
       </td>
     </tr>
