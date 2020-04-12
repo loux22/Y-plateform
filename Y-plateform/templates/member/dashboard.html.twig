@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard Member{% endblock %}
+{% block title %}Dashboard Member tout les leux {% endblock %}
 
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('/css/dashboard.css')}}">
-<link rel="stylesheet" href="{{ asset('/css/dashboard_member.css')}}">
 <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
@@ -14,23 +13,51 @@
     #wrapper #content-wrapper #content {
         position: relative;
     }
+
+    .popup {
+        background: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        display: none;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .popup-content {
+        height: 350px;
+        width: 600px;
+        background: white;
+        padding: 20px;
+        border-radius: 2px;
+        position: relative;
+        box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
+    }
+
+    .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
 </style>
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primaryy sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3">Panel Admin</div>
         </a>
 
         <!-- Divider -->
@@ -38,7 +65,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ path('dashboardAdmin') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -53,9 +80,31 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
+            <a class="nav-link" href="{{ path('userList') }}">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Mes Jeux</span></a>
+                <span>Utilisateurs</span></a>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('memberList') }}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Membre</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Demandes
+        </div>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Ajout de jeu</span></a>
         </li>
 
         <!-- Divider -->
@@ -71,25 +120,14 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-black topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg topbar mb-4 static-top shadow">
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                            aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -134,69 +172,37 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container__top">
-                <h2>Mes jeux</h2>
-                <button class="button_top" type="button"><a href="#" class="button_top-text">Ajouter un jeu</a></button>
-            </div>
-            <div class="container__body">
-                <div class="container__body-t">
-                    <div class="container__body-t-t">
-                        <h4>Nom du jeu</h4>
-                    </div>
-                    <div class="container__body-t-i">
-                        <img src="{{ asset('/gameImg/0.png')}}" alt="">
-                    </div>
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Mes jeux</h1>
                 </div>
 
-                <div class="container__body-t">
-                    <div class="container__body-t-t">
-                        <h4>Nom du jeu</h4>
-                    </div>
-                    <div class="container__body-t-i">
-                        <img src="{{ asset('/gameImg/0.png')}}" alt="">
-                    </div>
+                <!-- Content Row -->
+                <div class="btn-add-game">
+                    <button type="submit" class="add-game-js">Ajouter un jeu</button>
                 </div>
 
-                <div class="container__body-t">
-                    <div class="container__body-t-t">
-                        <h4>Nom du jeu</h4>
-                    </div>
-                    <div class="container__body-t-i">
-                        <img src="{{ asset('/gameImg/0.png')}}" alt="">
-                    </div>
-                </div>
+                <!-- Content Row -->
+                <div class="list-games">
 
-                <div class="container__body-t">
-                    <div class="container__body-t-t">
-                        <h4>Nom du jeu</h4>
+                    {% for value in games %}
+                    <div class="item-game">
+                        <a href="{{ path('memberDashboardGame', {'id': value.id}) }}">
+                            <h1>{{value.name}}</h1>
+                            <img src="{{ asset('/gameImg/')}}{{value.img }}" alt="">
+                        </a>
                     </div>
-                    <div class="container__body-t-i">
-                        <img src="{{ asset('/gameImg/0.png')}}" alt="">
-                    </div>
-                </div>
+                    {% endfor %}
 
-                <div class="container__body-t">
-                    <div class="container__body-t-t">
-                        <h4>Nom du jeu</h4>
-                    </div>
-                    <div class="container__body-t-i">
-                        <img src="{{ asset('/gameImg/0.png')}}" alt="">
-                    </div>
                 </div>
-
-                <div class="container__body-t">
-                    <div class="container__body-t-t">
-                        <h4>Nom du jeu</h4>
-                    </div>
-                    <div class="container__body-t-i">
-                        <img src="{{ asset('/gameImg/0.png')}}" alt="">
-                    </div>
-                </div>
+                
             </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-black">
+            <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Your Website 2019</span>
@@ -207,10 +213,90 @@
 
         </div>
         <!-- End of Content Wrapper -->
+        
 
     </div>
     <!-- End of Page Wrapper -->
+</div>
+    <div class="popup">
+        <div class="popup-content">
+            <img class="close" src="{{ asset('/img/close.png')}}" alt="">
+            <h1>Ajouter un jeu</h1>
+            {{form_start(formGame)}}
+
+            {{form_widget(formGame)}}
+            <label for="">Categories</label>
+            <input class="search-js" type="text">
+            <div class="result-search-js"></div>
+            <button type="submit">
+                Ajouter
+            </button>
+
+            {{form_end(formGame)}}
+
+        </div>
+    </div>
+
+    
+
 
     {% endblock %}
 
-    {% block js %}{% endblock %}
+    {% block js %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <script>
+
+        var addGame = document.querySelector('.add-game-js')
+        addGame.addEventListener('click', function () {
+            document.querySelector('.popup').style.display = 'flex'
+        })
+
+        document.querySelector('.close').addEventListener('click', function () {
+            document.querySelector('.popup').style.display = 'none'
+            document.querySelector('body').style.overflow = 'visible'
+        })
+
+        document.querySelector('.close').addEventListener('click', function () {
+            document.querySelector('.popup').style.display = 'none'
+            document.querySelector('body').style.overflow = 'visible'
+        })
+
+
+        $(document).ready(function () {
+            $('.search-js').keyup(function () {
+                $('.result-search-js').html('');
+                var category = $(this).val();
+
+                if (category != '') {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ path('searchCategory') }}",
+                        data: 'category=' + encodeURIComponent(category),
+                        success: function (data) {
+                            if (data != "") {
+                                $('.result-search-js').append(data);
+                                /*var searchBar = document.querySelectorAll('.search-bar')
+                                searchBar.forEach(value => {
+                                    console.log(value)
+                                    value.addEventListener('click', function(){
+                                        value.checked = true
+                                    })
+                                });*/
+
+                                // console.log(data);
+                            } else {
+                                $('.result-search-js').textContent = "aucune categorie";
+                            }
+                        }
+                    })
+
+                }
+
+            })
+        });
+    </script>
+    {% endblock %}

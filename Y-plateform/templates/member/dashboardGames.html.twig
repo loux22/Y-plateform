@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard Member tout les leux {% endblock %}
+{% block title %}Dashboard Member{% endblock %}
 
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('/css/dashboard.css')}}">
+<link rel="stylesheet" href="{{ asset('/css/dashboard_member.css')}}">
 <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
 
-<style>
+    <style>
     #wrapper #content-wrapper #content {
         position: relative;
     }
@@ -44,20 +45,20 @@
 </style>
 {% endblock %}
 
-
 {% block content %}
+
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primaryy sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Panel Admin</div>
+            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
         </a>
 
         <!-- Divider -->
@@ -65,7 +66,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="{{ path('dashboardAdmin') }}">
+            <a class="nav-link" href="index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -80,31 +81,9 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ path('userList') }}">
+            <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Utilisateurs</span></a>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('memberList') }}">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Membre</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Demandes
-        </div>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Ajout de jeu</span></a>
+                <span>Mes Jeux</span></a>
         </li>
 
         <!-- Divider -->
@@ -120,14 +99,14 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-black topbar mb-4 static-top shadow">
 
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
 
-                
+               
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -172,37 +151,26 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Mes jeux</h1>
-                </div>
-
-                <!-- Content Row -->
-                <div class="btn-add-game">
-                    <button type="submit" class="add-game-js">Ajouter un jeu</button>
-                </div>
-
-                <!-- Content Row -->
-                <div class="list-games">
-
-                    {% for value in games %}
-                    <div class="item-game">
-                        <a href="{{ path('memberDashboardGame', {'id': value.id}) }}">
-                            <h1>{{value.name}}</h1>
-                            <img src="{{ asset('/gameImg/')}}{{value.img }}" alt="">
-                        </a>
+            <div class="container__top">
+                <h2>Mes jeux</h2>
+                <button class="button_top add-game-js" type="button"><a href="#" class="button_top-text">Ajouter un jeu</a></button>
+            </div>
+            <div class="container__body">
+            {% for game in games %}
+                <div class="container__body-t">
+                    <div class="container__body-t-t">
+                        <h4>{{game.name}}</h4>
                     </div>
-                    {% endfor %}
-
+                    <div class="container__body-t-i">
+                        <img src="{{ asset('/gameImg/')}}{{game.img}}" alt="">
+                    </div>
                 </div>
-                
+                {% endfor %}
             </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-black">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Your Website 2019</span>
@@ -213,11 +181,9 @@
 
         </div>
         <!-- End of Content Wrapper -->
-        
 
     </div>
     <!-- End of Page Wrapper -->
-</div>
     <div class="popup">
         <div class="popup-content">
             <img class="close" src="{{ asset('/img/close.png')}}" alt="">
@@ -236,10 +202,6 @@
 
         </div>
     </div>
-
-    
-
-
     {% endblock %}
 
     {% block js %}
