@@ -193,6 +193,7 @@ font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
                 <th scope="col" style="color: black">Nom</th>
                 <th scope="col" style="color: black">Email</th>
                 <th scope="col" style="color: black">Date de création</th>
+                <th scope="col" style="color: black">Actif</th>
                 <th scope="col" style="color: black">Modifier / Supprimer</th>
                 </tr>
             </thead>
@@ -203,6 +204,13 @@ font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
                 <td style="color: black">{{ game.name}}</td>
                 <td style="color: black">{{ mail[key] }}</td>
                 <td style="color: black">{{ game.dateG|date("m/d/Y") }}</td>
+                <td>
+                  {% if game.isActive == true %}
+                    <span class="iconify" data-inline="false" data-icon="emojione:white-heavy-check-mark" style="font-size: 20px;"></span>
+                  {% endif %}
+                  {% if game.isActive == false %}
+                      <span class="iconify" data-inline="false" data-icon="entypo:circle-with-cross" style="font-size: 22px; color:red;"></span>
+                  {% endif %}
                 <td>
                     <a href="{{ path('memberDashboardGame', {id : game.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
                     <a href="{{ path('GameDelete', {id: game.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le jeu ?');"><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
