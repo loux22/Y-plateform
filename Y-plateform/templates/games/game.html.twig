@@ -1,10 +1,6 @@
-{% extends 'base.html.twig' %}
-{% block title %}- Home {% endblock %}
-{% block link %}
+{% extends 'base.html.twig' %} {% block title %}- Home {% endblock %} {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/game.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-{% endblock %}
-{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> {% endblock %} {% block content %}
 <div class="container mt-5">
     <section class="hero__home">
         <div class="hero__content">
@@ -36,12 +32,8 @@
 
 <div class="container">
     <div class="text">
-        <p>Assassin's Creed Odyssey est une nouvelle entrée dans la franchise qui se déroule
-            avant Assassin's Creed
-            Origins. il sera possible d'y incarner le descendant de Leonidas de Sparte, garçon ou fille, dans la Grèce
-            Antique. Au programme des nouveautés,
-            un nouveau système de combat, des batailles rangées et un côté RPG encore plus poussé avec un système de
-            dialogue à choix multiples.</p>
+        <p>Assassin's Creed Odyssey est une nouvelle entrée dans la franchise qui se déroule avant Assassin's Creed Origins. il sera possible d'y incarner le descendant de Leonidas de Sparte, garçon ou fille, dans la Grèce Antique. Au programme des nouveautés,
+            un nouveau système de combat, des batailles rangées et un côté RPG encore plus poussé avec un système de dialogue à choix multiples.</p>
     </div>
 </div>
 
@@ -67,29 +59,41 @@
             <div class="line"></div>
         </div>
         <div class="item">
-            <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dictum in commodo
-                aliquam tempor. Nulla diam
-                maecenas integer commodo faucibus accumsan, scelerisque scelerisque eget. A praesent sapien ac nunc
-                pellentesque ultricies nisi. Aliquam
+            <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dictum in commodo aliquam tempor. Nulla diam maecenas integer commodo faucibus accumsan, scelerisque scelerisque eget. A praesent sapien ac nunc pellentesque ultricies nisi. Aliquam
                 a, elementum in volutpat semper lacinia integer.</p>
+
         </div>
+        <div class="container ip p-0">
+            <div class="icone">
+                <img src="{{ asset('img/like(2).png/')}}">
+                <img src="{{ asset('img/dislike(1).png/')}}">
+            </div>
+        </div>
+
     </div>
+
+
+    <textarea class="commentaire" rows="4" cols="50" placeholder="écrire un commentaire...">
+{# At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. #}
+</textarea>
+
+    </body>
 
 
 </div>
 {# {{dump(like)}} {{dump(dislike)}} #} {#
-    <p>{{game.name}}</p>
-    <img src=" {{ asset( '/gameImg/')}}{{game.img }} " alt=" ">
-    <p>{{game.descriptionG}}</p>
-    <p>{{note[0].note}}</p>
-    <button>telecharger</button> {% for key,value in comments %}
-    <img src={{ asset( '/avatar/')}}{{value.user.avatar }} " " alt=" ">
-    <p>{{value.user.pseudo}}</p>
-    <p>{{value.descriptionC}}</p>
-    <p>{{value.dateC.date|date("F jS \\a\\t g:ia ") }}</p>
+<p>{{game.name}}</p>
+<img src=" {{ asset( '/gameImg/')}}{{game.img }} " alt=" ">
+<p>{{game.descriptionG}}</p>
+<p>{{note[0].note}}</p>
+<button>telecharger</button> {% for key,value in comments %}
+<img src={{ asset( '/avatar/')}}{{value.user.avatar }} " " alt=" ">
+<p>{{value.user.pseudo}}</p>
+<p>{{value.descriptionC}}</p>
+<p>{{value.dateC.date|date("F jS \\a\\t g:ia ") }}</p>
 
 
-    <a href="{{ path( 'comment_like', { 'id' : value.id})}} " class="js-like ">
+<a href="{{ path( 'comment_like', { 'id' : value.id})}} " class="js-like ">
     {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%} #}
 
 {# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
@@ -111,7 +115,7 @@
 </a>
 
 
-    <a href="{{ path( 'comment_dislike', { 'id' : value.id})}} " class="js-like ">
+<a href="{{ path( 'comment_dislike', { 'id' : value.id})}} " class="js-like ">
     {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
 
     {% if dislike[key][0] != "0 " %}
@@ -131,9 +135,7 @@
     {% endif %}
 </a> {% endfor %} {% if app.user != null %} {{form_start(commentForm)}} {{form_errors(commentForm)}} {{form_widget(commentForm)}}
 
-    <button type="submit ">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #}
-{% endblock %}
-{% block js %}
+<button type="submit ">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #} {% endblock %} {% block js %}
 <script src="https://unpkg.com/axios/dist/axios.min.js "></script>
 <script>
     function onClickBtnLike(event) {
@@ -145,7 +147,7 @@
         const icone = this.querySelector('i')
         const allIcones = document.querySelectorAll('i')
 
-        axios.get(url).then(function (response) {
+        axios.get(url).then(function(response) {
             if (countLikes != null) {
                 const likes = response.data.likes
                 countLikes.textContent = likes
@@ -188,7 +190,7 @@
 
 
 
-        }).catch(function (error) { // catch si il y'a une erreur, then si tout se pass bien
+        }).catch(function(error) { // catch si il y'a une erreur, then si tout se pass bien
             if (error.response.status === 403) {
                 window.alert("il faut être connecté pour liker ")
             } else {
@@ -197,7 +199,7 @@
         })
     }
 
-    document.querySelectorAll('a.js-like ').forEach(function (link) {
+    document.querySelectorAll('a.js-like ').forEach(function(link) {
         link.addEventListener('click ', onClickBtnLike)
     })
 </script>
