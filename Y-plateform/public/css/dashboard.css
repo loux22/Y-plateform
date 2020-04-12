@@ -85,3 +85,36 @@ h1 {
 .intro p {
     color: white;
 }
+
+.btn-blue {
+    font-family: 'Poppins', sans-serif;
+    height: 40px;
+    width: 200px;
+    color: white;
+    background: blue;
+    border: 1px solid blue;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 6px;
+    text-align: center;
+    margin-right: 100px;
+    margin-bottom: 15px;
+}
+
+.btn-red {
+    font-family: 'Poppins', sans-serif;
+    height: 40px;
+    width: 200px;
+    color: white;
+    background: #D63031;
+    border: 1px solid #D63031;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 6px;
+    text-align: center;
+    margin-right: 100px;
+}
+
+p {
+    color: white;
+}
