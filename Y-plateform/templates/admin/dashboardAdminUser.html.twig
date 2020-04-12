@@ -9,7 +9,7 @@
 <a href="{{ path('userList') }}">Utilisateurs</a><br>
 <a href="{{ path('memberList') }}">Membres</a>
 <h6>Demandes</h6>
-<a href="">Ajout de jeu</a><br>
+<a href="{{ path('ajoutJeux') }}">Ajout de jeu</a><br>
 
 <input type="search" name="" id="" placeholder="Recherche">
 
@@ -17,7 +17,15 @@
 <br><br>
 
 <a href="{{path('profil_user', {id : user.id})}}">Voir profil</a>
-<a href="">Passer membre</a>
+
+
+{% if user.roles[0] == 'ROLE_USER' %}
+    <a href="{{ path('userRole', {id : user.id}) }}">Passer membre</a>
+{% endif %}
+{% if user.roles[0] == 'ROLE_MEMBER' %}
+    <a href="{{ path('userRole', {id : user.id}) }}">Enlever membre</a>
+{% endif %}
+
 
 
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}- Liste Utilisateurs {% endblock %}
+{% block title %}- Ajout jeux {% endblock %}
 
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css')}}">
@@ -155,7 +155,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Tableaux</h1>
+          <h1 class="h3 mb-0 text-gray-800">Ajout de jeux</h1>
         </div>
 
         <!-- Content Row -->
@@ -164,50 +164,38 @@
           <!-- Illustrations -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Gestion Des Utilisateurs</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Demandes Des Membres</h6>
             </div>
             <div class="card-body">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Date de naissance</th>
-                    <th scope="col">Date de création</th>
-                    <th scope="col">Modifier / Supprimer</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for user in users %}
-                  <tr>
-                    <th scope="row">{{ user.id }}</th>
-                    <td>{{ user.username }} {{ user.lastname }}</td>
-                    <td>{{ user.mail }}</td>
-                    <td>{{ user.age.date|date("m/d/Y") }}</td>
-                    <td>{{ user.dateU.date|date("m/d/Y") }}</td>
-                    <td>
-                      <a href="{{ path('dashboardAdminUser', {id : user.id}) }}"><span class="iconify"
-                          data-inline="false" data-icon="bx:bxs-edit-alt"
-                          style="color: #2058E9; font-size: 30px;"></span></a>
-                      {% if user.isActiveU == true %}
-                      <a href="{{ path('userState', {id : user.id}) }}"><span class="iconify" data-inline="false"
-                          data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
-                      {% endif %}
-                      {% if user.isActiveU == false %}
-                      <a href="{{ path('userState', {id : user.id}) }}"><span class="iconify" data-inline="false"
-                          data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span></a>
-                      {% endif %}
-                    </td>
-                  </tr>
-                  {% endfor %}
-                  {# {{ knp_pagination_filter(users, {'id': 'id'}) }} #}
-                  {# {{ knp_pagination_filter(users, {'g.id': 'Id', 'g.username': 'Username'}) }} #}
-                </tbody>
-              </table>
-              <div class="navigation">
-                {{ knp_pagination_render(users) }}
-              </div>
+            {# {{ dump(games) }} #}
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Modifier / Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key,game in games %}
+                <tr>
+                <th scope="row">{{ game.id }}</th>
+                <td>{{ game.name}}</td>
+                <td>{{ mail[key] }}</td>
+                <td>{{ game.dateG|date("m/d/Y") }}</td>
+                <td>
+                    <a href="{{ path('memberDashboardGame', {id : game.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
+                    <a href=""><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody> 
+            </table>
+            <div class="navigation">
+            {{ knp_pagination_render(games) }}
+            </div> 
 
             </div>
           </div>

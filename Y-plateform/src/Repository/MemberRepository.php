@@ -36,6 +36,7 @@ class MemberRepository extends ServiceEntityRepository
     {
         $builder = $this -> createQueryBuilder('g');
         return $builder
+            -> where('g.level = 1')
             -> select("count(g.id) as nbMembers")
             -> getQuery()
             -> getResult();
