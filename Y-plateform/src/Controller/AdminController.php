@@ -25,7 +25,8 @@ class AdminController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('admin/loginAdmin.html.twig', [
             'error' => $error,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
         ]);
     }
 
@@ -36,6 +37,10 @@ class AdminController extends AbstractController
 
     public function dashboardAdmin() {
         $navbar = false;
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repository = $this->getDoctrine()->getRepository(Game::class);
         $nbDownload = $repository->allNbDownload();
         $nbGames = $repository->allNbGames();
@@ -51,7 +56,8 @@ class AdminController extends AbstractController
             'nbGames' => $nbGames,
             'nbMembers' => $nbMembers,
             'nbUsers' => $nbUsers,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 2
         ]);
     }
 
@@ -61,7 +67,10 @@ class AdminController extends AbstractController
 
     public function UserList(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
-
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $member = $repository->findBy([
             'level' => 0
@@ -88,6 +97,7 @@ class AdminController extends AbstractController
         return $this->render('admin/userList.html.twig', [
             'users' => $users,
             'navbar' => $navbar,
+            'dashboard' => 2
             // 'ages' => $ages
         ]);
     }
@@ -98,7 +108,10 @@ class AdminController extends AbstractController
 
     public function memberList(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
-
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $donnees = $repository -> allMembers();
 
@@ -110,7 +123,8 @@ class AdminController extends AbstractController
 
         return $this->render('admin/memberList.html.twig', [
             'members' => $members,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 2
             // 'ages' => $ages
         ]);
     }
@@ -121,7 +135,10 @@ class AdminController extends AbstractController
 
     public function dashboardAdminMember($id) {
         $navbar = false;
-
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repository = $this-> getDoctrine() -> getRepository(Member::class);
         $mbr = $repository -> find($id);
         $member = $repository -> getUserProfil($mbr);
@@ -139,7 +156,8 @@ class AdminController extends AbstractController
             'nbDownload' => $nbDownload,
             'nbGame' => $nbGame,
             'nbComment' => $nbComment,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 2
         ]);
     }
 
@@ -150,7 +168,10 @@ class AdminController extends AbstractController
 
     public function dashboardAdminUser($id) {
         $navbar = false;
-
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repository = $this-> getDoctrine() -> getRepository(User::class);
         $user = $repository -> find($id);
 
@@ -158,7 +179,8 @@ class AdminController extends AbstractController
 
         return $this->render('admin/dashboardAdminUser.html.twig', [
             'user' => $user,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 2
         ]);
     }
     
@@ -170,7 +192,10 @@ class AdminController extends AbstractController
 
         $repository = $this-> getDoctrine() -> getRepository(User::class);
         $user = $repository -> find($id);
-
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $u = $user->getIsActiveU();
 
         if($u == 1) {
@@ -233,6 +258,10 @@ class AdminController extends AbstractController
 
     public function ajoutJeux(Request $request, PaginatorInterface $paginator) {
         $navbar = false;
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repoMember = $this->getDoctrine()->getRepository(Member::class);
         $members = $repoMember -> findAll();
         $repoUser = $this->getDoctrine()->getRepository(User::class);
@@ -262,7 +291,8 @@ class AdminController extends AbstractController
         return $this->render('admin/ajoutJeux.html.twig', [
             'games' => $games,
             'navbar' => $navbar,
-            'mail' => $mail
+            'mail' => $mail,
+            'dashboard' => 2
             // 'ages' => $ages
         ]);
     }
@@ -273,6 +303,10 @@ class AdminController extends AbstractController
 
     public function gameState(Request $request, $id) {
         $navbar = false;
+        $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
         $repository = $this-> getDoctrine() -> getRepository(Game::class);
         $game = $repository -> find($id);
 

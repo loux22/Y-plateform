@@ -49,7 +49,8 @@ class GamesController extends AbstractController
 
         return $this->render('games/home.html.twig', [
             'games' => $games,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
         ]);
     }
 
@@ -72,7 +73,8 @@ class GamesController extends AbstractController
             'games' => $games,
             'last3game' => $last3game,
             'category' => $category,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
         ]);
     }
 
@@ -129,7 +131,8 @@ class GamesController extends AbstractController
             'games' => $games,
             'last3game' => $last3game,
             'category' => $category,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
         ]);
     }
 
@@ -196,7 +199,8 @@ class GamesController extends AbstractController
             'like' => $like,
             'dislike' => $dislike,
             'navbar' => $navbar,
-            'category' => $category
+            'category' => $category,
+            'dashboard' => 0
         ]);
     }
 

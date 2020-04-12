@@ -1,130 +1,399 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Y'plateform {% block title %} {% endblock %}</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link rel="stylesheet" href="{{ asset('/css/dashboard.css')}}">
-	<script src="https://kit.fontawesome.com/e7fa2e7a8b.js" crossorigin="anonymous"></script>
-	<script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
-	<link rel="stylesheet" href="{{ asset('css/navbar.css')}}">
-	{% block link %}{% endblock %}
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Y'plateform
+			{% block title %}{% endblock %}
+		</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('/css/dashboard.css')}}">
+		<script src="https://kit.fontawesome.com/e7fa2e7a8b.js" crossorigin="anonymous"></script>
+		<script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+		<link rel="stylesheet" href="{{ asset('css/navbar.css')}}"> {% block link %}{% endblock %}
+		</head>
 
 
+		{# navbar #}
+		{% if navbar %}
 
-{# navbar #}
-{% if navbar %}
-
-<header>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container">
-		<img class="navbar-brand" src="{{ asset('/img/Y-Plateform.png')}}"></img>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		  <span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-		  <ul class="navbar-nav">
-			<li class="nav-item active">
-			  <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="#"> </a>
-			</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-			<li class="nav-item">
-					<a class="nav-link" href="{{ path('library') }}">Magasin</a>
-				</li>
-			{% if app.user == null %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
-				</li>
-				<li class="nav-item">
-					  <a class="nav-link" href="{{ path('login') }}">Connexion</a>
-				</li>
-			{% else %}	
-				<li class="nav-item">
-					  <a class="nav-link" href="{{ path('profil') }}">Profil</a>
-				</li>
-				<li class="nav-item">
-					  <a class="nav-link" href="{{ path('logout') }}">Deconnexion</a>
-				</li>
-			{% endif %}	
-			</ul>
-		</div>
-		</div>
-	</nav>
-</header>
-{# Fin de la navbar #}
-	
-{% endif %}
-
-<body>
-{# {{dump(navbar)}} #}
-
-		{% for message in app.flashes('errors') %}
-			<div class="alert alert-danger">{{ message}}</div></body> 
-		{% endfor %} {# end message erreur et success #}
-			
-		{% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-	
-		{% block content %} {% endblock %}
+			<header>
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+					<div class="container">
+						<img class="navbar-brand" src="{{ asset('/img/Y-Plateform.png')}}"></img>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav">
+							<li class="nav-item active">
+								<a class="nav-link" href="#">Accueil
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#"></a>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('library') }}">Magasin</a>
+							</li>
+							{% if app.user == null %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('login') }}">Connexion</a>
+								</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('profil') }}">Profil</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('logout') }}">Deconnexion</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		{# Fin de la navbar #}
+	{% else %}
+		{% if app.user %}
+			{% if dashboard == 1 %}
 
 
- 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-		{% block js %}{% endblock %}  
-</body>
+				<!-- Page Wrapper -->
+				<div
+					id="wrapper">
+					<!-- Sidebar -->
+					<ul
+						class="navbar-nav bg-gradient-primaryy sidebar sidebar-dark accordion" id="accordionSidebar">
 
-{% if navbar %}
-{# Début du footer  #}
-<footer class="page-footer font-small blue pt-4">
+						<!-- Sidebar - Brand -->
+						<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+							<div class="sidebar-brand-icon rotate-n-15">
+								<i class="fas fa-laugh-wink"></i>
+							</div>
+							<div class="sidebar-brand-text mx-3">SB Member
+								<sup>2</sup>
+							</div>
+						</a>
 
-	<!-- Footer Links -->
-	<div class="container-fluid text-center text-md-left">
-  
-	  <!-- Grid row -->
-	  <div class="row">
-  
-		<!-- Grid column -->
-		<div class="col-md-6 mt-md-0 mt-3">
-		  <!-- Copyright -->
-	<div class="footer-copyright text-center py-3">© 2020 Copyright:
-		<a href="https://mdbootstrap.com/education/bootstrap/"> Y-Plateform.com</a>
-	  </div>
-	</div>
-		<hr class="clearfix w-100 d-md-none pb-3">
-  
-		<div class="col-md-3 mb-md-0 mb-3">
-		</div>
-		<div class="col-md-3 mb-md-0 mb-3">
-  
-			<div class="list__footer">
-		  <ul class="list-unstyled">
-			<li>
-			  <p>Politique de confidentialité</p>
-			</li>
-			<li>
-			  <p>Mentions légales</p>
-			</li>
-			<li>
-			  <p>Contact</p>
-			</li>
-		  </ul>
-		</div>
-		</div>
-		<!-- Grid column -->
-	  </div>
-	  <!-- Grid row -->
-	</div>
-	<!-- Footer Links -->
-  </footer>
-  {# Fin du Footer #}
-  {% endif %}
-</html>
+						<!-- Divider -->
+						<hr
+						class="sidebar-divider my-0">
+
+						<!-- Nav Item - Dashboard -->
+						<li class="nav-item active">
+							<a class="nav-link" href="{{ path('memberDashboard') }}">
+								<i class="fas fa-fw fa-tachometer-alt"></i>
+								<span>Dashboard</span>
+							</a>
+						</li>
+
+						<!-- Divider -->
+						<hr
+						class="sidebar-divider">
+
+						<!-- Heading -->
+						<div class="sidebar-heading">
+							Interface
+						</div>
+
+						<!-- Nav Item - Charts -->
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('memberDashboardGames') }}">
+								<i class="fas fa-fw fa-chart-area"></i>
+								<span>Mes Jeux</span>
+							</a>
+						</li>
+
+						<!-- Divider -->
+						<hr class="sidebar-divider d-none d-md-block">
+
+					</ul>
+					<!-- End of Sidebar -->
+
+					<!-- Content Wrapper -->
+					<div
+						id="content-wrapper" class="d-flex flex-column">
+
+						<!-- Main Content -->
+						<div
+							id="content">
+
+							<!-- Topbar -->
+							<nav
+								class="navbar navbar-expand navbar-light bg-black topbar mb-4 static-top shadow">
+
+								<!-- Sidebar Toggle (Topbar) -->
+								<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+									<i class="fa fa-bars"></i>
+								</button>
+
+
+								<!-- Topbar Navbar -->
+								<ul class="navbar-nav ml-auto">
+
+
+									<div class="topbar-divider d-none d-sm-block"></div>
+
+									<!-- Nav Item - User Information -->
+									<li class="nav-item dropdown no-arrow">
+										<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="mr-2 d-none d-lg-inline text-gray-600 small">{{app.user.username}}</span>
+											<img class="img-profile rounded-circle" src="{{ asset('/avatar/')}}{{app.user.avatar }}">
+										</a>
+										<!-- Dropdown - User Information -->
+										<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+											<a class="dropdown-item" href="#">
+												<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+												Profile
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+												Settings
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+												Activity Log
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+												<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+												Logout
+											</a>
+										</div>
+									</li>
+
+								</ul>
+
+							</nav>
+							<!-- End of Topbar -->
+
+			{% endif %}
+			{% if dashboard == 2 %}
+								<!-- Page Wrapper -->
+								<div
+									id="wrapper">
+
+									<!-- Sidebar -->
+									<ul
+										class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+										<!-- Sidebar - Brand -->
+										<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+											<div class="sidebar-brand-icon rotate-n-15">
+												<i class="fas fa-laugh-wink"></i>
+											</div>
+											<div class="sidebar-brand-text mx-3">Panel Admin</div>
+										</a>
+
+										<!-- Divider -->
+										<hr
+										class="sidebar-divider my-0">
+
+										<!-- Nav Item - Dashboard -->
+										<li class="nav-item active">
+											<a class="nav-link" href="{{ path('dashboardAdmin') }}">
+												<i class="fas fa-fw fa-tachometer-alt"></i>
+												<span>Dashboard</span>
+											</a>
+										</li>
+
+										<!-- Divider -->
+										<hr
+										class="sidebar-divider">
+
+										<!-- Heading -->
+										<div class="sidebar-heading">
+											Interface
+										</div>
+
+										<!-- Nav Item - Charts -->
+										<li class="nav-item">
+											<a class="nav-link" href="{{ path('userList') }}">
+												<i class="fas fa-fw fa-chart-area"></i>
+												<span>Utilisateurs</span>
+											</a>
+										</li>
+
+										<!-- Nav Item - Charts -->
+										<li class="nav-item">
+											<a class="nav-link" href="{{ path('memberList') }}">
+												<i class="fas fa-fw fa-chart-area"></i>
+												<span>Membre</span>
+											</a>
+										</li>
+
+										<!-- Divider -->
+										<hr
+										class="sidebar-divider">
+
+										<!-- Heading -->
+										<div class="sidebar-heading">
+											Demandes
+										</div>
+
+										<!-- Nav Item - Charts -->
+										<li class="nav-item">
+											<a class="nav-link" href="{{ path('ajoutJeux') }}">
+												<i class="fas fa-fw fa-chart-area"></i>
+												<span>Ajout de jeu</span>
+											</a>
+										</li>
+
+										<!-- Divider -->
+										<hr class="sidebar-divider d-none d-md-block">
+
+									</ul>
+									<!-- End of Sidebar -->
+
+									<!-- Content Wrapper -->
+									<div
+										id="content-wrapper" class="d-flex flex-column">
+
+										<!-- Main Content -->
+										<div
+											id="content">
+
+											<!-- Topbar -->
+											<nav
+												class="navbar navbar-expand navbar-light bg topbar mb-4 static-top shadow">
+
+												<!-- Sidebar Toggle (Topbar) -->
+												<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+													<i class="fa fa-bars"></i>
+												</button>
+
+												<!-- Topbar Search -->
+												<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+													<div class="input-group">
+														<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+														<div class="input-group-append">
+															<button class="btn btn-primary" type="button">
+																<i class="fas fa-search fa-sm"></i>
+															</button>
+														</div>
+													</div>
+												</form>
+
+												<!-- Topbar Navbar -->
+												<ul class="navbar-nav ml-auto">
+
+
+													<div class="topbar-divider d-none d-sm-block"></div>
+
+													<!-- Nav Item - User Information -->
+													<li class="nav-item dropdown no-arrow">
+														<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<span class="mr-2 d-none d-lg-inline text-gray-600 small">{{app.user.username}}</span>
+															<img class="img-profile rounded-circle" src="{{ asset('/avatar/')}}{{app.user.avatar }}">
+														</a>
+														<!-- Dropdown - User Information -->
+														<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+															<a class="dropdown-item" href="#">
+																<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+																Profile
+															</a>
+															<a class="dropdown-item" href="#">
+																<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+																Settings
+															</a>
+															<a class="dropdown-item" href="#">
+																<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+																Activity Log
+															</a>
+															<div class="dropdown-divider"></div>
+															<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+																<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+																Logout
+															</a>
+														</div>
+													</li>
+
+												</ul>
+
+											</nav>
+											<!-- End of Topbar -->
+										
+									{% endif %}
+								{% endif %}
+							{% endif %}
+
+							<body>
+								{# {{dump(navbar)}} #}
+
+								{% for message in app.flashes('errors') %}
+									<div class="alert alert-danger">{{ message}}</div>
+								</body>
+							{% endfor %}
+							{# end message erreur et success #}
+
+							{% for message in app.flashes('success') %}
+								<div class="alert alert-success">{{ message }}</div>
+							{% endfor %}
+
+							{% block content %}{% endblock %}
+
+
+							<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+							<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+							<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+							{% block js %}{% endblock %}
+						</body>
+
+						{% if navbar %}
+							{# Début du footer  #}
+							<footer
+								class="page-footer font-small blue pt-4">
+
+								<!-- Footer Links -->
+								<div
+									class="container-fluid text-center text-md-left">
+
+									<!-- Grid row -->
+									<div
+										class="row">
+
+										<!-- Grid column -->
+										<div
+											class="col-md-6 mt-md-0 mt-3">
+											<!-- Copyright -->
+											<div class="footer-copyright text-center py-3">© 2020 Copyright:
+												<a href="https://mdbootstrap.com/education/bootstrap/">
+													Y-Plateform.com</a>
+											</div>
+										</div>
+										<hr class="clearfix w-100 d-md-none pb-3">
+
+										<div class="col-md-3 mb-md-0 mb-3"></div>
+										<div class="col-md-3 mb-md-0 mb-3">
+
+											<div class="list__footer">
+												<ul class="list-unstyled">
+													<li>
+														<p>Politique de confidentialité</p>
+													</li>
+													<li>
+														<p>Mentions légales</p>
+													</li>
+													<li>
+														<p>Contact</p>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- Grid column -->
+									</div>
+									<!-- Grid row -->
+								</div>
+								<!-- Footer Links -->
+							</footer>
+							{# Fin du Footer #}
+						{% endif %}
+					</html>

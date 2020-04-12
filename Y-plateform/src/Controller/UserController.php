@@ -57,7 +57,8 @@ class UserController extends AbstractController
         }
         return $this->render('user/registerUser.html.twig', [
             'UserForm' => $form -> createView(),
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
             ]);
     } 
 
@@ -70,7 +71,8 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('user/login.html.twig', [
             'error' => $error,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
         ]);
     }
 
@@ -204,7 +206,8 @@ class UserController extends AbstractController
             'age' => $age,
             'game' => $game,
             'note' => $note,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
             ]);
     }
 
@@ -251,40 +254,21 @@ class UserController extends AbstractController
             'age' => $age,
             'game' => $game,
             'note' => $note,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'dashboard' => 0
         ]);
     }
 
-    /**
-     * @Route("/forgetPassword", name="forgetPassword")
-     */
-    public function forgetPassword()
-    {
-        
-    }
-
-    /**
-     * @Route("/addGame", name="addGame")
-     */
-    public function addGame()
-    {
-        
-    }
-
-     /**
-     * @Route("/addComment", name="addComment")
-     */
-    public function addComment()
-    {
-        
-    }
 
       /**
      * @Route("/recoverPassword", name="recoverPassword")
      */
     public function recoverPassword(){
         $navbar = true;
-        return $this->render('user/recoverPassword.html.twig',['navbar' => $navbar]);
+        return $this->render('user/recoverPassword.html.twig',[
+            'navbar' => $navbar,
+            'dashboard' => 0
+            ]);
     }
 
 

@@ -25,6 +25,9 @@ class MemberController extends AbstractController
         // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $navbar = false;
         $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $member = $repository->getUserProfil($userLog);
@@ -40,11 +43,12 @@ class MemberController extends AbstractController
         $nbComments = count($nbComments);
 
         return $this->render('member/dashboard.html.twig', [
-            'NbDowloadGame' => $nbDowloadGame,
-            'nbGame' => $nbGame,
+            'NbDowloadGame' => $nbDowloadGame[0]['nbDownload'],
+            'nbGame' => $nbGame[0]['nbGame'],
             'member' => $member,
-            'nbComments' => $nbComments,
-            'navbar' => $navbar
+            'nbComments' => $nbComments[0]['nbComments'],
+            'navbar' => $navbar,
+            'dashboard' => 1
         ]);
     }
 
@@ -56,6 +60,9 @@ class MemberController extends AbstractController
         // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $navbar = false;
         $user = $this->getUser();
+        if($user === null){
+            return $this->redirectToRoute('login');
+        }
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $member = $repository->getUserProfil($user);
@@ -118,7 +125,9 @@ class MemberController extends AbstractController
         return $this->render('member/dashboardGames.html.twig', [
             'games' => $games,
             'formGame' => $form->createView(),
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'member' => $member,
+            'dashboard' => 1
         ]);
     }
 
@@ -135,6 +144,9 @@ class MemberController extends AbstractController
         }
         $navbar = false;
         $userLog = $this->getUser();
+        if($userLog === null){
+            return $this->redirectToRoute('login');
+        }
 
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $member = $repository->getUserProfil($userLog);
@@ -202,7 +214,9 @@ class MemberController extends AbstractController
             'formModifyGame' => $form->createView(),
             'navbar' => $navbar,
             'id' => $id,
-            'pop' => $pop
+            'pop' => $pop,
+            'member' => $member,
+            'dashboard' => 1
         ]);
     }
 
