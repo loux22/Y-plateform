@@ -260,10 +260,18 @@
 
                     <!-- Content Column -->
                     <div class="col-lg-6 mb-4">
-
+                    {# {{ dump(user) }} #}
                         <div class="">
+                            {# {% if user.roles == 'ROLE_ADMIN' %} #}
+                                {% if game.isActive == true %}
+                                    <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name="" checked> Activer &nbsp;</a>
+                                {% endif %}
+                                {% if game.isActive == false %}
+                                    <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name=""> Désactiver &nbsp;</a>
+                                {% endif %}
+                            {# {% endif %} #}
                             <button class="modify-game-js">modifier</button>
-                            <a href="{{ path('GameDelete', {'id': game.id}) }}">supprimer</a>
+                            <a href="{{ path('GameDelete', {id: game.id}) }}">supprimer</a>
                         </div>
 
                         <!-- Illustrations -->

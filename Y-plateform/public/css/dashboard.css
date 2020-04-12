@@ -1,51 +1,57 @@
-.bg-gradient-primary{
-    background-color:#FF3838;
+.bg-gradient-primary {
+    background-color: #FF3838;
     background-image: none;
 }
 
-#content{
-    background-color: #4B4B4B; 
+#content {
+    background-color: #4B4B4B;
 }
 
-.text-primar{
-    color: white;
-    font-size: 1.1em;
-}
-.text-succes{
-    color: white;
-    font-size: 1.1em;
-}
-.text-warningg{
-    color: white;
-    font-size: 1.1em;
-}
-.text-succes{
+.text-primar {
     color: white;
     font-size: 1.1em;
 }
 
-.sticky-footer{
+.text-succes {
+    color: white;
+    font-size: 1.1em;
+}
+
+.text-warningg {
+    color: white;
+    font-size: 1.1em;
+}
+
+.text-succes {
+    color: white;
+    font-size: 1.1em;
+}
+
+.sticky-footer {
     bottom: 0px;
 }
 
-.bg{
+.bg {
     background-color: #3D3D3D;
 }
 
-.border-left-primar{
-    border-left: .25rem solid #FF3838;
-}
-.border-left-succes{
-    border-left: .25rem solid #FF3838;
-}
-.border-left-warningg{
-    border-left: .25rem solid #FF3838;
-}
-.border-left-successs{
+.border-left-primar {
     border-left: .25rem solid #FF3838;
 }
 
-.card{
+.border-left-succes {
+    border-left: .25rem solid #FF3838;
+}
+
+.border-left-warningg {
+    border-left: .25rem solid #FF3838;
+}
+
+.border-left-successs {
+    border-left: .25rem solid #FF3838;
+}
+
+.card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -59,10 +65,11 @@
     border-radius: .35rem;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: #FF3838;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background-color: #D63031;
 }
 
