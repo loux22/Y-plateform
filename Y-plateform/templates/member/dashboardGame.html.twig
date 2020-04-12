@@ -262,7 +262,7 @@
                     <div class="col-lg-6 mb-4">
                     {# {{ dump(user) }} #}
                         <div class="">
-                            {# {% if user.roles == 'ROLE_USER' %} #}
+                            {# {% if user.roles == 'ROLE_ADMIN' %} #}
                                 {% if game.isActive == true %}
                                     <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" checked> Activer &nbsp;</a>
                                 {% endif %}
