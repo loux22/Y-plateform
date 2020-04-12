@@ -133,3 +133,33 @@
         justify-content: flex-end;
         width: 100%;
     }
+    
+    .conf {
+        width: 250px;
+        height: 40px;
+        font-size: large;
+        color: white;
+        background: rgba(255, 56, 56, 0.9);
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        background: #FF3838;
+        box-shadow: -2px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+    }
+    
+    .psw {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .ps {
+        display: flex;
+        justify-content: right;
+        width: 380px;
+    }
+    
+    .space {
+        margin-top: 20px;
+    }
