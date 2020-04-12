@@ -275,4 +275,32 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+    * @Route("/dashboard/admin/game/state/{id}", name="gameState")
+    */
+
+    public function gameState($id) {
+        $navbar = false;
+        $repository = $this-> getDoctrine() -> getRepository(Game::class);
+        $game = $repository -> find($id);
+
+        $g = $game->getIsActive();
+
+        if($g == 1) {
+            $game->setIsActive(false);
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($game);
+            $manager->flush();
+        }  
+
+        if($g == 0) {
+            $game->setIsActive(true);
+            $manager = $this -> getDoctrine() -> getManager();
+            $manager -> persist($game);
+            $manager->flush();
+        }  
+
+        return $this->redirectToRoute('memberDashboardGame', ['id' => $id]);
+    }
+
 }
