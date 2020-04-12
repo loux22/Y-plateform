@@ -117,9 +117,124 @@ p {
     color: #F8F8F8;
 }
 
+.mb-4{
+    border: none;
+}
+
+.card-header{
+    border-bottom: 2px solid #FF3838;
+}
+
 .cherch {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     border-radius: 5px;
+}
+
+.heading-text h1{
+    width: 583px;
+    height: 95px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 72px;
+    display: flex;
+    align-items: center;
+    color: #F8F8F8;
+}
+
+.col-lg-6-button{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0 40px 0;
+}
+.col-lg-6-button a{
+    color: white;
+}
+.button1 button{
+    width: 112px;
+    height: 37px;
+
+    /* font-family: Poppins; */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 21px;
+    /* display: flex; */
+    /* align-items: center; */
+    text-align: center;
+
+color: #3D3D3D;
+
+    background: #F8F8F8;
+    border: none;
+    box-shadow: -2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.button2 button {
+    width: 181px;
+    height: 37px;
+
+    background: #D63031;
+    border: none;
+    box-shadow: -2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+.button2 a{
+    /* font-family: Poppins; */
+font-style: normal;
+font-weight: bold;
+font-size: 20px;
+line-height: 21px;
+/* display: flex; */
+align-items: center;
+text-align: center;
+
+color: #F8F8F8;
+}
+
+.card-header{
+    background: #313131;
+}
+#card-header1{
+    margin: 0;
+    /* padding: 0; */
+}
+#card-header1 h6{
+    width: 421.47px;
+    height: 37.48px;
+
+    padding: 0;
+    margin: 0;
+    /* font-family: Poppins; */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 27px;
+    /* display: flex; */
+    align-items: center;
+    text-transform: capitalize;
+
+    color: #F8F8F8;
+}
+
+.card-body1{
+    height: 430px;
+    overflow: scroll;
+}
+
+.text-center{
+    width: 100%;
+}
+.text-center img{
+    width: 100%;
+    height: 278px;
+    padding-bottom: 20px;
 }
