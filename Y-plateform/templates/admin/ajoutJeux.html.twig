@@ -187,7 +187,7 @@
                 <td>{{ game.dateG|date("m/d/Y") }}</td>
                 <td>
                     <a href="{{ path('memberDashboardGame', {id : game.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
-                    <a href=""><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
+                    <a href="{{ path('GameDelete', {id: game.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le jeu ?');"><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
                 </td>
                 </tr>
                 {% endfor %}
