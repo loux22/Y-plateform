@@ -16,6 +16,9 @@ class CommentType extends AbstractType
             ->add('description_c', TextareaType::class, [
                 'attr' => [
                     'placeholder' => "Commentaire",
+                    'rows' => '7',
+                    'cols' => '115',
+                    'class' => 'commentaire'
                 ],
                 'label' => " "
             ]);

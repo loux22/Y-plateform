@@ -1,23 +1,25 @@
-{% extends 'base.html.twig' %} {% block title %}- Home {% endblock %} {% block link %}
+{% extends 'base.html.twig' %} {% block title %}- {{game.name}} {% endblock %} {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/game.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> {% endblock %} {% block content %}
+<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> {% endblock %}
+{% block content %}
 <div class="container mt-5">
     <section class="hero__home">
         <div class="hero__content">
-            <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h1>
+            <h1>{{game.descriptionG | slice(0,20)}}</h1>
         </div>
     </section>
     <div class="breadcrumb">
-        <h5>Nom du jeu</h5>
+        <h5>{{game.name}}</h5>
     </div>
-
-    <button type="button" class="btn btn-light">Action</button>
-    <button type="button" class="btn btn-light">Course</button>
-    <button type="button" class="btn btn-light mr-5">RPG</button>
+    {% if category %}
+    {% for value in category %}
+    <button type="button" class="btn btn-light">{{value.title}}</button>
+    {% endfor %}
+    {% endif %}
     <div class="container ps p-0">
         <div class="telecharge">
-            <button type="button" class="btn btn-primary btn-lg">Télécharger</button>
-        </div>
+                <a href="{{ asset( '/gameImg/')}}{{game.img }}" download="{{game.name}}"><button type="submit" class="btn btn-primary btn-lg">Télécharger</button></a>
+            </div>
     </div>
     <div class="inf">
     </div>
@@ -32,8 +34,7 @@
 
 <div class="container">
     <div class="text">
-        <p>Assassin's Creed Odyssey est une nouvelle entrée dans la franchise qui se déroule avant Assassin's Creed Origins. il sera possible d'y incarner le descendant de Leonidas de Sparte, garçon ou fille, dans la Grèce Antique. Au programme des nouveautés,
-            un nouveau système de combat, des batailles rangées et un côté RPG encore plus poussé avec un système de dialogue à choix multiples.</p>
+        <p>{{game.descriptionG}}</p>
     </div>
 </div>
 
@@ -45,115 +46,107 @@
 </div>
 
 <div class="container mt-4">
-
+    {% for key,comment in comments %}
     <div class="com">
         <div class="item">
             <div class="avatar">
-                <img src="{{ asset('img/jsc.jpg/')}}">
+                <img src="{{ asset('avatar/')}}{{comment.user.avatar}}">
             </div>
             <div class="pseudo">
-                <p>pseudo</p>
+                <p>{{comment.user.pseudo}}</p>
             </div>
         </div>
         <div class="item">
             <div class="line"></div>
         </div>
         <div class="item">
-            <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus dictum in commodo aliquam tempor. Nulla diam maecenas integer commodo faucibus accumsan, scelerisque scelerisque eget. A praesent sapien ac nunc pellentesque ultricies nisi. Aliquam
-                a, elementum in volutpat semper lacinia integer.</p>
+            <p class="comment-text">{{comment.descriptionC}}</p>
 
         </div>
         <div class="container ip p-0">
             <div class="icone">
-                <img src="{{ asset('img/like(2).png/')}}">
-                <img src="{{ asset('img/dislike(1).png/')}}">
+                <a href="{{ path( 'comment_like', { 'id' : comment.id})}} " class="js-like ">
+                    {% if app.user and comment.isLikedByUser(app.user) and comment.likeOrDislike(app.user)%} 
+
+                    {# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
+                    {% if like[key][0] != "0 " %}
+                    <i class="fas fa-thumbs-up " id="{{key}}j "><span
+                            class="js-likes ">{{like[key] | length}}</span></i>
+                    {% else %}
+                    <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
+                    {% endif %}
+
+                    {% else %}
+
+                    {% if like[key][0] != "0 " %}
+                    <i class="far fa-thumbs-up " id="{{key}}j "><span
+                            class="js-likes ">{{like[key] | length}}</span></i>
+                    {% else %}
+                    <i class="far fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
+                    {% endif %}
+
+                    {% endif %}
+                </a>
+
+
+                <a href="{{ path( 'comment_dislike', { 'id' : comment.id})}} " class="js-like ">
+                    {% if app.user and comment.isLikedByUser(app.user) and comment.likeOrDislike(app.user) == false %}
+
+                    {% if dislike[key][0] != "0 " %}
+                    <i class="fas fa-thumbs-down " id="{{key}}j "><span
+                            class="js-dislikes ">{{dislike[key] | length}}</span></i>
+                    {% else %}
+                    <i class="fas fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">0</span></i>
+                    {% endif %}
+
+                    {% else %}
+
+                    {% if dislike[key][0] != "0 " %}
+                    <i class="far fa-thumbs-down " id="{{key}}j "><span
+                            class="js-dislikes ">{{dislike[key] | length}}</span></i>
+                    {% else %}
+                    <i class="far fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">0</span></i>
+                    {% endif %}
+
+                    {% endif %}
+                </a>
             </div>
         </div>
 
     </div>
+    {% endfor %}
 
 
-    <textarea class="commentaire" rows="4" cols="50" placeholder="écrire un commentaire...">
+  {% if app.user != null %} {{form_start(commentForm)}} {{form_errors(commentForm)}} {{form_widget(commentForm)}}
 
-</textarea>
-
-                <div class="container ps p-0 space">
-                <div class="psw">
-                     <button class="conf" type="submit">Envoyer</button>
-                </div>
-            </div>
-    </body>
+    <div class="container ps p-0 space">
+        <div class="psw">
+            <button class="conf" type="submit">Envoyer</button>
+        </div>
+    </div>
+    {{form_end(commentForm)}} {% endif %} 
 
 
 </div>
-{# {{dump(like)}} {{dump(dislike)}} #} {#
-<p>{{game.name}}</p>
-<img src=" {{ asset( '/gameImg/')}}{{game.img }} " alt=" ">
-<p>{{game.descriptionG}}</p>
-<p>{{note[0].note}}</p>
-<button>telecharger</button> {% for key,value in comments %}
-<img src={{ asset( '/avatar/')}}{{value.user.avatar }} " " alt=" ">
-<p>{{value.user.pseudo}}</p>
-<p>{{value.descriptionC}}</p>
-<p>{{value.dateC.date|date("F jS \\a\\t g:ia ") }}</p>
+{% endblock %} 
+{% block js %}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
-<a href="{{ path( 'comment_like', { 'id' : value.id})}} " class="js-like ">
-    {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user)%} #}
-
-{# quand il n'y a pas de like c'est égal à 0 sinon longueur de liste#}
-{# {% if like[key][0] != "0 " %}
-    <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">{{like[key] | length}}</span></i>
-    {% else %}
-    <i class="fas fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
-    {% endif %}
-
-    {% else %}
-
-    {% if like[key][0] != "0 " %}
-    <i class="far fa-thumbs-up " id="{{key}}j "><span class="js-likes ">{{like[key] | length}}</span></i>
-    {% else %}
-    <i class="far fa-thumbs-up " id="{{key}}j "><span class="js-likes ">0</span></i>
-    {% endif %}
-
-    {% endif %}
-</a>
-
-
-<a href="{{ path( 'comment_dislike', { 'id' : value.id})}} " class="js-like ">
-    {% if app.user and value.isLikedByUser(app.user) and value.likeOrDislike(app.user) == false %}
-
-    {% if dislike[key][0] != "0 " %}
-    <i class="fas fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">{{dislike[key] | length}}</span></i>
-    {% else %}
-    <i class="fas fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">0</span></i>
-    {% endif %}
-
-    {% else %}
-
-    {% if dislike[key][0] != "0 " %}
-    <i class="far fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">{{dislike[key] | length}}</span></i>
-    {% else %}
-    <i class="far fa-thumbs-down " id="{{key}}j "><span class="js-dislikes ">0</span></i>
-    {% endif %}
-
-    {% endif %}
-</a> {% endfor %} {% if app.user != null %} {{form_start(commentForm)}} {{form_errors(commentForm)}} {{form_widget(commentForm)}}
-
-<button type="submit ">ajouter un commentaire</button> {{form_end(commentForm)}} {% endif %} #} {% endblock %} {% block js %}
-<script src="https://unpkg.com/axios/dist/axios.min.js "></script>
 <script>
-    function onClickBtnLike(event) {
-        event.preventDefault() // permet de pas changer de page au click
 
-        const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
-        const countLikes = this.querySelector('span.js-likes')
-        const countDislikes = this.querySelector('span.js-dislikes')
-        const icone = this.querySelector('i')
-        const allIcones = document.querySelectorAll('i')
+function onClickBtnLike(event){
+    event.preventDefault() // permet de pas changer de page au click
 
-        axios.get(url).then(function(response) {
-            if (countLikes != null) {
+    const url = this.href; // this qui est la balise <a> sur laquelle on click qui est definis dans le addEventListener
+    const countLikes = this.querySelector('span.js-likes')
+    const countDislikes = this.querySelector('span.js-dislikes')
+    const icone = this.querySelector('i')
+    const allIcones = document.querySelectorAll('i')
+
+    axios.get(url).then(function(response){
+        if (countLikes != null) {
                 const likes = response.data.likes
                 countLikes.textContent = likes
             } else {
@@ -161,8 +154,8 @@
                 countDislikes.textContent = dislikes
             }
 
-            $boolean = false
-            allIcones.forEach(element => {
+        $boolean = false
+        allIcones.forEach(element => {
                 if (icone.classList.contains('far') && element.classList.contains('fas')) {
                     if (element.getAttribute('id') === icone.getAttribute('id')) {
                         $boolean = true;
@@ -180,32 +173,26 @@
                 }
 
             });
-            if ($boolean === false) {
+
+        if ($boolean === false) {
                 if (icone.classList.contains('fas')) { // contains = contenir en frenchies, donc si l'icone contient la class 'fas'
                     icone.classList.replace('fas', 'far')
                 } else {
                     icone.classList.replace('far', 'fas')
                 }
             }
-
-
-
-
-
-
-
-
-        }).catch(function(error) { // catch si il y'a une erreur, then si tout se pass bien
-            if (error.response.status === 403) {
-                window.alert("il faut être connecté pour liker ")
-            } else {
-                window.alert("une erreur s 'est produite, nos equipe travail la dessus")
-            }
-        })
-    }
-
-    document.querySelectorAll('a.js-like ').forEach(function(link) {
-        link.addEventListener('click ', onClickBtnLike)
+    }).catch(function(error){ // catch si il y'a une erreur, then si tout se pass bien
+        if(error.response.status === 403){
+            window.alert("il faut être connecté pour liker")
+        }else{
+            window.alert("une erreur s'est produite, nos equipe travail la dessus")
+        }
     })
+}
+
+document.querySelectorAll('a.js-like').forEach(function(link){
+    link.addEventListener('click', onClickBtnLike)
+})
 </script>
+
 {% endblock %}

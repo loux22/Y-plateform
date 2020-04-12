@@ -150,6 +150,9 @@ class GamesController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $repo->FindCommentGame($id);
 
+        $repoCat = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repoCat->categorieGame($id);
+
         $like = [];
         $dislike = [];
         foreach ($comments as $key => $com) {
@@ -192,7 +195,8 @@ class GamesController extends AbstractController
             'commentForm' => $form->createView(),
             'like' => $like,
             'dislike' => $dislike,
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'category' => $category
         ]);
     }
 

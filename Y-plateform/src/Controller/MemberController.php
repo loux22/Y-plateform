@@ -127,6 +127,7 @@ class MemberController extends AbstractController
      */
     public function memberDashboardGame($id, Request $request)
     {
+        $navbar = false;
         // $this->denyAccessUnlessGranted('ROLE_MEMBER');
         $pop = 0;
         if (isset($_GET['pop']) && $_GET['pop'] == 1) {
