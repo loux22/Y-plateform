@@ -189,7 +189,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard {{game.name}}</h1>
+                    <h1 class="heading-text">Dashboard {{game.name}}</h1>
                 </div>
 
                 <!-- Content Row -->
@@ -259,10 +259,23 @@
                 <div class="row">
 
                     <!-- Content Column -->
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6 mb-4" id="content-column">
                     {# {{ dump(user) }} #}
-                        <div class="">
+                        <div class="col-lg-6-button">
                             {# {% if user.roles == 'ROLE_ADMIN' %} #}
+                                {% if game.isActive == true %}
+                                    <a class="check" href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name=""> Activer &nbsp;</a>
+                                {% endif %}
+                                {% if game.isActive == false %}
+                                    <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name=""> Désactiver &nbsp;</a>
+                                {% endif %}
+                            {# {% endif %} #}
+                            <div class="button1">
+                                <button class="modify-game-js">modifier</button>
+                            </div>
+                            <div class="button2">
+                                <button class="button2"><a href="{{ path('GameDelete', {id: game.id}) }}">supprimer</a></button>
+                            </div>
                                 <form action="{{ path('gameState', {id : game.id}) }}" method="post">
                                     {# <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name="" checked> Activer &nbsp;</a> #}
                                     {% if game.isActive == true %}
@@ -280,12 +293,12 @@
 
                         <!-- Illustrations -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Infos du jeux</h6>
+                            <div class="card-header py-3" id="card-header1">
+                                <h6 class="">Infos du jeux</h6>
                             </div>
                             <div class="card-body">
                                 <div class="text-center">
-                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                    <img class="#"
                                         src="{{ asset('/gameImg/')}}{{game.img }}" alt="">
                                 </div>
                                 <p>{{game.descriptionG}}</p>
@@ -300,10 +313,10 @@
 
                         <!-- Illustrations -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Commentaire</h6>
+                            <div class="card-header py-3" id="card-header1">
+                                <h6 class="">Commentaire</h6>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body1">
                                 {% for comment in comments %}
                                 <p>desc : {{comment.descriptionC}}</p>
                                 <p>pseudo : {{comment.user.pseudo}}</p>
@@ -312,13 +325,13 @@
                             </div>
                         </div>
 
-                        <div class="">
+                        {#<div class="">
                             <h1>Categorie</h1>
                             {% for value in category %}
                             <p>{{value.title}}</p>
                             {% endfor %}
                             <button class="modify-category-js">+</button>
-                        </div>
+                        </div>#}
 
                     </div>
                 </div>
@@ -328,7 +341,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-black">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Your Website 2019</span>
