@@ -155,20 +155,18 @@
                     <!-- Illustrations -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" ; style="background: #313131;">
-                            <h6 class="m-0 font-weight " ; style="font-family: Poppins;
-font-style: normal;
-font-weight: bold; color:#F8F8F8;">Gestion Des Utilisateurs</h6>
+                            <h6 class="m-0 font-weight " ; style="font-family: Poppins; font-style: normal;
+                            font-weight: bold; color:#F8F8F8;">Gestion Des Utilisateurs</h6>
                         </div>
                         <div class="container space">
                             <div class="text">
                                 <p>Afficher <select size="1">
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3" selected>3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-</select> Entiter
-                                    <p>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3" selected>3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                </select> Entitées</p>
                             </div>
                             <div class="cherch">
                                 <input type="search" name="" id="" class="cherch " placeholder="Recherche">
@@ -197,35 +195,26 @@ font-weight: bold; color:#F8F8F8;">Gestion Des Utilisateurs</h6>
                                         <td>{{ user.dateU.date|date("m/d/Y") }}</td>
                                         <td>
                                             <a href="{{ path('dashboardAdminUser', {id : user.id}) }}"><span class="iconify"
-                          data-inline="false" data-icon="bx:bxs-edit-alt"
-                          style="color: #2058E9; font-size: 30px;"></span></a> {% if user.isActiveU == true %}
+                                            data-inline="false" data-icon="bx:bxs-edit-alt"
+                                            style="color: #2058E9; font-size: 30px;"></span></a> {% if user.isActiveU == true %}
                                             <a href="{{ path('userState', {id : user.id}) }}"><span class="iconify" data-inline="false"
-                          data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a> {% endif %} {% if user.isActiveU == false %}
+                                            data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a> {% endif %} {% if user.isActiveU == false %}
                                             <a href="{{ path('userState', {id : user.id}) }}"><span class="iconify" data-inline="false"
-                          data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span></a> {% endif %}
+                                            data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span></a> {% endif %}
                                         </td>
                                     </tr>
-                                    {% endfor %} {# {{ knp_pagination_filter(users, {'id': 'id'}) }} #} {# {{ knp_pagination_filter(users, {'g.id': 'Id', 'g.username': 'Username'}) }} #}
+                                    {% endfor %}
                                 </tbody>
                             </table>
 
                             <div class="fin">
-                                <p>Showing 1 to 10 of 57 entries</p>
-                            </div>
-
-                            <div class="navigation">
-                                {{ knp_pagination_render(users) }}
+                                <p>Showing 1 to 3 of 57 entries</p>
                             </div>
                             <div class="sep">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-light"><</button>
-                                    <button type="button" class="btn btn-light">1</button>
-                                    <button type="button" class="btn btn-light">2</button>
-                                    <button type="button" class="btn btn-light">3</button>
-                                    <button type="button" class="btn btn-light">></button>
+                                    {{ knp_pagination_render(users) }}
                                 </div>
                             </div>
-
                         </div>
                     </div>
 

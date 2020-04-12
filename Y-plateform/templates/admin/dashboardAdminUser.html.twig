@@ -159,8 +159,8 @@
 
                 
                 <div class="d-flex flex-column bd-highlight mb-3">
-                    <button class="btn-blue">Voir profil</button>
-                    <button class="btn-red">Passer membre</button>
+                    <a href="{{path('profil_user', {id : user.id})}}"><button class="btn-blue">Voir profil</button></a>
+                    <a href="{{ path('userRole', {id : user.id}) }}"><button class="btn-red">Passer membre</button></a>
                 </div>
 
             </div>

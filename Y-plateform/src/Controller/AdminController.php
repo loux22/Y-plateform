@@ -78,18 +78,10 @@ class AdminController extends AbstractController
             
         }
 
-        // for ($i=1; $i <= 100; $i++) { 
-        //     $u = $users->getAge();
-        //     $stringValue = $u->format('Y-m-d H:i:s');
-        //     $datetime1 = new \DateTime(); // date actuelle
-        //     $datetime2 = new \DateTime($stringValue);
-        //     $ages = $datetime1->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
-        // }
-
         $users = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
-            20 // Nombre de résultats par page
+            3  // Nombre de résultats par page
         );
     
 
@@ -113,7 +105,7 @@ class AdminController extends AbstractController
         $members = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
-            20 // Nombre de résultats par page
+            3 // Nombre de résultats par page
         );
 
         return $this->render('admin/memberList.html.twig', [
@@ -264,7 +256,7 @@ class AdminController extends AbstractController
         $games = $paginator->paginate(
             $games, 
             $request->query->getInt('page', 1),
-            20 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('admin/ajoutJeux.html.twig', [
@@ -299,23 +291,6 @@ class AdminController extends AbstractController
                 $manager->flush();
             }  
         }
-        
-
-
-        // if($g == 1) {
-        //     $game->setIsActive(false);
-        //     $manager = $this -> getDoctrine() -> getManager();
-        //     $manager -> persist($game);
-        //     $manager->flush();
-        // }  
-
-        // if($g == 0) {
-        //     $game->setIsActive(true);
-        //     $manager = $this -> getDoctrine() -> getManager();
-        //     $manager -> persist($game);
-        //     $manager->flush();
-        // }  
-
         return $this->redirectToRoute('memberDashboardGame', ['id' => $id]);
     }
 
