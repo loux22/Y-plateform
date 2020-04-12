@@ -256,7 +256,7 @@ class AdminController extends AbstractController
         $games = $paginator->paginate(
             $games, 
             $request->query->getInt('page', 1),
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('admin/ajoutJeux.html.twig', [

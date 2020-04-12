@@ -171,20 +171,19 @@ font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
             </div>
 
               <div class="container space">
-                            <div class="text">
-                                <p>Afficher <select size="1" >
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3" selected>3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-</select> Entiter
-                                    <p>
-                                  </div>
-                                  <div class="cherch">
-                                            <input type="search" name="" id="" class="cherch " placeholder="Recherche">
-                                        </div>
-                            </div>
+                <div class="text">
+                  <p>Afficher <select size="1" >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                  </select> Entitées</p>
+                </div>
+                <div class="cherch">
+                  <input type="search" name="" id="" class="cherch " placeholder="Recherche">
+                </div>
+              </div>
             <div class="card-body">
             {# {{ dump(games) }} #}
             <table class="table table-bordered" style="background:#F8F8F8;">
@@ -213,21 +212,13 @@ font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
             </tbody> 
             </table>
              <div class="fin">
-                                <p>Showing 1 to 10 of 57 entries</p>
-                                </div>
-                                 <div class="sep">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-light"><</button>
-                                    <button type="button" class="btn btn-light">1</button>
-                                    <button type="button" class="btn btn-light">2</button>
-                                    <button type="button" class="btn btn-light">3</button>
-                                    <button type="button" class="btn btn-light">></button>
-                                </div>
-                            </div>
-            <div class="navigation">
-            {{ knp_pagination_render(games) }}
-            </div> 
-
+              <p>Showing 1 to 5 of 57 entries</p>
+              </div>
+               <div class="sep">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                   {{ knp_pagination_render(games) }}
+              </div>
+            </div>
             </div>
           </div>
 
