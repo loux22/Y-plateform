@@ -211,33 +211,43 @@ font-weight: bold; color:#F8F8F8;">Gestion Des Utilisateurs</h6>
 
                             <div class="fin">
                                 <p>Showing 1 to 10 of 57 entries</p>
-
-                                <div class="navigation">
-                                    {{ knp_pagination_render(users) }}
-                                </div>
-
                             </div>
-                        </div>
 
+                            <div class="navigation">
+                                {{ knp_pagination_render(users) }}
+                            </div>
+                            <div class="sep">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-light"><</button>
+                                    <button type="button" class="btn btn-light">1</button>
+                                    <button type="button" class="btn btn-light">2</button>
+                                    <button type="button" class="btn btn-light">3</button>
+                                    <button type="button" class="btn btn-light">></button>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2019</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2019</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- End of Content Wrapper -->
 
-        {% endblock %}
+    </div>
+    <!-- End of Page Wrapper -->
+
+    {% endblock %}

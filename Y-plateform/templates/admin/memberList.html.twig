@@ -166,73 +166,91 @@ font-weight: bold; color:#F8F8F8;">Gestion Des Membres</h6>
   <option value="3" selected>3</option>
   <option value="4">4</option>
   <option value="5">5</option>
-</select> Entiter
-                                    <p>
-                                        <div class="cherch">
-                                            <input type="search" name="" id="" class="cherch " placeholder="Recherche">
-                                        </div>
+</select> Entiter </p>
                             </div>
+                            <div class="container ps p-0">
+                                <div class="cherch">
+                                    <input type="search" name="" id="" class="cherch" placeholder="Recherche">
+                                </div>
+                            </div>
+                        </div>
 
-                            <div class="card-body">
-                                <table class="table table-bordered" ; style="background:#F8F8F8;">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" style="color: black;">ID</th>
-                                            <th scope="col" style="color: black">Nom</th>
-                                            <th scope="col" style="color: black;">Email</th>
-                                            <th scope="col" style="color: black;">Date de naissance</th>
-                                            <th scope="col" style="color: black;">Date de création</th>
-                                            <th scope="col" style="color: black;">Modifier / Supprimer</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for member in members %}
-                                        <tr>
-                                            <th scope="row">{{ member.user.id }}</th>
-                                            <td style="color: black;">{{ member.user.username}} {{ member.user.lastname}}</td>
-                                            <td style="color: black;">{{ member.user.mail }}</td>
-                                            <td style="color: black;">{{ member.user.age.date|date("m/d/Y") }}</td>
-                                            <td style="color: black;">{{ member.user.dateU.date|date("m/d/Y") }}</td>
-                                            <td>
-                                                <a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a> {% if member.user.isActiveU
-                                                == true %}
-                                                <a href="{{ path('userState', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a> {% endif %}
-                                                {% if member.user.isActiveU == false %}
-                                                <a href="{{ path('userState', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span></a> {% endif %}
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
 
-                                <div class="fin">
-                                    <p>Showing 1 to 10 of 57 entries</p>
 
-                                    <div class="navigation">
-                                        {{ knp_pagination_render(members) }}
-                                    </div>
 
+
+                        <div class="card-body">
+                            <table class="table table-bordered" ; style="background:#F8F8F8;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="color: black;">ID</th>
+                                        <th scope="col" style="color: black">Nom</th>
+                                        <th scope="col" style="color: black;">Email</th>
+                                        <th scope="col" style="color: black;">Date de naissance</th>
+                                        <th scope="col" style="color: black;">Date de création</th>
+                                        <th scope="col" style="color: black;">Modifier / Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for member in members %}
+                                    <tr>
+                                        <th scope="row">{{ member.user.id }}</th>
+                                        <td style="color: black;">{{ member.user.username}} {{ member.user.lastname}}</td>
+                                        <td style="color: black;">{{ member.user.mail }}</td>
+                                        <td style="color: black;">{{ member.user.age.date|date("m/d/Y") }}</td>
+                                        <td style="color: black;">{{ member.user.dateU.date|date("m/d/Y") }}</td>
+                                        <td>
+                                            <a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a> {% if member.user.isActiveU
+                                            == true %}
+                                            <a href="{{ path('userState', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a> {% endif %} {% if
+                                            member.user.isActiveU == false %}
+                                            <a href="{{ path('userState', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="emojione:counterclockwise-arrows-button" style="font-size: 30px;"></span></a> {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <div class="fin">
+                                <p>Showing 1 to 10 of 57 entries</p>
+                            </div>
+                            <div class="sep">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-light"><</button>
+                                    <button type="button" class="btn btn-light">1</button>
+                                    <button type="button" class="btn btn-light">2</button>
+                                    <button type="button" class="btn btn-light">3</button>
+                                    <button type="button" class="btn btn-light">></button>
                                 </div>
                             </div>
 
+                            <div>
+                                <div class="navigation">
+                                    {{ knp_pagination_render(members) }}
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
-                    <!-- End of Main Content -->
-
-
-                    <!-- Footer -->
-                    <footer class="sticky-footer bg-white">
-                        <div class="container my-auto">
-                            <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; Your Website 2019</span>
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- End of Footer -->
 
                 </div>
-                <!-- End of Content Wrapper -->
+                <!-- End of Main Content -->
+
+
+                {#
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2019</span>
+                        </div>
+                    </div>
+                </footer> #}
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Page Wrapper -->{% endblock %}
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->{% endblock %}
