@@ -22,7 +22,7 @@
         top: 0%;
         display: none;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
     }
 
     .popup-content {
@@ -127,18 +127,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                            aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -208,7 +197,7 @@
                     {% endfor %}
 
                 </div>
-
+                
             </div>
             <!-- End of Main Content -->
 
@@ -224,12 +213,11 @@
 
         </div>
         <!-- End of Content Wrapper -->
+        
 
     </div>
     <!-- End of Page Wrapper -->
-
-
-
+</div>
     <div class="popup">
         <div class="popup-content">
             <img class="close" src="{{ asset('/img/close.png')}}" alt="">
@@ -249,6 +237,8 @@
         </div>
     </div>
 
+    
+
 
     {% endblock %}
 
@@ -263,7 +253,6 @@
         var addGame = document.querySelector('.add-game-js')
         addGame.addEventListener('click', function () {
             document.querySelector('.popup').style.display = 'flex'
-            document.querySelector('body').style.overflow = 'hidden'
         })
 
         document.querySelector('.close').addEventListener('click', function () {
