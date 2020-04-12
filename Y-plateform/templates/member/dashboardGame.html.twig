@@ -276,19 +276,7 @@
                             <div class="button2">
                                 <button class="button2"><a href="{{ path('GameDelete', {id: game.id}) }}">supprimer</a></button>
                             </div>
-                                <form action="{{ path('gameState', {id : game.id}) }}" method="post">
-                                    {# <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name="" checked> Activer &nbsp;</a> #}
-                                    {% if game.isActive == true %}
-                                        <input type="checkbox" name="checkOn" checked> Activer &nbsp;
-                                    {% endif %}
-                                    {% if game.isActive == false %}   
-                                        <input type="checkbox" name="checkOff"> Activer &nbsp;
-                                    {% endif %}
-                                    <button class="btn-modf" type="submit" name="submit">Confirmer</button>
-                                </form>
-                            {# {% endif %} #}
-                            <button class="modify-game-js">modifier</button>
-                            <a href="{{ path('GameDelete', {id: game.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le jeu ?');">Supprimer</a>
+                                
                         </div>
 
                         <!-- Illustrations -->
@@ -325,14 +313,12 @@
                             </div>
                         </div>
 
-                        {#<div class="">
-                            <h1>Categorie</h1>
-                            {% for value in category %}
-                            <p>{{value.title}}</p>
-                            {% endfor %}
-                            <button class="modify-category-js">+</button>
-                        </div>#}
-
+                        <div class="category">
+                                {% for value in category %}
+                                <button>{{value.title}}</button>
+                                {% endfor %}
+                                <button class="modify-category-js">+</button>
+                        </div>
                     </div>
                 </div>
 
