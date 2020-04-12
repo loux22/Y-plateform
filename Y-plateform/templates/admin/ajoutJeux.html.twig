@@ -4,6 +4,7 @@
 {% block link %}
 <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('/css/dashboard.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
 <link
   href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
   rel="stylesheet">
@@ -155,7 +156,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Ajout de jeux</h1>
+          <h1 class="h3 mb-0 ">Ajout de jeux</h1>
         </div>
 
         <!-- Content Row -->
@@ -163,28 +164,46 @@
 
           <!-- Illustrations -->
           <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Demandes Des Membres</h6>
+            <div class="card-header py-3"; style="background: #313131;">
+              <h6 class="m-0 font-weight"; style="font-family: Poppins;
+font-style: normal;
+font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
             </div>
+
+              <div class="container space">
+                            <div class="text">
+                                <p>Afficher <select size="1">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3" selected>3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select> Entiter
+                                    <p>
+                                  </div>
+                                  <div class="cherch">
+                                            <input type="search" name="" id="" class="cherch " placeholder="Recherche">
+                                        </div>
+                            </div>
             <div class="card-body">
             {# {{ dump(games) }} #}
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="background:#F8F8F8;">
             <thead>
                 <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Email</th>
-                <th scope="col">Date de création</th>
-                <th scope="col">Modifier / Supprimer</th>
+                <th scope="col" style="color: black">ID</th>
+                <th scope="col" style="color: black">Nom</th>
+                <th scope="col" style="color: black">Email</th>
+                <th scope="col" style="color: black">Date de création</th>
+                <th scope="col" style="color: black">Modifier / Supprimer</th>
                 </tr>
             </thead>
             <tbody>
                 {% for key,game in games %}
                 <tr>
-                <th scope="row">{{ game.id }}</th>
-                <td>{{ game.name}}</td>
-                <td>{{ mail[key] }}</td>
-                <td>{{ game.dateG|date("m/d/Y") }}</td>
+                <th scope="row" style="color: black">{{ game.id }}</th>
+                <td style="color: black">{{ game.name}}</td>
+                <td style="color: black">{{ mail[key] }}</td>
+                <td style="color: black">{{ game.dateG|date("m/d/Y") }}</td>
                 <td>
                     <a href="{{ path('memberDashboardGame', {id : game.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a>
                     <a href=""><span class="iconify" data-inline="false" data-icon="mdi:delete-forever-outline" style="color: #FF3838; font-size: 30px;"></span></a>
@@ -205,7 +224,7 @@
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
+      {# <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
@@ -213,7 +232,7 @@
           </div>
         </div>
       </footer>
-      <!-- End of Footer -->
+      <!-- End of Footer --> #}
 
     </div>
     <!-- End of Content Wrapper -->

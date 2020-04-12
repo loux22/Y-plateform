@@ -73,7 +73,15 @@
     background-color: #D63031;
 }
 
-.title{
+.title {
     color: white;
     font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    color: white;
+}
+
+.intro p {
+    color: white;
 }
