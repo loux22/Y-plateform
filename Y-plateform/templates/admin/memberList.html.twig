@@ -177,22 +177,22 @@ font-weight: bold; color:#F8F8F8;">Gestion Des Membres</h6>
                                 <table class="table table-bordered" ; style="background:#F8F8F8;">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Date de naissance</th>
-                                            <th scope="col">Date de création</th>
-                                            <th scope="col">Modifier / Supprimer</th>
+                                            <th scope="col" style="color: black;">ID</th>
+                                            <th scope="col" style="color: black">Nom</th>
+                                            <th scope="col" style="color: black;">Email</th>
+                                            <th scope="col" style="color: black;">Date de naissance</th>
+                                            <th scope="col" style="color: black;">Date de création</th>
+                                            <th scope="col" style="color: black;">Modifier / Supprimer</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for member in members %}
                                         <tr>
                                             <th scope="row">{{ member.user.id }}</th>
-                                            <td>{{ member.user.username}} {{ member.user.lastname}}</td>
-                                            <td>{{ member.user.mail }}</td>
-                                            <td>{{ member.user.age.date|date("m/d/Y") }}</td>
-                                            <td>{{ member.user.dateU.date|date("m/d/Y") }}</td>
+                                            <td style="color: black;">{{ member.user.username}} {{ member.user.lastname}}</td>
+                                            <td style="color: black;">{{ member.user.mail }}</td>
+                                            <td style="color: black;">{{ member.user.age.date|date("m/d/Y") }}</td>
+                                            <td style="color: black;">{{ member.user.dateU.date|date("m/d/Y") }}</td>
                                             <td>
                                                 <a href="{{ path('dashboardAdminMember', {id : member.user.id}) }}"><span class="iconify" data-inline="false" data-icon="bx:bxs-edit-alt" style="color: #2058E9; font-size: 30px;"></span></a> {% if member.user.isActiveU
                                                 == true %}
