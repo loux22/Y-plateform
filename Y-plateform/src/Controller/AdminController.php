@@ -299,23 +299,6 @@ class AdminController extends AbstractController
                 $manager->flush();
             }  
         }
-        
-
-
-        // if($g == 1) {
-        //     $game->setIsActive(false);
-        //     $manager = $this -> getDoctrine() -> getManager();
-        //     $manager -> persist($game);
-        //     $manager->flush();
-        // }  
-
-        // if($g == 0) {
-        //     $game->setIsActive(true);
-        //     $manager = $this -> getDoctrine() -> getManager();
-        //     $manager -> persist($game);
-        //     $manager->flush();
-        // }  
-
         return $this->redirectToRoute('memberDashboardGame', ['id' => $id]);
     }
 

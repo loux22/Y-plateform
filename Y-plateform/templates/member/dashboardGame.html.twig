@@ -263,18 +263,21 @@
                     {# {{ dump(user) }} #}
                         <div class="col-lg-6-button">
                             {# {% if user.roles == 'ROLE_ADMIN' %} #}
-                                {% if game.isActive == true %}
-                                    <a class="check" href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name=""> Activer &nbsp;</a>
-                                {% endif %}
-                                {% if game.isActive == false %}
-                                    <a href="{{ path('gameState', {id : game.id}) }}" style="text-decoration:none;"><input type="checkbox" name=""> Désactiver &nbsp;</a>
-                                {% endif %}
+                                <form action="{{ path('gameState', {id : game.id}) }}" method="post">
+                                    {% if game.isActive == true %}
+                                        <input type="checkbox" name="checkOn" checked> Activer
+                                    {% endif %}
+                                    {% if game.isActive == false %}   
+                                        <input type="checkbox" name="checkOff"> Activer
+                                    {% endif %}
+                                    <button type="submit" name="submit" class="btn btn-link"><span class="iconify" data-inline="false" data-icon="emojione:white-heavy-check-mark" style="font-size: 20px;"></span></button>
+                                </form>
                             {# {% endif %} #}
                             <div class="button1">
                                 <button class="modify-game-js">modifier</button>
                             </div>
                             <div class="button2">
-                                <button class="button2"><a href="{{ path('GameDelete', {id: game.id}) }}">supprimer</a></button>
+                                <button class="button2"><a href="{{ path('GameDelete', {id: game.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le jeu ?');">supprimer</a></button>
                             </div>
                                 
                         </div>
