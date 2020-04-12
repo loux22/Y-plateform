@@ -86,6 +86,25 @@ h1 {
     color: white;
 }
 
+.ps {
+    display: flex;
+    /* width: 384px; */
+    justify-content: right;
+}
+
+.cherch {
+    border-radius: 5px;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sep {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .btn-blue {
     font-family: 'Poppins', sans-serif;
     height: 40px;
