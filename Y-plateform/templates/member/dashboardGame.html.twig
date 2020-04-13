@@ -25,16 +25,24 @@
         display: none;
         justify-content: center;
         align-items: center;
+        color: black;
     }
 
     .popup-content {
-        height: 250px;
+        height: 280px;
         width: 600px;
         background: white;
         padding: 20px;
         border-radius: 2px;
         position: relative;
         box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
+    }
+
+    .popup a {
+        color:black;
+        text-decoration: none;
+        font-size: 18px;
+        margin-left: 90px;
     }
 
     .close-js,
@@ -45,7 +53,7 @@
         cursor: pointer;
     }
 
-        .popup-content input[type=text]  {
+    .popup-content input[type=text]  {
         margin: 5px auto;
         display: block;
         padding: 8px;
@@ -72,7 +80,6 @@
         color: #FF3838;
     }
 
-
     .btn-mdf{
         width: 384px;
         height: 47px;
@@ -84,6 +91,7 @@
         border-radius: 8px;
         margin-left: 87px;
     }
+
 
     .search-js {
         margin: 5px auto;
@@ -97,7 +105,8 @@
         box-sizing: border-box;
         box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
         border-radius: 6px;
-    }
+    } 
+
 </style>
 {% endblock %}
 
@@ -291,7 +300,8 @@
                 <div class="result-search-js"></div>
 
                 {% for value in category %}
-                <a href="{{ path('CategoryDelete', {'idGame': id, 'id': value.id}) }}">{{value.title}} -</a>
+                    <a href="{{ path('CategoryDelete', {'idGame': id, 'id': value.id}) }}">{{value.title}}
+                    <span class="iconify" data-inline="false" data-icon="ant-design:minus-circle-outlined" style="font-size: 20px;"></span></a>
                 {% endfor %}
                 <br>
                 <button type="submit" class="btn-mdf"> Modifier </button>
