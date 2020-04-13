@@ -228,11 +228,18 @@ class AdminController extends AbstractController
 
         $repository = $this-> getDoctrine() -> getRepository(User::class);
         $user = $repository -> find($id);
+
+        $repository = $this-> getDoctrine() -> getRepository(Member::class);
+        $member = $repository -> find($id);
+
         $userLog = $this->getUser();
         if($userLog === null){
             return $this->redirectToRoute('login');
         }
+
+        $l = $member->getLevel();
         $u = $user->getIsActiveU();
+        $r = $user->getRoles();
 
         if($u == 1) {
             $user->setIsActiveU(false);
@@ -248,7 +255,12 @@ class AdminController extends AbstractController
             $manager->flush();
         }  
 
-        return $this -> redirectToRoute('userList');
+        if($l == 0) {
+            return $this -> redirectToRoute('userList');
+        } else if($l == 1) {
+            return $this -> redirectToRoute('memberList');
+        }
+        
     }
 
     /**
@@ -274,6 +286,8 @@ class AdminController extends AbstractController
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($user, $member);
             $manager->flush();
+
+            return $this -> redirectToRoute('memberList');
         }  
 
         if($r == 'ROLE_MEMBER' || $l == 1) {
@@ -282,10 +296,10 @@ class AdminController extends AbstractController
             $manager = $this -> getDoctrine() -> getManager();
             $manager -> persist($user, $member);
             $manager->flush();
+
+            return $this -> redirectToRoute('userList');
         }  
-
-
-        return $this -> redirectToRoute('userList');
+       
     }
 
     /**
