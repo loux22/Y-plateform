@@ -28,7 +28,7 @@
     }
 
     .popup-content {
-        height: 350px;
+        height: 250px;
         width: 600px;
         background: white;
         padding: 20px;
@@ -43,6 +43,60 @@
         top: 5px;
         right: 5px;
         cursor: pointer;
+    }
+
+        .popup-content input[type=text]  {
+        margin: 5px auto;
+        display: block;
+        padding: 8px;
+        height: 40px;
+        width: 384px;
+        background: #f8f8f8;
+        border: 1px solid #ededed;
+        box-sizing: border-box;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+        border-radius: 6px;
+    }
+
+    .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
+
+    .mdfCtg{
+
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        color: #FF3838;
+    }
+
+
+    .btn-mdf{
+        width: 384px;
+        height: 47px;
+        font-size: large;
+        color: white;
+        background: rgba(255, 56, 56, 0.9);
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        border-radius: 8px;
+        margin-left: 87px;
+    }
+
+    .search-js {
+        margin: 5px auto;
+        display: block;
+        width: 50%;
+        padding: 8px;
+        height: 40px;
+        width: 384px;
+        background: #f8f8f8;
+        border: 1px solid #ededed;
+        box-sizing: border-box;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
+        border-radius: 6px;
     }
 </style>
 {% endblock %}
@@ -230,17 +284,17 @@
 
     <div class="popup popup-category">
         <div class="popup-content">
-            <h1>Modification categorie</h1>
+            <h1 class="mdfCtg">Modification catégorie</h1><br>
             <img class="close-category-js" src="{{ asset('/img/close.png')}}" alt="">
             <form action="" method="post">
-                <input class="search-js" type="text">
+                <input class="search-js" type="text" placeholder="Catégories">
                 <div class="result-search-js"></div>
 
                 {% for value in category %}
                 <a href="{{ path('CategoryDelete', {'idGame': id, 'id': value.id}) }}">{{value.title}} -</a>
                 {% endfor %}
-
-                <button type="submit"> Modifier </button>
+                <br>
+                <button type="submit" class="btn-mdf"> Modifier </button>
             </form>
         </div>
     </div>
