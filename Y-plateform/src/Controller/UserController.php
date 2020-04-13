@@ -147,14 +147,14 @@ class UserController extends AbstractController
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
-            $this -> addFlash('success','modification');
+            $this -> addFlash('success','Les informations ont été modifié avec succès !');
         }
 
         if($formM -> isSubmitted() && $formM -> isValid()){
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($memberForm); //commit(git)
             $manager -> flush(); // push(git)
-            $this -> addFlash('success','modification');
+            $this -> addFlash('success','Les informations ont été modifié avec succès !');
             
         }
 
@@ -283,14 +283,14 @@ class UserController extends AbstractController
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($user); //commit(git)
             $manager -> flush(); // push(git)
-            $this -> addFlash('success','modification');
+            $this -> addFlash('success','Les informations ont été modifié avec succès !');
         }
 
         if($formM -> isSubmitted() && $formM -> isValid()){
             $manager = $this-> getDoctrine() -> getManager();
             $manager -> persist($memberForm); //commit(git)
             $manager -> flush(); // push(git)
-            $this -> addFlash('success','modification');
+            $this -> addFlash('success','Les informations ont été modifié avec succès !');
             
         }
 
