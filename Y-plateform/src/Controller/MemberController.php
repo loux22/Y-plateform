@@ -289,11 +289,13 @@ class MemberController extends AbstractController
         foreach ($categoryGame as $key => $value) {
             if ($value->getId() == intval($id)) {
                 $game->removeCategory($value);
+                $this->addFlash('success', "La catégorie " . $value -> getTitle() . ' a bien été supprimé');
                 $manager->persist($game);
+                $manager->flush();
             }
         }
-        $manager->flush();
-        return $this->redirectToRoute('memberDashboardGame', ['id' => $idGame, 'pop' => '1']);
+        
+        return $this->redirectToRoute('memberDashboardGame', ['id' => $idGame]);
     }
 
     /**
