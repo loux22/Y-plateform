@@ -53,6 +53,16 @@ class MemberRepository extends ServiceEntityRepository
             -> getResult();
     }
 
+    public function allNbUsers()
+    {
+        $builder = $this -> createQueryBuilder('u');
+        return $builder
+            -> where('u.level = 0')
+            -> select("count(u.id) as nbUsers")
+            -> getQuery()
+            -> getResult();
+    }
+
     // /**
     //  * @return Member[] Returns an array of Member objects
     //  */
