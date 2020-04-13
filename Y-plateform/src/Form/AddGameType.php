@@ -19,12 +19,14 @@ class AddGameType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => " ",
                 'attr' => [
                     'placeholder' => "Nom",
                 ]
             ])
             ->add('img', FileType::class)
             ->add('description_g', TextareaType::class, [
+                'label' => " ",
                 'attr' => [
                     'placeholder' => "Description",
                 ]
