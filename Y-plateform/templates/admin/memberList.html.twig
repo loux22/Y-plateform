@@ -33,13 +33,16 @@ font-weight: bold; color:#F8F8F8;">Gestion Des Membres</h6>
                         </div>
                         <div class="container space">
                             <div class="text">
-                                <p>Afficher <select size="1">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3" selected>3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                </select> Entitées </p>
+                                <form method="post" action="">
+                                    <p>Afficher
+                                    <select size="1" id="liste" name="select">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                    </select> Entitées <input type="submit" name="submit" value="Valider" /></p>
+                                </form>
                             </div>
                             <div class="container ps p-0">
                                 <div class="cherch">

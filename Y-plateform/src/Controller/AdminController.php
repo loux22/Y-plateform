@@ -86,10 +86,16 @@ class AdminController extends AbstractController
             }
         }
 
+        $selectOption = 5;
+
+        if(isset($_POST['submit'])) {
+            $selectOption = $_POST['select'];
+        }
+
         $users = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
-            3  // Nombre de résultats par page
+            $selectOption // Nombre de résultats par page
         );
     
 
@@ -114,12 +120,17 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $donnees = $repository -> allMembers();
 
+        $selectOption = 5;
+
+        if(isset($_POST['submit'])) {
+            $selectOption = $_POST['select'];
+        }
+
         $members = $paginator->paginate(
             $donnees, 
             $request->query->getInt('page', 1),
-            3 // Nombre de résultats par page
+            $selectOption // Nombre de résultats par page
         );
-
         return $this->render('admin/memberList.html.twig', [
             'members' => $members,
             'navbar' => $navbar,
