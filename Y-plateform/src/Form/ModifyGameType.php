@@ -15,10 +15,12 @@ class ModifyGameType extends AbstractType
     {
         $builder
             ->add('img', FileType::class, [
+                'label' => "Img",
                 'data_class' => null,
                 'required' => false
             ])
             ->add('description_g', TextareaType::class, [
+                'label' => " ",
                 'attr' => [
                     'placeholder' => "Description",
                 ]
