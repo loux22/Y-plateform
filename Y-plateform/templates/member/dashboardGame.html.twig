@@ -189,7 +189,7 @@
                                 {% for value in category %}
                                 <button>{{value.title}}</button>
                                 {% endfor %}
-                                <button class="modify-category-js">+</button>
+                                <button type="submit" class="modify-category-js">+</button>
                         </div>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
         </div>
     </div>
 
-    <div class="popup category">
+    <div class="popup popup-category">
         <div class="popup-content">
             <h1>Modification categorie</h1>
             <img class="close-category-js" src="{{ asset('/img/close.png')}}" alt="">
@@ -257,7 +257,7 @@
 
     <script>
 
-        var inputHidden = document.querySelector('.hidden-js')
+        {# var inputHidden = document.querySelector('.hidden-js')
         if (inputHidden != null) {
             if (inputHidden.value == 1) {
                 document.querySelector('.category').style.display = 'flex'
@@ -269,7 +269,7 @@
             document.querySelector('.close-category-js').addEventListener('click', function () {
                 inputHidden.value = 0
             })
-        }
+        } #}
 
 
         modifyGame = document.querySelector('.modify-game-js')
@@ -285,12 +285,12 @@
 
         modifyCategory = document.querySelector('.modify-category-js')
         modifyCategory.addEventListener('click', function () {
-            document.querySelector('.category').style.display = 'flex'
+            document.querySelector('.popup-category').style.display = 'flex'
             document.querySelector('body').style.overflow = 'hidden'
         })
 
         document.querySelector('.close-category-js').addEventListener('click', function () {
-            document.querySelector('.category').style.display = 'none'
+            document.querySelector('.popup-category').style.display = 'none'
             document.querySelector('body').style.overflow = 'visible'
         })
 
