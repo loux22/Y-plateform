@@ -86,23 +86,35 @@ class AdminController extends AbstractController
             }
         }
 
+        $repository3 = $this->getDoctrine()->getRepository(Member::class);
+        $nbUsers = $repository3->allNbUsers();
+
         $selectOption = 5;
 
         if(isset($_POST['submit'])) {
             $selectOption = $_POST['select'];
-        }
 
-        $users = $paginator->paginate(
-            $donnees, 
-            $request->query->getInt('page', 1),
-            $selectOption // Nombre de résultats par page
-        );
+            $users = $paginator->paginate(
+                $donnees, 
+                $request->query->getInt('page', 1),
+                $selectOption // Nombre de résultats par page
+            );
+
+        } else {
+            $users = $paginator->paginate(
+                $donnees, 
+                $request->query->getInt('page', 1),
+                5 // Nombre de résultats par page
+            );
+        }
     
 
         return $this->render('admin/userList.html.twig', [
             'users' => $users,
             'navbar' => $navbar,
-            'dashboard' => 2
+            'dashboard' => 2,
+            'selectOption' => $selectOption,
+            'nbUsers' => $nbUsers
             // 'ages' => $ages
         ]);
     }
@@ -120,21 +132,35 @@ class AdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Member::class);
         $donnees = $repository -> allMembers();
 
+        $repository2 = $this->getDoctrine()->getRepository(Member::class);
+        $nbMembers = $repository2->allNbMembers();
+
         $selectOption = 5;
 
         if(isset($_POST['submit'])) {
             $selectOption = $_POST['select'];
+
+            $members = $paginator->paginate(
+                $donnees, 
+                $request->query->getInt('page', 1),
+                $selectOption // Nombre de résultats par page
+            );
+
+        } else {
+            $members = $paginator->paginate(
+                $donnees, 
+                $request->query->getInt('page', 1),
+                5 // Nombre de résultats par page
+            );
         }
 
-        $members = $paginator->paginate(
-            $donnees, 
-            $request->query->getInt('page', 1),
-            $selectOption // Nombre de résultats par page
-        );
+
         return $this->render('admin/memberList.html.twig', [
             'members' => $members,
             'navbar' => $navbar,
-            'dashboard' => 2
+            'dashboard' => 2,
+            'selectOption' => $selectOption,
+            'nbMembers' => $nbMembers
             // 'ages' => $ages
         ]);
     }
@@ -292,17 +318,30 @@ class AdminController extends AbstractController
             }
         }
 
+        $repository = $this->getDoctrine()->getRepository(Game::class);
+        $nbDownload = $repository->allNbDownload();
+        $nbGames = $repository->allNbGames();
+
         $selectOption = 5;
 
         if(isset($_POST['submit'])) {
             $selectOption = $_POST['select'];
+
+            $games = $paginator->paginate(
+                $games, 
+                $request->query->getInt('page', 1),
+                $selectOption // Nombre de résultats par page
+            );
+
+        } else {
+            $games = $paginator->paginate(
+                $games, 
+                $request->query->getInt('page', 1),
+                5 // Nombre de résultats par page
+            );
         }
 
-        $games = $paginator->paginate(
-            $games, 
-            $request->query->getInt('page', 1),
-            $selectOption // Nombre de résultats par page
-        );
+        
         
 
         return $this->render('admin/ajoutJeux.html.twig', [
@@ -310,7 +349,8 @@ class AdminController extends AbstractController
             'navbar' => $navbar,
             'mail' => $mail,
             'dashboard' => 2,
-            'selectOption' => $selectOption
+            'selectOption' => $selectOption,
+            'nbGames' => $nbGames,
             // 'ages' => $ages
         ]);
     }
