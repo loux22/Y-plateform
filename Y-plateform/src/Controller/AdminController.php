@@ -48,7 +48,7 @@ class AdminController extends AbstractController
         $repository2 = $this->getDoctrine()->getRepository(Member::class);
         $nbMembers = $repository2->allNbMembers();
 
-        $repository3 = $this->getDoctrine()->getRepository(User::class);
+        $repository3 = $this->getDoctrine()->getRepository(Member::class);
         $nbUsers = $repository3->allNbUsers();
         
         return $this->render('admin/index.html.twig', [
