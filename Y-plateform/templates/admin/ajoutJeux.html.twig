@@ -33,20 +33,21 @@
           <!-- Illustrations -->
           <div class="card shadow mb-4">
             <div class="card-header py-3"; style="background: #313131;">
-              <h6 class="m-0 font-weight"; style="font-family: Poppins;
-font-style: normal;
-font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
+              <h6 class="m-0 font-weight"; style="font-family: Poppins;font-style: normal;font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
             </div>
 
               <div class="container space">
                 <div class="text">
-                  <p>Afficher <select size="1" >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5" selected>5</option>
-                  </select> Entitées</p>
+                <form method="post" action="">
+                  <p>Afficher
+                    <select size="1" id="liste" name="select">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5" selected>5</option>
+                    </select> Entitées <input type="submit" name="submit" value="Valider" /></p>
+                  </form>
                 </div>
                 <div class="cherch">
                   <input type="search" name="" id="" class="cherch " placeholder="Recherche">
@@ -118,5 +119,22 @@ font-weight: bold; color:#F8F8F8;">Demandes Des Membres</h6>
 
   </div>
   <!-- End of Page Wrapper -->
+
+
+<script>
+{# var myOption;
+
+myOption = document.getElementById('liste').options[0]; #}
+
+var texte;
+texte = document.getElementById("liste").options[document.getElementById('liste').selectedIndex].text;
+
+console.log(texte);
+
+
+
+{# document.getElementById("liste").options[i].selected = true; // ou false #}
+
+</script>
 
   {% endblock %}

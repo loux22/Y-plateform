@@ -84,7 +84,6 @@ class AdminController extends AbstractController
                     $donnees[] = $user;
                 }
             }
-            
         }
 
         $users = $paginator->paginate(
@@ -282,17 +281,25 @@ class AdminController extends AbstractController
             }
         }
 
+        $selectOption = 5;
+
+        if(isset($_POST['submit'])) {
+            $selectOption = $_POST['select'];
+        }
+
         $games = $paginator->paginate(
             $games, 
             $request->query->getInt('page', 1),
-            5 // Nombre de résultats par page
+            $selectOption // Nombre de résultats par page
         );
+        
 
         return $this->render('admin/ajoutJeux.html.twig', [
             'games' => $games,
             'navbar' => $navbar,
             'mail' => $mail,
-            'dashboard' => 2
+            'dashboard' => 2,
+            'selectOption' => $selectOption
             // 'ages' => $ages
         ]);
     }
