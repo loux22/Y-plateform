@@ -106,7 +106,6 @@
         box-shadow: inset 0 1px 4px rgba(0, 0, 0, .25);
         border-radius: 6px;
     } 
-
 </style>
 {% endblock %}
 
@@ -250,14 +249,13 @@
 
                         <div class="category">
                                 {% for value in category %}
-                                <button>{{value.title}}</button>
+                                <button class="btn btn-light btn-sm">{{value.title}}</button>
                                 {% endfor %}
-                                <button type="submit" class="modify-category-js">+</button>
+                                <button type="submit" class="modify-category-js btn btn-light btn-sm"><span class="iconify" data-inline="false" data-icon="gridicons:add-outline" style="font-size: 20px;color:black;"></span></button>
                         </div>
                     </div>
                 </div>
-
-
+                <br>  
             </div>
             <!-- End of Main Content -->
 
