@@ -17,7 +17,7 @@ class AdminController extends AbstractController
 {
 
       /**
-     * @Route("/loginAdmin", name="loginAdmin")
+     * @Route("/login/admin", name="loginAdmin")
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {

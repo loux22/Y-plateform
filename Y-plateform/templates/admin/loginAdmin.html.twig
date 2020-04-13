@@ -9,7 +9,7 @@
 
 
 <div class="connex">
-    <form action="{{ path('login') }}" method="post">
+    <form action="{{ path('loginAdmin') }}" method="post"> 
         {% if error %}
         <div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
         {% endif %}
