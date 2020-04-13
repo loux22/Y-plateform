@@ -3,7 +3,7 @@
 <h1> Inscription </h1>
 <div class="centre">
 
-
+    {{form_start(UserForm)}}
     <div class="space">
         {% if form_errors(UserForm.username) %} {{form_errors(UserForm.username)}} {% endif %} {{form_widget(UserForm.username, { 'attr': {'class': 'lol'} })}}
 
@@ -36,6 +36,7 @@
 
 
     <div>
-        <button class="conf" type="submit"> Confirmer </button> {{form_end(UserForm)}}
+        <button class="conf" type="submit"> Confirmer </button> 
     </div>
+    {{form_end(UserForm)}}
     {% endblock %}
