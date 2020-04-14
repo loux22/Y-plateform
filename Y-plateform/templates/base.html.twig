@@ -40,9 +40,7 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('library') }}">Magasin</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('memberDashboard') }}">Dashboard</a>
-							</li>
+							
 							{% if app.user == null %}
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
@@ -51,6 +49,9 @@
 									<a class="nav-link" href="{{ path('login') }}">Connexion</a>
 								</li>
 							{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('memberDashboard') }}">Dashboard</a>
+							</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('profil') }}">Profil</a>
 								</li>
