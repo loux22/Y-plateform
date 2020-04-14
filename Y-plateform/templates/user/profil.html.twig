@@ -170,9 +170,10 @@
             <h4 class="inform"> &bull; Code Postal : </h4>
             {{form_widget(formM.postal)}}
         </div>
-        {{form_end(formM)}}
+        
 
         <button class="btn-conf" type="submit">Confirmer</button>
+        {{form_end(formM)}}
     </div>
 
 </div>
@@ -202,7 +203,7 @@
     var password = document.querySelector(".password");
 
     var li = document.querySelectorAll("li");
-    if (li.length >= 6) {
+    if (li.length >= 7) {
         x.style.display = "none";
         y.style.display = "block";
 
